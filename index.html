@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>はじめての英語</title>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="英語">
+<meta name="theme-color" content="#23427a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f1efe7;
+    --paper-deep:#e6e2d3;
+    --ink:#1e2330;
+    --ink-soft:#4f5564;
+    --navy:#23427a;
+    --navy-deep:#1a3260;
+    --gold:#b08d4c;
+    --jade:#4e7d6e;
+    --line:rgba(30,35,48,.14);
+    --card:#fbf9f1;
+    --shadow:rgba(30,35,48,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:"Zen Kaku Gothic New",sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 18% 12%, rgba(35,66,122,.06), transparent 42%),
+      radial-gradient(circle at 84% 88%, rgba(78,125,110,.06), transparent 45%),
+      var(--paper);
+    background-attachment:fixed;
+    line-height:1.7;
+    min-height:100vh;
+    position:relative;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 18px 120px;position:relative;z-index:1;}
+
+  /* Header */
+  header{padding:34px 0 18px;text-align:center;}
+  .seal{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:58px;height:58px;border-radius:10px;
+    background:var(--navy);color:#f3f6ff;
+    font-family:"Libre Baskerville",serif;font-weight:700;font-size:28px;
+    box-shadow:0 6px 18px rgba(26,50,96,.35);
+    transform:rotate(-3deg);margin-bottom:14px;
+  }
+  h1{font-family:"Shippori Mincho",serif;font-weight:700;font-size:26px;letter-spacing:.04em;}
+  .sub{color:var(--ink-soft);font-size:13px;margin-top:4px;letter-spacing:.08em;}
+
+  /* Level selector */
+  .levelbar{margin:14px 0 2px;}
+  .levels{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;justify-content:center;}
+  .levels::-webkit-scrollbar{display:none;}
+  .lv{flex:0 0 auto;border:1px solid var(--line);background:var(--card);border-radius:18px;
+    padding:7px 15px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;
+    font-family:inherit;transition:.2s;white-space:nowrap;}
+  .lv.active{background:var(--navy);color:#fff;border-color:var(--navy);
+    box-shadow:0 4px 12px rgba(26,50,96,.28);}
+  .lv-hint{font-size:11.5px;color:var(--ink-soft);margin-top:8px;text-align:center;letter-spacing:.02em;}
+
+  /* Tabs */
+  nav{
+    position:sticky;top:0;z-index:20;margin:18px -18px 26px;padding:10px 14px;
+    background:rgba(241,239,231,.86);backdrop-filter:blur(10px);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;
+  }
+  nav::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;border:none;background:transparent;cursor:pointer;
+    font-family:"Zen Kaku Gothic New",sans-serif;font-weight:700;font-size:14px;
+    color:var(--ink-soft);padding:8px 14px;border-radius:20px;transition:.25s;white-space:nowrap;
+  }
+  .tab .en{font-family:"Libre Baskerville",serif;margin-right:5px;color:var(--navy);}
+  .tab.active{background:var(--ink);color:var(--paper);}
+  .tab.active .en{color:var(--gold);}
+
+  section{display:none;animation:fade .4s ease;}
+  section.show{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+  .lead{font-size:14px;color:var(--ink-soft);margin-bottom:20px;border-left:3px solid var(--navy);padding-left:12px;}
+  h2{font-family:"Shippori Mincho",serif;font-size:19px;margin:30px 0 14px;display:flex;align-items:center;gap:8px;}
+  h2 .en{font-family:"Libre Baskerville",serif;color:var(--navy);font-weight:700;}
+
+  /* Speak button */
+  .spk{
+    border:1px solid var(--line);background:var(--card);cursor:pointer;
+    width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    color:var(--navy);transition:.2s;flex:0 0 auto;
+  }
+  .spk:hover{background:var(--navy);color:#fff;transform:scale(1.06);}
+  .spk:active{transform:scale(.92);}
+  .spk svg{width:18px;height:18px;}
+
+  /* Home */
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;}
+  .menu button{
+    text-align:left;border:1px solid var(--line);background:var(--card);border-radius:16px;
+    padding:18px 16px;cursor:pointer;transition:.2s;font-family:inherit;color:var(--ink);
+    box-shadow:0 2px 0 var(--line);
+  }
+  .menu button:hover{transform:translateY(-3px);box-shadow:0 8px 20px var(--shadow);}
+  .menu .big{font-family:"Libre Baskerville",serif;font-size:24px;font-weight:700;color:var(--navy);display:block;}
+  .menu .ttl{font-weight:700;font-size:15px;margin-top:6px;}
+  .menu .dsc{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+  .tip{margin-top:24px;background:var(--paper-deep);border-radius:14px;padding:16px 18px;font-size:13px;color:var(--ink-soft);}
+  .tip b{color:var(--ink);}
+
+  /* Setting toggle */
+  .setting{display:flex;align-items:center;gap:14px;background:var(--paper-deep);border-radius:14px;padding:12px 16px;margin-bottom:18px;}
+  .set-lbl{flex:1;font-size:14px;font-weight:700;color:var(--ink);display:flex;flex-direction:column;}
+  .set-lbl small{font-weight:400;font-size:11.5px;color:var(--ink-soft);margin-top:2px;line-height:1.4;}
+  .toggle{flex-shrink:0;width:50px;height:28px;border-radius:999px;border:none;background:#b9b3a0;cursor:pointer;position:relative;transition:.25s;padding:0;}
+  .toggle.on{background:var(--jade);}
+  .toggle .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.25s;box-shadow:0 1px 3px rgba(0,0,0,.3);}
+  .toggle.on .knob{left:25px;}
+
+  /* Dashboard */
+  .dash{margin-bottom:22px;}
+  .streak{
+    background:linear-gradient(135deg,var(--navy),var(--navy-deep));
+    color:#f3f6ff;border-radius:18px;padding:18px 20px;
+    display:flex;align-items:center;gap:16px;
+    box-shadow:0 8px 22px rgba(26,50,96,.32);
+  }
+  .streak .flame{font-size:40px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));}
+  .streak .sk-n{font-family:"Libre Baskerville",serif;font-size:38px;font-weight:700;line-height:1;}
+  .streak .sk-n small{font-size:16px;font-weight:700;margin-left:3px;font-family:"Zen Kaku Gothic New",sans-serif;}
+  .streak .sk-lbl{font-size:13px;opacity:.92;margin-top:2px;}
+  .streak .sk-side{margin-left:auto;text-align:right;font-size:12px;opacity:.92;line-height:1.5;}
+  .streak .sk-today{display:inline-block;margin-top:4px;background:rgba(255,255,255,.22);border-radius:999px;padding:2px 10px;font-weight:700;}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:0 2px 0 var(--line);}
+  .stat .st-lbl{font-size:12px;color:var(--ink-soft);}
+  .stat .st-val{font-family:"Libre Baskerville",serif;font-size:22px;font-weight:700;color:var(--ink);margin-top:2px;}
+  .stat .st-val small{font-size:13px;color:var(--ink-soft);font-weight:400;font-family:"Zen Kaku Gothic New",sans-serif;}
+  .pbar{height:8px;background:var(--paper-deep);border-radius:999px;overflow:hidden;margin-top:8px;}
+  .pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--jade),#6fa392);border-radius:999px;transition:width .5s ease;}
+  .badges{margin-top:14px;}
+  .badges .bg-ttl{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+  .badge-row{display:flex;flex-wrap:wrap;gap:8px;}
+  .badge{
+    display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);
+    border-radius:999px;padding:6px 12px;font-size:12px;color:var(--ink-soft);
+    opacity:.45;filter:grayscale(1);transition:.3s;
+  }
+  .badge.on{opacity:1;filter:none;color:var(--ink);border-color:var(--gold);box-shadow:0 2px 8px rgba(176,141,76,.25);}
+  .badge .b-ico{font-size:16px;}
+
+  /* Phonics */
+  .abc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;}
+  .abc{
+    border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 4px 8px;
+    cursor:pointer;font-family:inherit;text-align:center;transition:.15s;box-shadow:0 2px 0 var(--line);
+  }
+  .abc:hover{border-color:var(--navy);transform:translateY(-2px);}
+  .abc:active{transform:scale(.95);}
+  .abc .al{font-family:"Libre Baskerville",serif;font-size:22px;font-weight:700;color:var(--navy);line-height:1.2;}
+  .abc .ak{font-size:10.5px;color:var(--ink-soft);}
+  .sound-card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;
+    margin-bottom:12px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;
+    box-shadow:0 2px 0 var(--line);
+  }
+  .sound-sym{
+    font-family:"Libre Baskerville",serif;font-size:30px;font-weight:700;color:var(--navy);
+    min-width:74px;text-align:center;background:var(--paper-deep);border-radius:12px;padding:10px 8px;
+  }
+  .sound-kana{font-size:15px;font-weight:700;color:var(--ink);}
+  .sound-desc{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+  .sound-ex{font-size:13px;margin-top:5px;color:var(--ink-soft);}
+  .sound-ex .en{font-family:"Libre Baskerville",serif;font-weight:700;color:var(--navy);font-size:15px;}
+  .sound-sym.rule{font-size:16px;line-height:1.4;padding:14px 6px;}
+
+  /* Vocab */
+  .cats{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
+  .cat{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:6px 13px;font-size:13px;font-weight:700;cursor:pointer;color:var(--ink-soft);transition:.2s;font-family:inherit;}
+  .cat.active{background:var(--jade);color:#fff;border-color:var(--jade);}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .flip{perspective:900px;height:190px;cursor:pointer;}
+  .flip-in{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d;}
+  .flip.flipped .flip-in{transform:rotateY(180deg);}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;border:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;box-shadow:0 2px 0 var(--line);}
+  .front{background:var(--card);}
+  .front .wd{font-family:"Libre Baskerville",serif;font-size:24px;font-weight:700;line-height:1.2;text-align:center;word-break:break-word;}
+  .front .ipa{font-size:14px;color:var(--navy);font-weight:700;margin-top:8px;}
+  .front .hint{position:absolute;bottom:8px;font-size:10px;color:var(--ink-soft);letter-spacing:.1em;}
+  .back{background:var(--ink);color:var(--paper);transform:rotateY(180deg);text-align:center;}
+  .back .jp{font-size:17px;font-weight:700;}
+  .back .kana{font-size:12px;color:var(--gold);margin-top:4px;}
+  .back .spk{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:var(--paper);}
+  .back .spk:hover{background:var(--navy);}
+  .back .ex{margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.18);width:100%;}
+  .back .ex-en{font-family:"Libre Baskerville",serif;font-size:12.5px;line-height:1.4;cursor:pointer;}
+  .back .ex-en:active{opacity:.6;}
+  .back .ex-jp{font-size:11px;color:rgba(255,255,255,.78);margin-top:2px;}
+  .fav{position:absolute;top:7px;right:9px;border:none;background:transparent;cursor:pointer;
+    font-size:19px;line-height:1;color:rgba(30,35,48,.22);padding:2px;z-index:2;transition:.15s;}
+  .fav.on{color:var(--gold);transform:scale(1.12);}
+  .fav:active{transform:scale(.82);}
+  .empty{grid-column:1/-1;background:var(--paper-deep);border-radius:14px;padding:24px 18px;
+    font-size:13px;color:var(--ink-soft);text-align:center;line-height:1.8;}
+
+  /* Phrases */
+  .ph{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;box-shadow:0 2px 0 var(--line);}
+  .ph-body{flex:1;min-width:0;}
+  .ph-en{font-family:"Libre Baskerville",serif;font-size:17px;font-weight:700;line-height:1.4;}
+  .ph-kana{font-size:12px;color:var(--navy);}
+  .ph-jp{font-size:13px;color:var(--ink-soft);margin-top:2px;}
+
+  /* Quiz */
+  .qmenu{display:grid;gap:12px;margin-top:8px;}
+  .qmode{display:flex;align-items:center;gap:14px;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:16px 18px;font-family:inherit;cursor:pointer;color:var(--ink);box-shadow:0 2px 0 var(--line);transition:.16s;}
+  .qmode:hover{border-color:var(--navy);transform:translateY(-1px);}
+  .qmode:disabled{opacity:.45;cursor:default;transform:none;}
+  .qmode .qm-ico{font-size:26px;line-height:1;width:34px;text-align:center;flex:none;}
+  .qmode .qm-txt{flex:1;min-width:0;}
+  .qmode .qm-ttl{font-weight:700;font-size:16px;}
+  .qmode .qm-sub{font-size:12px;color:var(--ink-soft);margin-top:2px;display:block;}
+  .quiz-box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:0 2px 0 var(--line);text-align:center;}
+  .q-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin-bottom:18px;font-weight:700;letter-spacing:.05em;}
+  .q-prompt{font-size:14px;color:var(--ink-soft);margin-bottom:6px;}
+  .q-main{font-size:28px;font-weight:700;margin-bottom:6px;}
+  .q-main.en{font-family:"Libre Baskerville",serif;}
+  .q-opts{display:grid;gap:10px;margin-top:22px;}
+  .q-opts.en .opt{font-family:"Libre Baskerville",serif;font-size:18px;}
+  .q-main.q-jp{font-family:"Zen Kaku Gothic New",sans-serif;font-size:24px;color:var(--navy-deep);}
+  .q-listen{margin:10px 0 4px;}
+  .q-play{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#f3f6ff;border:none;border-radius:999px;padding:14px 26px;font-family:inherit;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 6px 16px rgba(26,50,96,.3);}
+  .q-play svg{width:24px;height:24px;}
+  .opt{border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:14px;font-size:16px;cursor:pointer;font-family:inherit;transition:.18s;color:var(--ink);}
+  .opt:hover{border-color:var(--navy);}
+  .opt.correct{background:var(--jade);color:#fff;border-color:var(--jade);}
+  .opt.wrong{background:#b04a3e;color:#fff;border-color:#b04a3e;}
+  .opt:disabled{cursor:default;}
+  .q-next{margin-top:18px;border:none;background:var(--ink);color:var(--paper);border-radius:24px;padding:12px 28px;font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;display:none;}
+  .q-next.show{display:inline-block;}
+  .q-target{min-height:54px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:18px;padding:12px;border:2px dashed var(--line);border-radius:14px;background:var(--paper-deep);transition:.2s;}
+  .q-target.ok{border-style:solid;border-color:var(--jade);background:rgba(78,125,110,.1);}
+  .q-target.ng{border-style:solid;border-color:#b04a3e;background:rgba(176,74,62,.07);}
+  .q-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;min-height:48px;}
+  .q-target.en .tok,.q-bank.en .tok{font-family:"Libre Baskerville",serif;}
+  .tok{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:10px 14px;font-size:16px;cursor:pointer;font-family:inherit;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.06);transition:.15s;}
+  .tok:hover{border-color:var(--navy);}
+  .tok:active{transform:scale(.95);}
+  .q-actions{margin-top:16px;}
+  .q-check{border:none;background:var(--navy);color:#f3f6ff;border-radius:24px;padding:12px 30px;font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;}
+  .q-check:disabled{background:var(--line);color:var(--ink-soft);cursor:default;}
+  .q-answer{display:none;margin-top:16px;font-size:14px;line-height:1.7;color:var(--ink);}
+  .q-answer.show{display:block;}
+  .q-answer .en{font-family:"Libre Baskerville",serif;font-size:16px;}
+  .ok-t{color:var(--jade);}
+  .ng-t{color:#b04a3e;}
+  .bar{height:6px;background:var(--paper-deep);border-radius:4px;overflow:hidden;margin-bottom:18px;}
+  .bar i{display:block;height:100%;background:var(--navy);transition:width .4s;}
+  .result{text-align:center;}
+  .result .score{font-family:"Libre Baskerville",serif;font-size:54px;font-weight:700;color:var(--navy);}
+  .result .msg{font-size:15px;margin:8px 0 20px;}
+  .exam-grade{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:700;font-size:15px;color:var(--ink-soft);margin-bottom:4px;}
+  .exam-pct{font-size:15px;color:var(--ink-soft);margin-top:2px;}
+  .exam-judge{display:inline-block;margin:14px 0 4px;padding:8px 24px;border-radius:999px;font-weight:800;font-size:22px;letter-spacing:.05em;}
+  .exam-judge.pass{background:var(--jade);color:#fff;}
+  .exam-judge.near{background:#d98a2b;color:#fff;}
+  .exam-judge.fail{background:#b04a3e;color:#fff;}
+  .exam-best{margin-top:14px;text-align:center;font-size:13px;color:var(--ink-soft);}
+  .exam-best b{color:var(--navy);font-size:16px;}
+
+  footer{text-align:center;font-size:11px;color:var(--ink-soft);padding-top:24px;letter-spacing:.08em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="seal">Aa</div>
+    <h1>はじめての英語</h1>
+    <div class="sub">PHONICS · 単語 · フレーズ · クイズ</div>
+  </header>
+
+  <div class="levelbar">
+    <div class="levels" id="levels">
+      <button class="lv" data-lv="入門">入門</button>
+      <button class="lv" data-lv="初級">初級</button>
+      <button class="lv" data-lv="中級">中級</button>
+      <button class="lv" data-lv="上級">上級</button>
+      <button class="lv" data-lv="超上級">超上級</button>
+    </div>
+    <div class="lv-hint" id="lv-hint"></div>
+  </div>
+
+  <nav id="nav">
+    <button class="tab active" data-sec="home"><span class="en">H</span>ホーム</button>
+    <button class="tab" data-sec="phonics"><span class="en">Aa</span>発音</button>
+    <button class="tab" data-sec="vocab"><span class="en">W</span>単語</button>
+    <button class="tab" data-sec="phrase"><span class="en">P</span>フレーズ</button>
+    <button class="tab" data-sec="scene"><span class="en">S</span>場面別</button>
+    <button class="tab" data-sec="quiz"><span class="en">Q</span>クイズ</button>
+    <button class="tab" data-sec="exam"><span class="en">T</span>模擬試験</button>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home" class="show">
+    <div class="dash" id="dash">
+      <div class="streak">
+        <span class="flame">🔥</span>
+        <div>
+          <div class="sk-n"><span id="sk-num">0</span><small>日連続</small></div>
+          <div class="sk-lbl">毎日つづけて記録を伸ばそう</div>
+        </div>
+        <div class="sk-side">
+          最高 <b id="sk-best">0</b> 日<br>
+          <span class="sk-today" id="sk-today">今日はまだ</span>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="st-lbl">学習した単語</div>
+          <div class="st-val"><span id="st-learned">0</span> <small>/ <span id="st-total">0</span></small></div>
+          <div class="pbar"><i id="st-bar" style="width:0%"></i></div>
+        </div>
+        <div class="stat">
+          <div class="st-lbl">クイズ最高点</div>
+          <div class="st-val"><span id="st-qbest">0</span> <small>/ 10</small></div>
+          <div class="st-lbl" style="margin-top:6px">挑戦 <span id="st-qcount">0</span> 回 ・ 学習 <span id="st-days">0</span> 日</div>
+        </div>
+        <div class="stat" style="grid-column:1/-1">
+          <div class="st-lbl">模擬試験 最高</div>
+          <div class="st-val"><span id="st-ebest">—</span> <small id="st-elv" style="font-weight:400">まだ未受験</small></div>
+        </div>
+      </div>
+      <div class="badges">
+        <div class="bg-ttl">獲得バッジ</div>
+        <div class="badge-row" id="badge-row"></div>
+      </div>
+    </div>
+    <div class="setting">
+      <span class="set-lbl">🔇 サイレントモード<small>音声の自動再生をオフ。🔊ボタンは手動で使えます。クイズはリスニングを除く形式に。</small></span>
+      <button class="toggle" id="silent-toggle" role="switch" aria-label="サイレントモード"><span class="knob"></span></button>
+    </div>
+    <p class="lead">英語学習の最初の一歩へようこそ。発音（フォニックス）・基本単語・日常フレーズを、音声付きで学べます。各カードの 🔊 を押すと英語の発音が流れます。</p>
+    <div class="menu">
+      <button onclick="go('phonics')"><span class="big">ABC</span><span class="ttl">発音を学ぶ</span><span class="dsc">文字と音のルール</span></button>
+      <button onclick="go('vocab')"><span class="big">Words</span><span class="ttl">単語カード</span><span class="dsc">めくって暗記</span></button>
+      <button onclick="go('phrase')"><span class="big">Phrases</span><span class="ttl">フレーズ集</span><span class="dsc">そのまま使える</span></button>
+      <button onclick="go('scene')"><span class="big">Scenes</span><span class="ttl">場面別会話</span><span class="dsc">旅行・生活で使う</span></button>
+      <button onclick="go('quiz')"><span class="big">Quiz</span><span class="ttl">クイズ</span><span class="dsc">4択で確認</span></button>
+      <button onclick="go('exam')"><span class="big">Test</span><span class="ttl">模擬試験</span><span class="dsc">合格予想つき</span></button>
+    </div>
+    <div class="tip">
+      <b>フォニックスとは？</b><br>
+      英語の「つづり」と「音」のルールのこと。アルファベットの名前（エー・ビー）と実際の音（ア・ブ）は違います。まずは「発音」タブで文字と音の関係を耳で覚えるのがおすすめです。
+    </div>
+    <div class="tip" id="audio-note" style="display:none;">
+      <b>音声について：</b> お使いの端末・ブラウザに英語の音声が入っていない場合、読み上げが動作しないことがあります。その際はスマホの設定で英語(米国)の音声を追加すると改善します。
+    </div>
+  </section>
+
+  <!-- PHONICS -->
+  <section id="phonics">
+    <p class="lead">アルファベットの読み方と、日本人が苦手な母音・子音を音声で確認しましょう。発音記号（IPA）は辞書で発音を調べるときに役立ちます。</p>
+    <h2><span class="en">ABC</span>アルファベット</h2>
+    <div class="abc-grid" id="abc-grid"></div>
+    <h2><span class="en">a·i·u</span>母音（ぼいん）</h2>
+    <div id="vowel-list"></div>
+    <h2><span class="en">b·c·d</span>子音（しいん）</h2>
+    <div id="conso-list"></div>
+    <h2><span class="en">a·b·c</span>つづりと音のルール</h2>
+    <div id="rule-list"></div>
+  </section>
+
+  <!-- VOCAB -->
+  <section id="vocab">
+    <p class="lead">カードをタップすると意味が出ます。🔊 で発音を確認。カテゴリを選んで練習しましょう。</p>
+    <div class="cats" id="cats"></div>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <!-- PHRASE -->
+  <section id="phrase">
+    <p class="lead">あいさつや会話で役立つ基本フレーズ。🔊 を押して声に出して練習してみましょう。</p>
+    <div id="phrase-list"></div>
+  </section>
+
+  <!-- SCENE -->
+  <section id="scene">
+    <p class="lead">空港・ホテル・レストランなど、場面ごとにそのまま使える会話表現。🔊 で発音を確認できます。</p>
+    <div class="cats" id="scene-cats"></div>
+    <div id="scene-list"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz">
+    <p class="lead">クイズの形式を選んでスタート。各10問です。</p>
+    <div id="quiz-area"></div>
+  </section>
+
+  <!-- EXAM -->
+  <section id="exam">
+    <p class="lead">レベルを選んで模擬試験に挑戦。全20問・時間制限なし。終了後に合格予想を3段階で表示します。</p>
+    <div id="exam-area"></div>
+  </section>
+
+  <footer>声に出して、耳で覚える。Practice makes perfect!（継続は力なり）</footer>
+</div>
+
+<script>
+/* ---------- 設定（サイレント） ---------- */
+let silent=false;
+try{silent=localStorage.getItem("en-silent")==="1";}catch(e){}
+
+/* ---------- 音声合成 ---------- */
+let enVoice=null;
+function pickVoice(){
+  const vs=window.speechSynthesis?speechSynthesis.getVoices():[];
+  enVoice=vs.find(v=>v.lang==="en-US")||vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en"))||null;
+  if(window.speechSynthesis && vs.length && !enVoice){
+    document.getElementById("audio-note").style.display="block";
+  }
+}
+if(window.speechSynthesis){
+  speechSynthesis.onvoiceschanged=pickVoice; pickVoice();
+}
+function speak(text,manual){
+  if(typeof markStudy==="function")markStudy();
+  if(silent&&!manual){return;}
+  if(!window.speechSynthesis){return;}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="en-US"; if(enVoice)u.voice=enVoice; u.rate=.9; u.pitch=1;
+  speechSynthesis.speak(u);
+}
+const SPK=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>`;
+
+/* ---------- フォニックスデータ ---------- */
+const ALPHABET=[
+  {l:"Aa",kana:"エイ",say:"A"},{l:"Bb",kana:"ビー",say:"B"},{l:"Cc",kana:"スィー",say:"C"},{l:"Dd",kana:"ディー",say:"D"},
+  {l:"Ee",kana:"イー",say:"E"},{l:"Ff",kana:"エフ",say:"F"},{l:"Gg",kana:"ジー",say:"G"},{l:"Hh",kana:"エイチ",say:"H"},
+  {l:"Ii",kana:"アイ",say:"I"},{l:"Jj",kana:"ジェイ",say:"J"},{l:"Kk",kana:"ケイ",say:"K"},{l:"Ll",kana:"エル",say:"L"},
+  {l:"Mm",kana:"エム",say:"M"},{l:"Nn",kana:"エヌ",say:"N"},{l:"Oo",kana:"オウ",say:"O"},{l:"Pp",kana:"ピー",say:"P"},
+  {l:"Qq",kana:"キュー",say:"Q"},{l:"Rr",kana:"アール",say:"R"},{l:"Ss",kana:"エス",say:"S"},{l:"Tt",kana:"ティー",say:"T"},
+  {l:"Uu",kana:"ユー",say:"U"},{l:"Vv",kana:"ヴィー",say:"V"},{l:"Ww",kana:"ダブリュー",say:"W"},{l:"Xx",kana:"エックス",say:"X"},
+  {l:"Yy",kana:"ワイ",say:"Y"},{l:"Zz",kana:"ズィー",say:"Z"}
+];
+const VOWELS=[
+  {ipa:"/iː/",kana:"イー（長く）",desc:"口を横に引いて長く「イー」",ex:"see",exJp:"見る"},
+  {ipa:"/ɪ/",kana:"イ（短くあいまい）",desc:"「イ」と「エ」の中間で短く",ex:"sit",exJp:"座る"},
+  {ipa:"/æ/",kana:"ア（エの口でア）",desc:"「エ」の口の形のまま「ア」と言う",ex:"apple",exJp:"りんご"},
+  {ipa:"/ʌ/",kana:"ア（短く）",desc:"口をあまり開けず、のどの奥で短く「ア」",ex:"cup",exJp:"カップ"},
+  {ipa:"/ɑː/",kana:"アー（大きく開けて）",desc:"口を大きく開けて「アー」",ex:"father",exJp:"父"},
+  {ipa:"/ə/",kana:"ア（あいまい母音）",desc:"力を抜いた弱い「ア」。英語で一番多い音",ex:"about",exJp:"〜について"},
+  {ipa:"/ɜːr/",kana:"アー（舌を巻く）",desc:"舌を軽く巻きながら「アー」",ex:"bird",exJp:"鳥"},
+  {ipa:"/uː/",kana:"ウー",desc:"唇を丸めて突き出して「ウー」",ex:"food",exJp:"食べ物"},
+  {ipa:"/ʊ/",kana:"ウ（短く）",desc:"唇の力を抜いて短く「ウ」",ex:"book",exJp:"本"},
+  {ipa:"/eɪ/",kana:"エイ",desc:"「エ」から「イ」へなめらかにつなげる",ex:"cake",exJp:"ケーキ"},
+  {ipa:"/aɪ/",kana:"アイ",desc:"「ア」から「イ」へなめらかにつなげる",ex:"time",exJp:"時間"},
+  {ipa:"/oʊ/",kana:"オウ",desc:"「オ」から「ウ」へ。日本語の「オー」と区別",ex:"go",exJp:"行く"}
+];
+const CONSONANTS=[
+  {ipa:"/θ/",kana:"ス（舌をはさむ）",desc:"舌先を上下の歯で軽くはさんで息を出す",ex:"think",exJp:"考える"},
+  {ipa:"/ð/",kana:"ズ（舌をはさむ）",desc:"/θ/と同じ口の形で、声を出す",ex:"this",exJp:"これ"},
+  {ipa:"/f/",kana:"フ",desc:"下唇を上の歯に軽く当てて息を出す",ex:"fish",exJp:"魚"},
+  {ipa:"/v/",kana:"ヴ",desc:"/f/と同じ口の形で、声を出す",ex:"very",exJp:"とても"},
+  {ipa:"/r/",kana:"ル（舌を巻く）",desc:"舌をどこにも付けずに軽く巻く",ex:"red",exJp:"赤"},
+  {ipa:"/l/",kana:"ル（舌を当てる)",desc:"舌先を上の歯ぐきにしっかり付ける",ex:"light",exJp:"光"},
+  {ipa:"/ʃ/",kana:"シュ",desc:"唇を丸めて「シュー」と息を出す",ex:"she",exJp:"彼女"},
+  {ipa:"/dʒ/",kana:"ヂ",desc:"「チ」をにごらせた音",ex:"jump",exJp:"跳ぶ"},
+  {ipa:"/s/",kana:"ス",desc:"舌先を歯ぐきに近づけて鋭く息を出す",ex:"sea",exJp:"海"},
+  {ipa:"/w/",kana:"ウ（唇を丸めて）",desc:"唇をすぼめてから一気に開く",ex:"water",exJp:"水"},
+  {ipa:"/ŋ/",kana:"ング",desc:"舌の奥を上げて鼻に抜く音",ex:"sing",exJp:"歌う"},
+  {ipa:"/h/",kana:"ハ（息だけ）",desc:"のどの奥から息だけを出す",ex:"hat",exJp:"帽子"}
+];
+const RULES=[
+  {sym:"a_e",ttl:"マジックE",desc:"最後の e は読まず、前の母音をアルファベット読みに変える（a-e=エイ、i-e=アイ、o-e=オウ）",ex:"make / time / note",say:"make, time, note"},
+  {sym:"th",ttl:"th のつづり",desc:"舌先を歯ではさむ。think は息だけ、this は声を出す",ex:"think / this",say:"think, this"},
+  {sym:"sh / ch",ttl:"sh と ch",desc:"sh は「シュ」、ch は「チ」と読むのが基本",ex:"she / chair",say:"she, chair"},
+  {sym:"ph",ttl:"ph は f の音",desc:"ph のつづりは /f/ と読む",ex:"phone / photo",say:"phone, photo"},
+  {sym:"-tion",ttl:"-tion / -sion",desc:"語尾の -tion / -sion は「ション」と読む",ex:"station / vacation",say:"station, vacation"},
+  {sym:"oo",ttl:"oo の2つの音",desc:"長い「ウー」と短い「ウ」の2通りがある",ex:"food / book",say:"food, book"},
+  {sym:"kn / wr",ttl:"読まない文字",desc:"kn の k、wr の w、hour の h は発音しない（サイレントレター）",ex:"know / write / hour",say:"know, write, hour"},
+  {sym:"ar / or",ttl:"ar・or・er",desc:"ar は「アー」、or は「オー」、er は弱い「ア」",ex:"car / morning / river",say:"car, morning, river"}
+];
+
+/* ---------- レベル・単語データ ---------- */
+const LEVELS=["入門","初級","中級","上級","超上級"];
+const LEVEL_HINT={
+  "入門":"英検5級・CEFR A1 — アルファベットと基礎単語",
+  "初級":"英検4〜3級・CEFR A2 — 日常の基本会話",
+  "中級":"英検準2〜2級・CEFR B1・TOEIC 〜550 — 生活・仕事の話題",
+  "上級":"英検準1級・CEFR B2・TOEIC 〜785 — 抽象的な議論",
+  "超上級":"英検1級・CEFR C1・TOEIC 900+ — 評論・高度な語彙"
+};
+const data={
+"入門":{vocab:{
+  "あいさつ":[
+    {en:"hello",ipa:"/həˈloʊ/",kana:"ハロー",jp:"こんにちは",ex:{en:"Hello! Nice to meet you.",jp:"こんにちは！はじめまして。"}},
+    {en:"good morning",ipa:"/ɡʊd ˈmɔːrnɪŋ/",kana:"グッド モーニング",jp:"おはよう",ex:{en:"Good morning, Mr. Brown.",jp:"おはようございます、ブラウンさん。"}},
+    {en:"thank you",ipa:"/ˈθæŋk juː/",kana:"サンキュー",jp:"ありがとう",ex:{en:"Thank you for your help.",jp:"手伝ってくれてありがとう。"}},
+    {en:"please",ipa:"/pliːz/",kana:"プリーズ",jp:"どうぞ・お願いします",ex:{en:"Water, please.",jp:"お水をお願いします。"}},
+    {en:"sorry",ipa:"/ˈsɑːri/",kana:"ソーリー",jp:"ごめんなさい",ex:{en:"Sorry, I'm late.",jp:"遅れてごめんなさい。"}},
+    {en:"goodbye",ipa:"/ɡʊdˈbaɪ/",kana:"グッバイ",jp:"さようなら",ex:{en:"Goodbye! See you tomorrow.",jp:"さようなら！また明日。"}},
+    {en:"yes",ipa:"/jes/",kana:"イエス",jp:"はい",ex:{en:"Yes, I like sushi.",jp:"はい、お寿司が好きです。"}},
+    {en:"no",ipa:"/noʊ/",kana:"ノー",jp:"いいえ",ex:{en:"No, thank you.",jp:"いいえ、結構です。"}}
+  ],
+  "数字":[
+    {en:"one",ipa:"/wʌn/",kana:"ワン",jp:"1",ex:{en:"I have one brother.",jp:"兄弟が1人います。"}},
+    {en:"two",ipa:"/tuː/",kana:"トゥー",jp:"2",ex:{en:"Two coffees, please.",jp:"コーヒーを2つください。"}},
+    {en:"three",ipa:"/θriː/",kana:"スリー",jp:"3",ex:{en:"I have three cats.",jp:"猫を3匹飼っています。"}},
+    {en:"four",ipa:"/fɔːr/",kana:"フォー",jp:"4",ex:{en:"There are four seasons.",jp:"季節は4つあります。"}},
+    {en:"five",ipa:"/faɪv/",kana:"ファイブ",jp:"5",ex:{en:"It's five o'clock.",jp:"5時です。"}},
+    {en:"six",ipa:"/sɪks/",kana:"シックス",jp:"6",ex:{en:"I get up at six.",jp:"6時に起きます。"}},
+    {en:"seven",ipa:"/ˈsevən/",kana:"セブン",jp:"7",ex:{en:"A week has seven days.",jp:"1週間は7日です。"}},
+    {en:"eight",ipa:"/eɪt/",kana:"エイト",jp:"8",ex:{en:"School starts at eight.",jp:"学校は8時に始まります。"}},
+    {en:"nine",ipa:"/naɪn/",kana:"ナイン",jp:"9",ex:{en:"The store opens at nine.",jp:"店は9時に開きます。"}},
+    {en:"ten",ipa:"/ten/",kana:"テン",jp:"10",ex:{en:"Count from one to ten.",jp:"1から10まで数えて。"}}
+  ],
+  "食べ物":[
+    {en:"apple",ipa:"/ˈæpəl/",kana:"アポー",jp:"りんご",ex:{en:"I eat an apple every day.",jp:"毎日りんごを食べます。"}},
+    {en:"bread",ipa:"/bred/",kana:"ブレッド",jp:"パン",ex:{en:"This bread is soft.",jp:"このパンはやわらかい。"}},
+    {en:"milk",ipa:"/mɪlk/",kana:"ミルク",jp:"牛乳",ex:{en:"I drink milk every morning.",jp:"毎朝牛乳を飲みます。"}},
+    {en:"water",ipa:"/ˈwɔːtər/",kana:"ウォーター",jp:"水",ex:{en:"Can I have some water?",jp:"お水をもらえますか？"}},
+    {en:"egg",ipa:"/eɡ/",kana:"エッグ",jp:"卵",ex:{en:"I had eggs for breakfast.",jp:"朝食に卵を食べました。"}},
+    {en:"rice",ipa:"/raɪs/",kana:"ライス",jp:"ご飯・米",ex:{en:"Japanese people eat rice.",jp:"日本人はご飯を食べます。"}},
+    {en:"fish",ipa:"/fɪʃ/",kana:"フィッシュ",jp:"魚",ex:{en:"I like fish better than meat.",jp:"肉より魚が好きです。"}},
+    {en:"tea",ipa:"/tiː/",kana:"ティー",jp:"お茶・紅茶",ex:{en:"Would you like some tea?",jp:"お茶はいかがですか？"}}
+  ],
+  "動物・自然":[
+    {en:"dog",ipa:"/dɔːɡ/",kana:"ドッグ",jp:"犬",ex:{en:"My dog is very friendly.",jp:"私の犬はとても人なつっこい。"}},
+    {en:"cat",ipa:"/kæt/",kana:"キャット",jp:"猫",ex:{en:"The cat is sleeping.",jp:"猫が眠っています。"}},
+    {en:"bird",ipa:"/bɜːrd/",kana:"バード",jp:"鳥",ex:{en:"Birds are singing.",jp:"鳥が鳴いています。"}},
+    {en:"sun",ipa:"/sʌn/",kana:"サン",jp:"太陽",ex:{en:"The sun is bright today.",jp:"今日は日差しが強い。"}},
+    {en:"moon",ipa:"/muːn/",kana:"ムーン",jp:"月",ex:{en:"Look at the moon!",jp:"月を見て！"}},
+    {en:"tree",ipa:"/triː/",kana:"トゥリー",jp:"木",ex:{en:"There is a big tree in the park.",jp:"公園に大きな木があります。"}},
+    {en:"flower",ipa:"/ˈflaʊər/",kana:"フラワー",jp:"花",ex:{en:"These flowers are beautiful.",jp:"この花はきれいです。"}},
+    {en:"rain",ipa:"/reɪn/",kana:"レイン",jp:"雨",ex:{en:"The rain stopped.",jp:"雨がやみました。"}}
+  ],
+  "学校":[
+    {en:"book",ipa:"/bʊk/",kana:"ブック",jp:"本",ex:{en:"This book is interesting.",jp:"この本はおもしろい。"}},
+    {en:"pen",ipa:"/pen/",kana:"ペン",jp:"ペン",ex:{en:"Can I use your pen?",jp:"ペンを借りてもいい？"}},
+    {en:"desk",ipa:"/desk/",kana:"デスク",jp:"机",ex:{en:"My desk is clean.",jp:"私の机はきれいです。"}},
+    {en:"teacher",ipa:"/ˈtiːtʃər/",kana:"ティーチャー",jp:"先生",ex:{en:"Our teacher is kind.",jp:"私たちの先生は優しい。"}},
+    {en:"student",ipa:"/ˈstuːdənt/",kana:"ステューデント",jp:"生徒・学生",ex:{en:"I am a student.",jp:"私は学生です。"}},
+    {en:"school",ipa:"/skuːl/",kana:"スクール",jp:"学校",ex:{en:"I go to school by bus.",jp:"バスで学校に行きます。"}},
+    {en:"friend",ipa:"/frend/",kana:"フレンド",jp:"友達",ex:{en:"He is my best friend.",jp:"彼は私の親友です。"}},
+    {en:"bag",ipa:"/bæɡ/",kana:"バッグ",jp:"かばん",ex:{en:"My bag is heavy.",jp:"私のかばんは重い。"}}
+  ],
+  "色・形容詞":[
+    {en:"red",ipa:"/red/",kana:"レッド",jp:"赤い",ex:{en:"I like your red shirt.",jp:"その赤いシャツ、いいね。"}},
+    {en:"blue",ipa:"/bluː/",kana:"ブルー",jp:"青い",ex:{en:"The sky is blue.",jp:"空は青い。"}},
+    {en:"white",ipa:"/waɪt/",kana:"ホワイト",jp:"白い",ex:{en:"Snow is white.",jp:"雪は白い。"}},
+    {en:"black",ipa:"/blæk/",kana:"ブラック",jp:"黒い",ex:{en:"I have a black cat.",jp:"黒猫を飼っています。"}},
+    {en:"big",ipa:"/bɪɡ/",kana:"ビッグ",jp:"大きい",ex:{en:"That is a big house.",jp:"あれは大きな家です。"}},
+    {en:"small",ipa:"/smɔːl/",kana:"スモール",jp:"小さい",ex:{en:"This room is small.",jp:"この部屋は小さい。"}},
+    {en:"new",ipa:"/nuː/",kana:"ニュー",jp:"新しい",ex:{en:"I want a new phone.",jp:"新しい携帯がほしい。"}},
+    {en:"old",ipa:"/oʊld/",kana:"オールド",jp:"古い・年をとった",ex:{en:"This is an old temple.",jp:"これは古いお寺です。"}}
+  ],
+  "からだ":[
+    {en:"head",ipa:"/hed/",kana:"ヘッド",jp:"頭",ex:{en:"My head hurts.",jp:"頭が痛いです。"}},
+    {en:"face",ipa:"/feɪs/",kana:"フェイス",jp:"顔",ex:{en:"Wash your face before breakfast.",jp:"朝食の前に顔を洗いなさい。"}},
+    {en:"eye",ipa:"/aɪ/",kana:"アイ",jp:"目",ex:{en:"She has beautiful eyes.",jp:"彼女は美しい目をしています。"}},
+    {en:"ear",ipa:"/ɪr/",kana:"イヤー",jp:"耳",ex:{en:"Rabbits have long ears.",jp:"ウサギは耳が長い。"}},
+    {en:"nose",ipa:"/noʊz/",kana:"ノウズ",jp:"鼻",ex:{en:"My nose is running.",jp:"鼻水が出ています。"}},
+    {en:"mouth",ipa:"/maʊθ/",kana:"マウス",jp:"口",ex:{en:"Open your mouth, please.",jp:"口を開けてください。"}},
+    {en:"hand",ipa:"/hænd/",kana:"ハンド",jp:"手",ex:{en:"Raise your hand.",jp:"手を挙げて。"}},
+    {en:"foot",ipa:"/fʊt/",kana:"フット",jp:"足",ex:{en:"I hurt my foot.",jp:"足をけがしました。"}}
+  ],
+  "動作の動詞":[
+    {en:"run",ipa:"/rʌn/",kana:"ラン",jp:"走る",ex:{en:"I run in the park every morning.",jp:"毎朝公園で走ります。"}},
+    {en:"walk",ipa:"/wɔːk/",kana:"ウォーク",jp:"歩く",ex:{en:"Let's walk to the station.",jp:"駅まで歩きましょう。"}},
+    {en:"sit",ipa:"/sɪt/",kana:"スィット",jp:"座る",ex:{en:"Please sit down.",jp:"座ってください。"}},
+    {en:"stand",ipa:"/stænd/",kana:"スタンド",jp:"立つ",ex:{en:"Stand up, please.",jp:"立ってください。"}},
+    {en:"open",ipa:"/ˈoʊpən/",kana:"オウプン",jp:"開ける",ex:{en:"Open the window, please.",jp:"窓を開けてください。"}},
+    {en:"close",ipa:"/kloʊz/",kana:"クロウズ",jp:"閉める",ex:{en:"Close the door, please.",jp:"ドアを閉めてください。"}},
+    {en:"read",ipa:"/riːd/",kana:"リード",jp:"読む",ex:{en:"I read books every night.",jp:"毎晩本を読みます。"}},
+    {en:"write",ipa:"/raɪt/",kana:"ライト",jp:"書く",ex:{en:"Write your name here.",jp:"ここに名前を書いてください。"}}
+  ]
+},phrases:[
+  {en:"Nice to meet you.",kana:"ナイス トゥ ミート ユー",jp:"はじめまして。"},
+  {en:"How are you?",kana:"ハウ アー ユー",jp:"お元気ですか？"},
+  {en:"I'm fine, thank you.",kana:"アイム ファイン サンキュー",jp:"元気です、ありがとう。"},
+  {en:"What's your name?",kana:"ワッツ ユア ネイム",jp:"お名前は何ですか？"},
+  {en:"My name is Ken.",kana:"マイ ネイム イズ ケン",jp:"私の名前はケンです。"},
+  {en:"Excuse me.",kana:"イクスキューズ ミー",jp:"すみません（呼びかけ）。"},
+  {en:"See you later.",kana:"スィー ユー レイター",jp:"またあとで。"},
+  {en:"Have a nice day!",kana:"ハヴ ア ナイス デイ",jp:"よい一日を！"},
+  {en:"I don't understand.",kana:"アイ ドント アンダスタンド",jp:"わかりません。"},
+  {en:"Where are you from?",kana:"ウェア アー ユー フロム",jp:"出身はどちらですか？"},
+  {en:"How old are you?",kana:"ハウ オールド アー ユー",jp:"おいくつですか？"},
+  {en:"I like music.",kana:"アイ ライク ミュージック",jp:"音楽が好きです。"},
+  {en:"Good luck!",kana:"グッド ラック",jp:"がんばって！"},
+  {en:"You're welcome.",kana:"ユア ウェルカム",jp:"どういたしまして。"}
+]},
+"初級":{vocab:{
+  "動詞":[
+    {en:"go",ipa:"/ɡoʊ/",kana:"ゴウ",jp:"行く",ex:{en:"I go to work at eight.",jp:"8時に仕事へ行きます。"}},
+    {en:"come",ipa:"/kʌm/",kana:"カム",jp:"来る",ex:{en:"Come to my house!",jp:"うちにおいでよ！"}},
+    {en:"eat",ipa:"/iːt/",kana:"イート",jp:"食べる",ex:{en:"Let's eat lunch together.",jp:"一緒にお昼を食べよう。"}},
+    {en:"drink",ipa:"/drɪŋk/",kana:"ドリンク",jp:"飲む",ex:{en:"I drink coffee every day.",jp:"毎日コーヒーを飲みます。"}},
+    {en:"see",ipa:"/siː/",kana:"スィー",jp:"見る・会う",ex:{en:"I want to see that movie.",jp:"あの映画を見たいです。"}},
+    {en:"make",ipa:"/meɪk/",kana:"メイク",jp:"作る",ex:{en:"My mother makes great curry.",jp:"母はおいしいカレーを作ります。"}},
+    {en:"play",ipa:"/pleɪ/",kana:"プレイ",jp:"遊ぶ・（スポーツを）する",ex:{en:"We play soccer on Sundays.",jp:"日曜日にサッカーをします。"}},
+    {en:"study",ipa:"/ˈstʌdi/",kana:"スタディ",jp:"勉強する",ex:{en:"I study English every night.",jp:"毎晩英語を勉強します。"}},
+    {en:"work",ipa:"/wɜːrk/",kana:"ワーク",jp:"働く",ex:{en:"He works at a bank.",jp:"彼は銀行で働いています。"}},
+    {en:"like",ipa:"/laɪk/",kana:"ライク",jp:"好きである",ex:{en:"I like Japanese food.",jp:"日本食が好きです。"}}
+  ],
+  "時間・曜日":[
+    {en:"today",ipa:"/təˈdeɪ/",kana:"トゥデイ",jp:"今日",ex:{en:"Today is my birthday.",jp:"今日は私の誕生日です。"}},
+    {en:"tomorrow",ipa:"/təˈmɑːroʊ/",kana:"トゥモロウ",jp:"明日",ex:{en:"See you tomorrow!",jp:"また明日！"}},
+    {en:"yesterday",ipa:"/ˈjestərdeɪ/",kana:"イェスタデイ",jp:"昨日",ex:{en:"I was busy yesterday.",jp:"昨日は忙しかったです。"}},
+    {en:"morning",ipa:"/ˈmɔːrnɪŋ/",kana:"モーニング",jp:"朝",ex:{en:"I run every morning.",jp:"毎朝走っています。"}},
+    {en:"night",ipa:"/naɪt/",kana:"ナイト",jp:"夜",ex:{en:"Good night!",jp:"おやすみなさい！"}},
+    {en:"week",ipa:"/wiːk/",kana:"ウィーク",jp:"週",ex:{en:"See you next week.",jp:"また来週。"}},
+    {en:"month",ipa:"/mʌnθ/",kana:"マンス",jp:"月（つき）",ex:{en:"I will travel next month.",jp:"来月旅行します。"}},
+    {en:"year",ipa:"/jɪr/",kana:"イヤー",jp:"年",ex:{en:"Happy New Year!",jp:"あけましておめでとう！"}}
+  ],
+  "家族":[
+    {en:"family",ipa:"/ˈfæməli/",kana:"ファミリー",jp:"家族",ex:{en:"I love my family.",jp:"家族が大好きです。"}},
+    {en:"father",ipa:"/ˈfɑːðər/",kana:"ファーザー",jp:"父",ex:{en:"My father is a doctor.",jp:"父は医者です。"}},
+    {en:"mother",ipa:"/ˈmʌðər/",kana:"マザー",jp:"母",ex:{en:"My mother likes cooking.",jp:"母は料理が好きです。"}},
+    {en:"brother",ipa:"/ˈbrʌðər/",kana:"ブラザー",jp:"兄・弟",ex:{en:"My brother is taller than me.",jp:"兄は私より背が高い。"}},
+    {en:"sister",ipa:"/ˈsɪstər/",kana:"スィスター",jp:"姉・妹",ex:{en:"My sister lives in Osaka.",jp:"姉は大阪に住んでいます。"}},
+    {en:"grandfather",ipa:"/ˈɡrænfɑːðər/",kana:"グランドファーザー",jp:"祖父",ex:{en:"My grandfather is eighty.",jp:"祖父は80歳です。"}},
+    {en:"grandmother",ipa:"/ˈɡrænmʌðər/",kana:"グランドマザー",jp:"祖母",ex:{en:"My grandmother grows vegetables.",jp:"祖母は野菜を育てています。"}},
+    {en:"child",ipa:"/tʃaɪld/",kana:"チャイルド",jp:"子ども",ex:{en:"They have two children.",jp:"彼らには子どもが2人います。"}}
+  ],
+  "天気・季節":[
+    {en:"weather",ipa:"/ˈweðər/",kana:"ウェザー",jp:"天気",ex:{en:"How's the weather today?",jp:"今日の天気はどう？"}},
+    {en:"sunny",ipa:"/ˈsʌni/",kana:"サニー",jp:"晴れた",ex:{en:"It's sunny today.",jp:"今日は晴れです。"}},
+    {en:"rainy",ipa:"/ˈreɪni/",kana:"レイニー",jp:"雨の",ex:{en:"It's rainy in June.",jp:"6月は雨が多いです。"}},
+    {en:"cloudy",ipa:"/ˈklaʊdi/",kana:"クラウディ",jp:"くもりの",ex:{en:"It will be cloudy tomorrow.",jp:"明日はくもりでしょう。"}},
+    {en:"hot",ipa:"/hɑːt/",kana:"ホット",jp:"暑い",ex:{en:"It's very hot in summer.",jp:"夏はとても暑いです。"}},
+    {en:"cold",ipa:"/koʊld/",kana:"コールド",jp:"寒い・冷たい",ex:{en:"I'm cold. Close the window, please.",jp:"寒いです。窓を閉めてください。"}},
+    {en:"spring",ipa:"/sprɪŋ/",kana:"スプリング",jp:"春",ex:{en:"Cherry blossoms bloom in spring.",jp:"春には桜が咲きます。"}},
+    {en:"winter",ipa:"/ˈwɪntər/",kana:"ウィンター",jp:"冬",ex:{en:"We ski in winter.",jp:"冬はスキーをします。"}}
+  ],
+  "町・買い物":[
+    {en:"shop",ipa:"/ʃɑːp/",kana:"ショップ",jp:"店",ex:{en:"That shop sells nice cakes.",jp:"あの店はおいしいケーキを売っています。"}},
+    {en:"money",ipa:"/ˈmʌni/",kana:"マニー",jp:"お金",ex:{en:"I don't have much money.",jp:"あまりお金がありません。"}},
+    {en:"station",ipa:"/ˈsteɪʃən/",kana:"ステイション",jp:"駅",ex:{en:"The station is near my house.",jp:"駅は家の近くです。"}},
+    {en:"hospital",ipa:"/ˈhɑːspɪtəl/",kana:"ホスピタル",jp:"病院",ex:{en:"He is in the hospital.",jp:"彼は入院しています。"}},
+    {en:"library",ipa:"/ˈlaɪbreri/",kana:"ライブラリー",jp:"図書館",ex:{en:"I study at the library.",jp:"図書館で勉強します。"}},
+    {en:"park",ipa:"/pɑːrk/",kana:"パーク",jp:"公園",ex:{en:"Let's walk in the park.",jp:"公園を散歩しよう。"}},
+    {en:"restaurant",ipa:"/ˈrestrɑːnt/",kana:"レストラン",jp:"レストラン",ex:{en:"This restaurant is famous.",jp:"このレストランは有名です。"}},
+    {en:"ticket",ipa:"/ˈtɪkɪt/",kana:"ティケット",jp:"切符・チケット",ex:{en:"I bought two tickets.",jp:"チケットを2枚買いました。"}}
+  ],
+  "形容詞":[
+    {en:"happy",ipa:"/ˈhæpi/",kana:"ハッピー",jp:"うれしい・幸せな",ex:{en:"I'm so happy today!",jp:"今日はとてもうれしい！"}},
+    {en:"busy",ipa:"/ˈbɪzi/",kana:"ビズィー",jp:"忙しい",ex:{en:"I'm busy this week.",jp:"今週は忙しいです。"}},
+    {en:"easy",ipa:"/ˈiːzi/",kana:"イーズィー",jp:"簡単な",ex:{en:"This question is easy.",jp:"この問題は簡単です。"}},
+    {en:"difficult",ipa:"/ˈdɪfɪkəlt/",kana:"ディフィカルト",jp:"難しい",ex:{en:"English is difficult but fun.",jp:"英語は難しいけれど楽しい。"}},
+    {en:"beautiful",ipa:"/ˈbjuːtɪfəl/",kana:"ビューティフル",jp:"美しい",ex:{en:"What a beautiful view!",jp:"なんて美しい景色！"}},
+    {en:"delicious",ipa:"/dɪˈlɪʃəs/",kana:"デリシャス",jp:"おいしい",ex:{en:"This ramen is delicious.",jp:"このラーメンはおいしい。"}},
+    {en:"interesting",ipa:"/ˈɪntrəstɪŋ/",kana:"インタレスティング",jp:"おもしろい",ex:{en:"That's an interesting idea.",jp:"それはおもしろい考えですね。"}},
+    {en:"important",ipa:"/ɪmˈpɔːrtənt/",kana:"インポータント",jp:"重要な",ex:{en:"Health is the most important thing.",jp:"健康が一番大切です。"}}
+  ],
+  "食事・料理":[
+    {en:"breakfast",ipa:"/ˈbrekfəst/",kana:"ブレックファスト",jp:"朝食",ex:{en:"I eat breakfast at seven.",jp:"7時に朝食を食べます。"}},
+    {en:"lunch",ipa:"/lʌntʃ/",kana:"ランチ",jp:"昼食",ex:{en:"Let's have lunch together.",jp:"一緒に昼食を食べましょう。"}},
+    {en:"dinner",ipa:"/ˈdɪnər/",kana:"ディナー",jp:"夕食",ex:{en:"Dinner is ready!",jp:"夕食ができたよ！"}},
+    {en:"cook",ipa:"/kʊk/",kana:"クック",jp:"料理する",ex:{en:"My father cooks on Sundays.",jp:"父は日曜日に料理をします。"}},
+    {en:"vegetable",ipa:"/ˈvedʒtəbəl/",kana:"ヴェジタブル",jp:"野菜",ex:{en:"Eat more vegetables.",jp:"もっと野菜を食べなさい。"}},
+    {en:"fruit",ipa:"/fruːt/",kana:"フルート",jp:"果物",ex:{en:"I eat fruit every day.",jp:"毎日果物を食べます。"}},
+    {en:"meat",ipa:"/miːt/",kana:"ミート",jp:"肉",ex:{en:"I don't eat much meat.",jp:"肉はあまり食べません。"}},
+    {en:"juice",ipa:"/dʒuːs/",kana:"ジュース",jp:"ジュース",ex:{en:"A glass of orange juice, please.",jp:"オレンジジュースを1杯ください。"}}
+  ],
+  "趣味・スポーツ":[
+    {en:"music",ipa:"/ˈmjuːzɪk/",kana:"ミュージック",jp:"音楽",ex:{en:"I listen to music on the train.",jp:"電車で音楽を聴きます。"}},
+    {en:"movie",ipa:"/ˈmuːvi/",kana:"ムーヴィー",jp:"映画",ex:{en:"Let's watch a movie tonight.",jp:"今夜映画を見ましょう。"}},
+    {en:"game",ipa:"/ɡeɪm/",kana:"ゲイム",jp:"ゲーム・試合",ex:{en:"We played games all night.",jp:"一晩中ゲームをしました。"}},
+    {en:"soccer",ipa:"/ˈsɑːkər/",kana:"サッカー",jp:"サッカー",ex:{en:"He is good at soccer.",jp:"彼はサッカーが上手です。"}},
+    {en:"tennis",ipa:"/ˈtenɪs/",kana:"テニス",jp:"テニス",ex:{en:"Do you play tennis?",jp:"テニスをしますか？"}},
+    {en:"swim",ipa:"/swɪm/",kana:"スウィム",jp:"泳ぐ",ex:{en:"I can swim fast.",jp:"速く泳げます。"}},
+    {en:"travel",ipa:"/ˈtrævəl/",kana:"トラヴェル",jp:"旅行する",ex:{en:"I love to travel abroad.",jp:"海外旅行が大好きです。"}},
+    {en:"picture",ipa:"/ˈpɪktʃər/",kana:"ピクチャー",jp:"写真・絵",ex:{en:"He took a picture of the lake.",jp:"彼は湖の写真を撮りました。"}}
+  ]
+},phrases:[
+  {en:"What time is it now?",kana:"ワット タイム イズ イット ナウ",jp:"今何時ですか？"},
+  {en:"How much is this?",kana:"ハウ マッチ イズ ディス",jp:"これはいくらですか？"},
+  {en:"Can I have a menu, please?",kana:"キャナイ ハヴ ア メニュー プリーズ",jp:"メニューをもらえますか？"},
+  {en:"I'd like a coffee.",kana:"アイド ライク ア コーフィ",jp:"コーヒーをください。"},
+  {en:"How do I get to the station?",kana:"ハウ ドゥ アイ ゲット トゥ ザ ステイション",jp:"駅へはどう行けばいいですか？"},
+  {en:"What do you do?",kana:"ワット ドゥ ユー ドゥ",jp:"お仕事は何をされていますか？"},
+  {en:"I'm from Japan.",kana:"アイム フロム ジャパン",jp:"日本から来ました。"},
+  {en:"Could you speak more slowly?",kana:"クッジュー スピーク モア スロウリー",jp:"もっとゆっくり話してもらえますか？"},
+  {en:"What does this mean?",kana:"ワット ダズ ディス ミーン",jp:"これはどういう意味ですか？"},
+  {en:"Sounds good!",kana:"サウンズ グッド",jp:"いいね！"},
+  {en:"Can you help me?",kana:"キャン ユー ヘルプ ミー",jp:"手伝ってもらえますか？"},
+  {en:"I have a question.",kana:"アイ ハヴ ア クエスチョン",jp:"質問があります。"},
+  {en:"Just a moment, please.",kana:"ジャスト ア モウメント プリーズ",jp:"少々お待ちください。"},
+  {en:"That sounds fun!",kana:"ザット サウンズ ファン",jp:"楽しそう！"}
+]},
+"中級":{vocab:{
+  "仕事":[
+    {en:"meeting",ipa:"/ˈmiːtɪŋ/",kana:"ミーティング",jp:"会議",ex:{en:"The meeting starts at ten.",jp:"会議は10時に始まります。"}},
+    {en:"office",ipa:"/ˈɔːfɪs/",kana:"オフィス",jp:"事務所・職場",ex:{en:"Our office is in Shibuya.",jp:"うちのオフィスは渋谷にあります。"}},
+    {en:"project",ipa:"/ˈprɑːdʒekt/",kana:"プロジェクト",jp:"計画・事業",ex:{en:"We finished the project on time.",jp:"プロジェクトを期限内に終えました。"}},
+    {en:"deadline",ipa:"/ˈdedlaɪn/",kana:"デッドライン",jp:"締め切り",ex:{en:"The deadline is this Friday.",jp:"締め切りは今週の金曜日です。"}},
+    {en:"salary",ipa:"/ˈsæləri/",kana:"サラリー",jp:"給料",ex:{en:"He got a higher salary.",jp:"彼は給料が上がりました。"}},
+    {en:"colleague",ipa:"/ˈkɑːliːɡ/",kana:"カリーグ",jp:"同僚",ex:{en:"My colleagues are friendly.",jp:"同僚たちは親切です。"}},
+    {en:"customer",ipa:"/ˈkʌstəmər/",kana:"カスタマー",jp:"顧客",ex:{en:"The customer is always right.",jp:"お客様は常に正しい。"}},
+    {en:"schedule",ipa:"/ˈskedʒuːl/",kana:"スケジュール",jp:"予定",ex:{en:"Let me check my schedule.",jp:"予定を確認させてください。"}}
+  ],
+  "旅行":[
+    {en:"flight",ipa:"/flaɪt/",kana:"フライト",jp:"飛行機の便",ex:{en:"My flight leaves at noon.",jp:"私の便は正午に出発します。"}},
+    {en:"reservation",ipa:"/ˌrezərˈveɪʃən/",kana:"レザヴェイション",jp:"予約",ex:{en:"I made a reservation for two.",jp:"2名で予約しました。"}},
+    {en:"passport",ipa:"/ˈpæspɔːrt/",kana:"パスポート",jp:"パスポート",ex:{en:"Don't forget your passport.",jp:"パスポートを忘れないで。"}},
+    {en:"luggage",ipa:"/ˈlʌɡɪdʒ/",kana:"ラゲッジ",jp:"手荷物",ex:{en:"My luggage is too heavy.",jp:"荷物が重すぎます。"}},
+    {en:"departure",ipa:"/dɪˈpɑːrtʃər/",kana:"ディパーチャー",jp:"出発",ex:{en:"The departure time has changed.",jp:"出発時刻が変わりました。"}},
+    {en:"arrival",ipa:"/əˈraɪvəl/",kana:"アライヴァル",jp:"到着",ex:{en:"What's the arrival time?",jp:"到着時刻は何時ですか？"}},
+    {en:"sightseeing",ipa:"/ˈsaɪtsiːɪŋ/",kana:"サイトスィーイング",jp:"観光",ex:{en:"We went sightseeing in Kyoto.",jp:"京都を観光しました。"}},
+    {en:"souvenir",ipa:"/ˌsuːvəˈnɪr/",kana:"スーヴェニア",jp:"お土産",ex:{en:"I bought souvenirs for my family.",jp:"家族にお土産を買いました。"}}
+  ],
+  "健康":[
+    {en:"health",ipa:"/helθ/",kana:"ヘルス",jp:"健康",ex:{en:"Sleep is important for your health.",jp:"睡眠は健康に大切です。"}},
+    {en:"medicine",ipa:"/ˈmedəsən/",kana:"メディスン",jp:"薬",ex:{en:"Take this medicine after meals.",jp:"この薬は食後に飲んでください。"}},
+    {en:"fever",ipa:"/ˈfiːvər/",kana:"フィーヴァー",jp:"熱",ex:{en:"I have a slight fever.",jp:"少し熱があります。"}},
+    {en:"headache",ipa:"/ˈhedeɪk/",kana:"ヘデイク",jp:"頭痛",ex:{en:"I've had a headache since morning.",jp:"朝から頭痛がします。"}},
+    {en:"exercise",ipa:"/ˈeksərsaɪz/",kana:"エクササイズ",jp:"運動",ex:{en:"I exercise three times a week.",jp:"週に3回運動します。"}},
+    {en:"diet",ipa:"/ˈdaɪət/",kana:"ダイエット",jp:"食事・食生活",ex:{en:"A balanced diet keeps you healthy.",jp:"バランスのよい食事が健康を保ちます。"}},
+    {en:"injury",ipa:"/ˈɪndʒəri/",kana:"インジャリー",jp:"けが",ex:{en:"He recovered from his injury.",jp:"彼はけがから回復しました。"}},
+    {en:"recovery",ipa:"/rɪˈkʌvəri/",kana:"リカヴァリー",jp:"回復",ex:{en:"I wish you a quick recovery.",jp:"早い回復を祈っています。"}}
+  ],
+  "感情":[
+    {en:"nervous",ipa:"/ˈnɜːrvəs/",kana:"ナーヴァス",jp:"緊張して",ex:{en:"I was nervous before the interview.",jp:"面接の前は緊張しました。"}},
+    {en:"excited",ipa:"/ɪkˈsaɪtɪd/",kana:"イクサイティッド",jp:"わくわくして",ex:{en:"I'm excited about the trip.",jp:"旅行が楽しみでわくわくしています。"}},
+    {en:"disappointed",ipa:"/ˌdɪsəˈpɔɪntɪd/",kana:"ディサポインティッド",jp:"がっかりして",ex:{en:"I was disappointed with the result.",jp:"結果にがっかりしました。"}},
+    {en:"satisfied",ipa:"/ˈsætɪsfaɪd/",kana:"サティスファイド",jp:"満足して",ex:{en:"I'm satisfied with my new job.",jp:"新しい仕事に満足しています。"}},
+    {en:"confident",ipa:"/ˈkɑːnfɪdənt/",kana:"カンフィデント",jp:"自信のある",ex:{en:"Be confident in yourself.",jp:"自分に自信を持って。"}},
+    {en:"anxious",ipa:"/ˈæŋkʃəs/",kana:"アンクシャス",jp:"不安な",ex:{en:"She felt anxious about the future.",jp:"彼女は将来が不安でした。"}},
+    {en:"proud",ipa:"/praʊd/",kana:"プラウド",jp:"誇りに思って",ex:{en:"I'm proud of my team.",jp:"チームを誇りに思います。"}},
+    {en:"grateful",ipa:"/ˈɡreɪtfəl/",kana:"グレイトフル",jp:"感謝して",ex:{en:"I'm grateful for your support.",jp:"ご支援に感謝しています。"}}
+  ],
+  "句動詞":[
+    {en:"give up",ipa:"/ɡɪv ʌp/",kana:"ギヴ アップ",jp:"あきらめる",ex:{en:"Don't give up on your dream.",jp:"夢をあきらめないで。"}},
+    {en:"look for",ipa:"/lʊk fɔːr/",kana:"ルック フォー",jp:"〜を探す",ex:{en:"I'm looking for my keys.",jp:"鍵を探しています。"}},
+    {en:"take off",ipa:"/teɪk ɔːf/",kana:"テイク オフ",jp:"離陸する・脱ぐ",ex:{en:"The plane took off on time.",jp:"飛行機は定刻に離陸しました。"}},
+    {en:"turn on",ipa:"/tɜːrn ɑːn/",kana:"ターン オン",jp:"（電源を）つける",ex:{en:"Turn on the light, please.",jp:"電気をつけてください。"}},
+    {en:"pick up",ipa:"/pɪk ʌp/",kana:"ピック アップ",jp:"拾う・迎えに行く",ex:{en:"I'll pick you up at seven.",jp:"7時に迎えに行きます。"}},
+    {en:"get along",ipa:"/ɡet əˈlɔːŋ/",kana:"ゲット アロング",jp:"仲良くする",ex:{en:"I get along with my coworkers.",jp:"同僚とは仲良くやっています。"}},
+    {en:"put off",ipa:"/pʊt ɔːf/",kana:"プット オフ",jp:"延期する",ex:{en:"We put off the meeting until Monday.",jp:"会議を月曜日に延期しました。"}},
+    {en:"figure out",ipa:"/ˈfɪɡjər aʊt/",kana:"フィギュア アウト",jp:"理解する・解決する",ex:{en:"I can't figure out this problem.",jp:"この問題が理解できません。"}}
+  ],
+  "社会生活":[
+    {en:"environment",ipa:"/ɪnˈvaɪrənmənt/",kana:"インヴァイロンメント",jp:"環境",ex:{en:"We should protect the environment.",jp:"環境を守るべきです。"}},
+    {en:"government",ipa:"/ˈɡʌvərnmənt/",kana:"ガヴァメント",jp:"政府",ex:{en:"The government announced a new plan.",jp:"政府は新しい計画を発表しました。"}},
+    {en:"education",ipa:"/ˌedʒuˈkeɪʃən/",kana:"エヂュケイション",jp:"教育",ex:{en:"Education changes lives.",jp:"教育は人生を変えます。"}},
+    {en:"culture",ipa:"/ˈkʌltʃər/",kana:"カルチャー",jp:"文化",ex:{en:"I'm interested in foreign cultures.",jp:"外国の文化に興味があります。"}},
+    {en:"experience",ipa:"/ɪkˈspɪriəns/",kana:"イクスピアリエンス",jp:"経験",ex:{en:"Studying abroad was a great experience.",jp:"留学はすばらしい経験でした。"}},
+    {en:"opportunity",ipa:"/ˌɑːpərˈtuːnəti/",kana:"アポチュニティ",jp:"機会",ex:{en:"This is a great opportunity to learn.",jp:"これは学ぶ絶好の機会です。"}},
+    {en:"decision",ipa:"/dɪˈsɪʒən/",kana:"ディスィジョン",jp:"決定",ex:{en:"It was a difficult decision.",jp:"それは難しい決断でした。"}},
+    {en:"information",ipa:"/ˌɪnfərˈmeɪʃən/",kana:"インフォメイション",jp:"情報",ex:{en:"I need more information about the tour.",jp:"ツアーについてもっと情報が必要です。"}}
+  ],
+  "買い物・お金":[
+    {en:"price",ipa:"/praɪs/",kana:"プライス",jp:"値段",ex:{en:"Prices are going up.",jp:"物価が上がっています。"}},
+    {en:"discount",ipa:"/ˈdɪskaʊnt/",kana:"ディスカウント",jp:"割引",ex:{en:"Can I get a discount?",jp:"割引してもらえますか？"}},
+    {en:"refund",ipa:"/ˈriːfʌnd/",kana:"リーファンド",jp:"返金",ex:{en:"I'd like a refund, please.",jp:"返金をお願いします。"}},
+    {en:"receipt",ipa:"/rɪˈsiːt/",kana:"リスィート",jp:"レシート・領収書",ex:{en:"Keep your receipt.",jp:"レシートを取っておいてください。"}},
+    {en:"budget",ipa:"/ˈbʌdʒɪt/",kana:"バジェット",jp:"予算",ex:{en:"We are over budget.",jp:"予算をオーバーしています。"}},
+    {en:"expensive",ipa:"/ɪkˈspensɪv/",kana:"イクスペンスィヴ",jp:"高価な",ex:{en:"This bag is too expensive.",jp:"このかばんは高すぎます。"}},
+    {en:"cheap",ipa:"/tʃiːp/",kana:"チープ",jp:"安い",ex:{en:"I found a cheap flight.",jp:"安い航空券を見つけました。"}},
+    {en:"exchange",ipa:"/ɪksˈtʃeɪndʒ/",kana:"イクスチェインジ",jp:"交換する",ex:{en:"Can I exchange this for a bigger one?",jp:"これを大きいサイズと交換できますか？"}}
+  ],
+  "人間関係":[
+    {en:"relationship",ipa:"/rɪˈleɪʃənʃɪp/",kana:"リレイションシップ",jp:"関係",ex:{en:"They have a good relationship.",jp:"彼らは良い関係です。"}},
+    {en:"neighbor",ipa:"/ˈneɪbər/",kana:"ネイバー",jp:"隣人",ex:{en:"My neighbor is very kind.",jp:"隣人はとても親切です。"}},
+    {en:"stranger",ipa:"/ˈstreɪndʒər/",kana:"ストレインジャー",jp:"見知らぬ人",ex:{en:"Don't talk to strangers.",jp:"知らない人と話してはいけません。"}},
+    {en:"friendship",ipa:"/ˈfrendʃɪp/",kana:"フレンドシップ",jp:"友情",ex:{en:"Our friendship has lasted twenty years.",jp:"私たちの友情は20年続いています。"}},
+    {en:"trust",ipa:"/trʌst/",kana:"トラスト",jp:"信頼する",ex:{en:"I trust her completely.",jp:"彼女を完全に信頼しています。"}},
+    {en:"respect",ipa:"/rɪˈspekt/",kana:"リスペクト",jp:"尊敬する",ex:{en:"We should respect each other.",jp:"お互いを尊重すべきです。"}},
+    {en:"promise",ipa:"/ˈprɑːmɪs/",kana:"プラミス",jp:"約束",ex:{en:"He always keeps his promises.",jp:"彼はいつも約束を守ります。"}},
+    {en:"apologize",ipa:"/əˈpɑːlədʒaɪz/",kana:"アパロジャイズ",jp:"謝る",ex:{en:"I apologize for the delay.",jp:"遅れて申し訳ありません。"}}
+  ]
+},phrases:[
+  {en:"Could you do me a favor?",jp:"お願いがあるのですが。"},
+  {en:"I'm afraid I can't make it.",jp:"残念ですが行けそうにありません。"},
+  {en:"Let me check my schedule.",jp:"予定を確認させてください。"},
+  {en:"It depends on the weather.",jp:"天気次第です。"},
+  {en:"I'm looking forward to seeing you.",jp:"お会いできるのを楽しみにしています。"},
+  {en:"Would you mind opening the window?",jp:"窓を開けていただけますか？"},
+  {en:"It's up to you.",jp:"あなた次第です。"},
+  {en:"I'll get back to you later.",jp:"あとで折り返し連絡します。"},
+  {en:"That makes sense.",jp:"なるほど、納得です。"},
+  {en:"Long time no see!",jp:"久しぶり！"},
+  {en:"I'll think about it.",jp:"考えておきます。"},
+  {en:"It's not a big deal.",jp:"大したことではありません。"},
+  {en:"Let's keep in touch.",jp:"連絡を取り合いましょう。"},
+  {en:"I didn't catch that. Could you say it again?",jp:"聞き取れませんでした。もう一度言ってもらえますか？"}
+]},
+"上級":{vocab:{
+  "ビジネス":[
+    {en:"negotiate",ipa:"/nɪˈɡoʊʃieɪt/",kana:"ニゴウシエイト",jp:"交渉する",ex:{en:"We negotiated a better price.",jp:"より良い価格を交渉しました。"}},
+    {en:"strategy",ipa:"/ˈstrætədʒi/",kana:"ストラテジー",jp:"戦略",ex:{en:"We need a new marketing strategy.",jp:"新しいマーケティング戦略が必要です。"}},
+    {en:"revenue",ipa:"/ˈrevənuː/",kana:"レヴェニュー",jp:"収益",ex:{en:"Revenue increased by ten percent.",jp:"収益は10％増加しました。"}},
+    {en:"investment",ipa:"/ɪnˈvestmənt/",kana:"インヴェストメント",jp:"投資",ex:{en:"It was a wise investment.",jp:"それは賢明な投資でした。"}},
+    {en:"competitor",ipa:"/kəmˈpetɪtər/",kana:"コンペティター",jp:"競合相手",ex:{en:"Our competitors lowered their prices.",jp:"競合他社が値下げをしました。"}},
+    {en:"productivity",ipa:"/ˌproʊdʌkˈtɪvəti/",kana:"プロダクティヴィティ",jp:"生産性",ex:{en:"Remote work improved our productivity.",jp:"リモートワークで生産性が向上しました。"}},
+    {en:"achievement",ipa:"/əˈtʃiːvmənt/",kana:"アチーヴメント",jp:"達成・業績",ex:{en:"Winning the award was a great achievement.",jp:"受賞は大きな業績でした。"}},
+    {en:"expand",ipa:"/ɪkˈspænd/",kana:"イクスパンド",jp:"拡大する",ex:{en:"The company plans to expand overseas.",jp:"その会社は海外展開を計画しています。"}}
+  ],
+  "社会・環境":[
+    {en:"sustainable",ipa:"/səˈsteɪnəbəl/",kana:"サステイナブル",jp:"持続可能な",ex:{en:"We aim for sustainable growth.",jp:"持続可能な成長を目指します。"}},
+    {en:"pollution",ipa:"/pəˈluːʃən/",kana:"ポリューション",jp:"汚染",ex:{en:"Air pollution is a serious problem.",jp:"大気汚染は深刻な問題です。"}},
+    {en:"poverty",ipa:"/ˈpɑːvərti/",kana:"パヴァティ",jp:"貧困",ex:{en:"Many children live in poverty.",jp:"多くの子どもが貧困の中で暮らしています。"}},
+    {en:"welfare",ipa:"/ˈwelfer/",kana:"ウェルフェア",jp:"福祉",ex:{en:"The country has a strong welfare system.",jp:"その国は福祉制度が充実しています。"}},
+    {en:"immigration",ipa:"/ˌɪmɪˈɡreɪʃən/",kana:"イミグレイション",jp:"移民・入国",ex:{en:"Immigration policy is a hot topic.",jp:"移民政策は注目の話題です。"}},
+    {en:"urbanization",ipa:"/ˌɜːrbənəˈzeɪʃən/",kana:"アーバニゼイション",jp:"都市化",ex:{en:"Rapid urbanization changed the city.",jp:"急速な都市化が街を変えました。"}},
+    {en:"renewable",ipa:"/rɪˈnuːəbəl/",kana:"リニューアブル",jp:"再生可能な",ex:{en:"Renewable energy is the future.",jp:"再生可能エネルギーは未来です。"}},
+    {en:"biodiversity",ipa:"/ˌbaɪoʊdaɪˈvɜːrsəti/",kana:"バイオダイヴァーシティ",jp:"生物多様性",ex:{en:"We must preserve biodiversity.",jp:"生物多様性を守らなければなりません。"}}
+  ],
+  "学問・思考":[
+    {en:"analyze",ipa:"/ˈænəlaɪz/",kana:"アナライズ",jp:"分析する",ex:{en:"Let's analyze the data first.",jp:"まずデータを分析しましょう。"}},
+    {en:"hypothesis",ipa:"/haɪˈpɑːθəsɪs/",kana:"ハイパセシス",jp:"仮説",ex:{en:"The experiment supported our hypothesis.",jp:"実験は私たちの仮説を裏付けました。"}},
+    {en:"evidence",ipa:"/ˈevɪdəns/",kana:"エヴィデンス",jp:"証拠",ex:{en:"There is no evidence for that claim.",jp:"その主張には証拠がありません。"}},
+    {en:"theory",ipa:"/ˈθɪəri/",kana:"スィオリー",jp:"理論",ex:{en:"His theory was proved correct.",jp:"彼の理論は正しいと証明されました。"}},
+    {en:"perspective",ipa:"/pərˈspektɪv/",kana:"パースペクティヴ",jp:"視点",ex:{en:"Try to see it from a different perspective.",jp:"違う視点から見てみましょう。"}},
+    {en:"evaluate",ipa:"/ɪˈvæljueɪt/",kana:"イヴァリュエイト",jp:"評価する",ex:{en:"We need to evaluate the results carefully.",jp:"結果を慎重に評価する必要があります。"}},
+    {en:"significant",ipa:"/sɪɡˈnɪfɪkənt/",kana:"スィグニフィカント",jp:"重要な・著しい",ex:{en:"There was a significant difference.",jp:"著しい違いがありました。"}},
+    {en:"phenomenon",ipa:"/fəˈnɑːmɪnɑːn/",kana:"フェナミナン",jp:"現象",ex:{en:"This is a natural phenomenon.",jp:"これは自然現象です。"}}
+  ],
+  "性格・評価":[
+    {en:"ambitious",ipa:"/æmˈbɪʃəs/",kana:"アンビシャス",jp:"野心的な",ex:{en:"She is ambitious and hardworking.",jp:"彼女は野心的で勤勉です。"}},
+    {en:"considerate",ipa:"/kənˈsɪdərət/",kana:"コンスィダレット",jp:"思いやりのある",ex:{en:"He is considerate of others.",jp:"彼は他人への思いやりがあります。"}},
+    {en:"stubborn",ipa:"/ˈstʌbərn/",kana:"スタボーン",jp:"頑固な",ex:{en:"My father is a little stubborn.",jp:"父は少し頑固です。"}},
+    {en:"reliable",ipa:"/rɪˈlaɪəbəl/",kana:"リライアブル",jp:"信頼できる",ex:{en:"She is a reliable leader.",jp:"彼女は信頼できるリーダーです。"}},
+    {en:"modest",ipa:"/ˈmɑːdɪst/",kana:"マデスト",jp:"謙虚な",ex:{en:"He is modest about his success.",jp:"彼は成功について謙虚です。"}},
+    {en:"decisive",ipa:"/dɪˈsaɪsɪv/",kana:"ディサイスィヴ",jp:"決断力のある",ex:{en:"A good manager must be decisive.",jp:"良い管理職は決断力が必要です。"}},
+    {en:"generous",ipa:"/ˈdʒenərəs/",kana:"ジェネラス",jp:"寛大な・気前のよい",ex:{en:"Thank you for your generous offer.",jp:"寛大な申し出に感謝します。"}},
+    {en:"diligent",ipa:"/ˈdɪlɪdʒənt/",kana:"ディリジェント",jp:"勤勉な",ex:{en:"She is a diligent student.",jp:"彼女は勤勉な学生です。"}}
+  ],
+  "抽象概念":[
+    {en:"concept",ipa:"/ˈkɑːnsept/",kana:"カンセプト",jp:"概念",ex:{en:"The concept is hard to explain.",jp:"その概念は説明が難しい。"}},
+    {en:"dilemma",ipa:"/dɪˈlemə/",kana:"ディレマ",jp:"ジレンマ",ex:{en:"I'm facing a difficult dilemma.",jp:"難しいジレンマに直面しています。"}},
+    {en:"priority",ipa:"/praɪˈɔːrəti/",kana:"プライオリティ",jp:"優先事項",ex:{en:"Safety is our top priority.",jp:"安全が最優先事項です。"}},
+    {en:"consequence",ipa:"/ˈkɑːnsəkwens/",kana:"カンセクエンス",jp:"結果・影響",ex:{en:"Every choice has consequences.",jp:"すべての選択には結果が伴います。"}},
+    {en:"alternative",ipa:"/ɔːlˈtɜːrnətɪv/",kana:"オルタナティヴ",jp:"代替案",ex:{en:"We should consider an alternative.",jp:"代替案を検討すべきです。"}},
+    {en:"controversy",ipa:"/ˈkɑːntrəvɜːrsi/",kana:"カントロヴァースィ",jp:"論争",ex:{en:"The decision caused controversy.",jp:"その決定は論争を引き起こしました。"}},
+    {en:"tendency",ipa:"/ˈtendənsi/",kana:"テンデンスィ",jp:"傾向",ex:{en:"He has a tendency to be late.",jp:"彼は遅刻しがちです。"}},
+    {en:"insight",ipa:"/ˈɪnsaɪt/",kana:"インサイト",jp:"洞察",ex:{en:"Her book gives deep insight into history.",jp:"彼女の本は歴史への深い洞察を与えてくれます。"}}
+  ],
+  "テクノロジー":[
+    {en:"technology",ipa:"/tekˈnɑːlədʒi/",kana:"テクナロジー",jp:"技術",ex:{en:"Technology changes our lives.",jp:"技術は私たちの生活を変えます。"}},
+    {en:"innovation",ipa:"/ˌɪnəˈveɪʃən/",kana:"イノヴェイション",jp:"革新",ex:{en:"The company is known for innovation.",jp:"その会社は革新で知られています。"}},
+    {en:"artificial",ipa:"/ˌɑːrtɪˈfɪʃəl/",kana:"アーティフィシャル",jp:"人工の",ex:{en:"Artificial intelligence is everywhere now.",jp:"人工知能は今やどこにでもあります。"}},
+    {en:"digital",ipa:"/ˈdɪdʒɪtəl/",kana:"ディジタル",jp:"デジタルの",ex:{en:"We live in a digital age.",jp:"私たちはデジタル時代に生きています。"}},
+    {en:"device",ipa:"/dɪˈvaɪs/",kana:"ディヴァイス",jp:"機器",ex:{en:"Turn off all electronic devices.",jp:"電子機器の電源をお切りください。"}},
+    {en:"software",ipa:"/ˈsɔːftwer/",kana:"ソフトウェア",jp:"ソフトウェア",ex:{en:"The software needs an update.",jp:"そのソフトウェアは更新が必要です。"}},
+    {en:"security",ipa:"/sɪˈkjʊrəti/",kana:"スィキュリティ",jp:"安全・セキュリティ",ex:{en:"Security is our top concern.",jp:"セキュリティが最大の関心事です。"}},
+    {en:"efficient",ipa:"/ɪˈfɪʃənt/",kana:"イフィシェント",jp:"効率的な",ex:{en:"This engine is very efficient.",jp:"このエンジンはとても効率的です。"}}
+  ],
+  "健康・医療":[
+    {en:"symptom",ipa:"/ˈsɪmptəm/",kana:"スィンプトム",jp:"症状",ex:{en:"What are your symptoms?",jp:"どんな症状がありますか？"}},
+    {en:"diagnosis",ipa:"/ˌdaɪəɡˈnoʊsɪs/",kana:"ダイアグノウスィス",jp:"診断",ex:{en:"The doctor made a quick diagnosis.",jp:"医師はすぐに診断を下しました。"}},
+    {en:"treatment",ipa:"/ˈtriːtmənt/",kana:"トリートメント",jp:"治療",ex:{en:"The treatment was successful.",jp:"治療は成功しました。"}},
+    {en:"prescription",ipa:"/prɪˈskrɪpʃən/",kana:"プリスクリプション",jp:"処方箋",ex:{en:"You need a prescription for this medicine.",jp:"この薬には処方箋が必要です。"}},
+    {en:"surgery",ipa:"/ˈsɜːrdʒəri/",kana:"サージャリー",jp:"手術",ex:{en:"He recovered quickly after surgery.",jp:"彼は手術後すぐに回復しました。"}},
+    {en:"prevention",ipa:"/prɪˈvenʃən/",kana:"プリヴェンション",jp:"予防",ex:{en:"Prevention is better than cure.",jp:"予防は治療に勝る。"}},
+    {en:"immune",ipa:"/ɪˈmjuːn/",kana:"イミューン",jp:"免疫の",ex:{en:"Sleep strengthens the immune system.",jp:"睡眠は免疫システムを強化します。"}},
+    {en:"chronic",ipa:"/ˈkrɑːnɪk/",kana:"クラニック",jp:"慢性の",ex:{en:"He suffers from chronic back pain.",jp:"彼は慢性の腰痛に悩んでいます。"}}
+  ]
+},phrases:[
+  {en:"I couldn't agree with you more.",jp:"まったく同感です。"},
+  {en:"Let's get down to business.",jp:"本題に入りましょう。"},
+  {en:"Correct me if I'm wrong, but this data seems old.",jp:"間違っていたら指摘してください、このデータは古いようです。"},
+  {en:"From my point of view, the plan needs more time.",jp:"私の見解では、この計画にはもっと時間が必要です。"},
+  {en:"It's worth discussing in depth.",jp:"深く議論する価値があります。"},
+  {en:"We should take the cost into account.",jp:"コストを考慮に入れるべきです。"},
+  {en:"That's easier said than done.",jp:"言うは易く行うは難し、です。"},
+  {en:"I see your point, but I have a different opinion.",jp:"おっしゃることは分かりますが、私は違う意見です。"},
+  {en:"Could you elaborate on that?",jp:"その点を詳しく説明していただけますか？"},
+  {en:"Let's agree to disagree.",jp:"意見の違いは違いとして認めましょう。"},
+  {en:"Let me play devil's advocate for a moment.",jp:"あえて反対の立場から言わせてください。"},
+  {en:"We're on the same page.",jp:"私たちの認識は一致しています。"},
+  {en:"That's beside the point.",jp:"それは論点がずれています。"},
+  {en:"I'd like to hear your honest opinion.",jp:"率直なご意見を伺いたいです。"}
+]},
+"超上級":{vocab:{
+  "評論・論説":[
+    {en:"advocate",ipa:"/ˈædvəkeɪt/",kana:"アドヴォケイト",jp:"主張する・擁護する",ex:{en:"She advocates for free education.",jp:"彼女は無償教育を主張しています。"}},
+    {en:"scrutinize",ipa:"/ˈskruːtənaɪz/",kana:"スクルーティナイズ",jp:"精査する",ex:{en:"The committee scrutinized the report.",jp:"委員会は報告書を精査しました。"}},
+    {en:"undermine",ipa:"/ˌʌndərˈmaɪn/",kana:"アンダーマイン",jp:"徐々に弱体化させる",ex:{en:"The scandal undermined public trust.",jp:"そのスキャンダルは国民の信頼を損ないました。"}},
+    {en:"exacerbate",ipa:"/ɪɡˈzæsərbeɪt/",kana:"イグザサベイト",jp:"悪化させる",ex:{en:"The policy exacerbated the problem.",jp:"その政策は問題を悪化させました。"}},
+    {en:"mitigate",ipa:"/ˈmɪtɪɡeɪt/",kana:"ミティゲイト",jp:"緩和する",ex:{en:"We must mitigate the risks.",jp:"リスクを緩和しなければなりません。"}},
+    {en:"unprecedented",ipa:"/ʌnˈpresɪdentɪd/",kana:"アンプレスィデンティッド",jp:"前例のない",ex:{en:"We face an unprecedented crisis.",jp:"私たちは前例のない危機に直面しています。"}},
+    {en:"compelling",ipa:"/kəmˈpelɪŋ/",kana:"コンペリング",jp:"説得力のある",ex:{en:"He made a compelling argument.",jp:"彼は説得力のある主張をしました。"}},
+    {en:"profound",ipa:"/prəˈfaʊnd/",kana:"プロファウンド",jp:"深遠な・重大な",ex:{en:"The discovery had a profound impact.",jp:"その発見は重大な影響を与えました。"}}
+  ],
+  "政治・経済":[
+    {en:"legislation",ipa:"/ˌledʒɪsˈleɪʃən/",kana:"レジスレイション",jp:"法律・立法",ex:{en:"New legislation was passed last week.",jp:"先週新しい法律が成立しました。"}},
+    {en:"diplomacy",ipa:"/dɪˈploʊməsi/",kana:"ディプロマスィ",jp:"外交",ex:{en:"The conflict was resolved through diplomacy.",jp:"紛争は外交によって解決されました。"}},
+    {en:"inflation",ipa:"/ɪnˈfleɪʃən/",kana:"インフレイション",jp:"インフレ・物価上昇",ex:{en:"Inflation hit a forty-year high.",jp:"インフレ率は40年ぶりの高水準に達しました。"}},
+    {en:"monopoly",ipa:"/məˈnɑːpəli/",kana:"モナポリー",jp:"独占",ex:{en:"The company has a monopoly on the market.",jp:"その企業は市場を独占しています。"}},
+    {en:"subsidy",ipa:"/ˈsʌbsədi/",kana:"サブスィディ",jp:"補助金",ex:{en:"Farmers receive government subsidies.",jp:"農家は政府の補助金を受けています。"}},
+    {en:"deficit",ipa:"/ˈdefɪsɪt/",kana:"デフィスィット",jp:"赤字",ex:{en:"The trade deficit is growing.",jp:"貿易赤字が拡大しています。"}},
+    {en:"referendum",ipa:"/ˌrefəˈrendəm/",kana:"レファレンダム",jp:"国民投票",ex:{en:"The issue was decided by referendum.",jp:"その問題は国民投票で決定されました。"}},
+    {en:"sanction",ipa:"/ˈsæŋkʃən/",kana:"サンクション",jp:"制裁",ex:{en:"Economic sanctions were imposed.",jp:"経済制裁が課されました。"}}
+  ],
+  "学術語彙":[
+    {en:"empirical",ipa:"/ɪmˈpɪrɪkəl/",kana:"エンピリカル",jp:"実証的な",ex:{en:"The theory lacks empirical evidence.",jp:"その理論には実証的な証拠が欠けています。"}},
+    {en:"paradigm",ipa:"/ˈpærədaɪm/",kana:"パラダイム",jp:"枠組み・パラダイム",ex:{en:"The discovery caused a paradigm shift.",jp:"その発見はパラダイムシフトを起こしました。"}},
+    {en:"correlation",ipa:"/ˌkɔːrəˈleɪʃən/",kana:"コーリレイション",jp:"相関関係",ex:{en:"There is a correlation between sleep and health.",jp:"睡眠と健康には相関関係があります。"}},
+    {en:"methodology",ipa:"/ˌmeθəˈdɑːlədʒi/",kana:"メソダロジー",jp:"方法論",ex:{en:"The study used a new methodology.",jp:"その研究は新しい方法論を用いました。"}},
+    {en:"ambiguous",ipa:"/æmˈbɪɡjuəs/",kana:"アンビギュアス",jp:"あいまいな",ex:{en:"His answer was ambiguous.",jp:"彼の答えはあいまいでした。"}},
+    {en:"intrinsic",ipa:"/ɪnˈtrɪnzɪk/",kana:"イントリンズィック",jp:"本質的な",ex:{en:"Curiosity has intrinsic value.",jp:"好奇心には本質的な価値があります。"}},
+    {en:"plausible",ipa:"/ˈplɔːzəbəl/",kana:"プローズィブル",jp:"もっともらしい",ex:{en:"That is a plausible explanation.",jp:"それはもっともらしい説明です。"}},
+    {en:"coherent",ipa:"/koʊˈhɪrənt/",kana:"コウヒアレント",jp:"筋の通った",ex:{en:"She presented a coherent argument.",jp:"彼女は筋の通った主張を展開しました。"}}
+  ],
+  "イディオム":[
+    {en:"break the ice",ipa:"/breɪk ði aɪs/",kana:"ブレイク ジ アイス",jp:"場を和ませる",ex:{en:"A joke helped break the ice.",jp:"ジョークが場を和ませてくれました。"}},
+    {en:"once in a blue moon",ipa:"/wʌns ɪn ə bluː muːn/",kana:"ワンス イン ア ブルー ムーン",jp:"ごくまれに",ex:{en:"He visits us once in a blue moon.",jp:"彼が訪ねてくるのはごくまれです。"}},
+    {en:"under the weather",ipa:"/ˈʌndər ðə ˈweðər/",kana:"アンダー ザ ウェザー",jp:"体調が悪い",ex:{en:"I'm feeling a bit under the weather.",jp:"少し体調がすぐれません。"}},
+    {en:"spill the beans",ipa:"/spɪl ðə biːnz/",kana:"スピル ザ ビーンズ",jp:"秘密をもらす",ex:{en:"Don't spill the beans about the party!",jp:"パーティーのことは秘密にしてね！"}},
+    {en:"bite the bullet",ipa:"/baɪt ðə ˈbʊlɪt/",kana:"バイト ザ ブレット",jp:"覚悟を決めてやる",ex:{en:"I bit the bullet and apologized.",jp:"覚悟を決めて謝りました。"}},
+    {en:"cost an arm and a leg",ipa:"/kɔːst ən ɑːrm ənd ə leɡ/",kana:"コスト アン アーム アンド ア レッグ",jp:"非常に高くつく",ex:{en:"That car cost an arm and a leg.",jp:"あの車はものすごく高かった。"}},
+    {en:"burn the midnight oil",ipa:"/bɜːrn ðə ˈmɪdnaɪt ɔɪl/",kana:"バーン ザ ミッドナイト オイル",jp:"夜遅くまで働く",ex:{en:"I burned the midnight oil before the exam.",jp:"試験前は夜遅くまで勉強しました。"}},
+    {en:"the ball is in your court",ipa:"/ðə bɔːl ɪz ɪn jʊr kɔːrt/",kana:"ザ ボール イズ イン ユア コート",jp:"次はあなたの番",ex:{en:"I've done my part. The ball is in your court.",jp:"私の役目は果たしました。次はあなたの番です。"}}
+  ],
+  "高度な表現":[
+    {en:"nevertheless",ipa:"/ˌnevərðəˈles/",kana:"ネヴァザレス",jp:"それにもかかわらず",ex:{en:"It was risky; nevertheless, we tried.",jp:"危険でしたが、それでも挑戦しました。"}},
+    {en:"furthermore",ipa:"/ˈfɜːrðərmɔːr/",kana:"ファーザモア",jp:"さらに",ex:{en:"Furthermore, the cost is too high.",jp:"さらに、費用が高すぎます。"}},
+    {en:"albeit",ipa:"/ɔːlˈbiːɪt/",kana:"オールビーイット",jp:"〜ではあるが",ex:{en:"He accepted, albeit reluctantly.",jp:"彼はしぶしぶながらも受け入れました。"}},
+    {en:"notwithstanding",ipa:"/ˌnɑːtwɪθˈstændɪŋ/",kana:"ナットウィズスタンディング",jp:"〜にもかかわらず",ex:{en:"Notwithstanding the rain, the event was held.",jp:"雨にもかかわらず、イベントは開催されました。"}},
+    {en:"conversely",ipa:"/ˈkɑːnvɜːrsli/",kana:"カンヴァースリー",jp:"逆に",ex:{en:"Conversely, some people prefer winter.",jp:"逆に、冬を好む人もいます。"}},
+    {en:"whereby",ipa:"/werˈbaɪ/",kana:"ウェアバイ",jp:"それによって",ex:{en:"We made a system whereby errors are detected early.",jp:"エラーを早期発見できる仕組みを作りました。"}},
+    {en:"hence",ipa:"/hens/",kana:"ヘンス",jp:"それゆえに",ex:{en:"The demand rose; hence, prices increased.",jp:"需要が増えた。それゆえ価格が上がった。"}},
+    {en:"thereby",ipa:"/ˌðerˈbaɪ/",kana:"ゼアバイ",jp:"それによって",ex:{en:"We automated the process, thereby saving time.",jp:"工程を自動化し、それによって時間を節約しました。"}}
+  ],
+  "環境・科学":[
+    {en:"emission",ipa:"/ɪˈmɪʃən/",kana:"イミッション",jp:"排出",ex:{en:"We must cut carbon emissions.",jp:"炭素排出を削減しなければなりません。"}},
+    {en:"ecosystem",ipa:"/ˈiːkoʊsɪstəm/",kana:"イーコウスィステム",jp:"生態系",ex:{en:"The ecosystem is fragile.",jp:"生態系はもろいものです。"}},
+    {en:"deforestation",ipa:"/ˌdiːfɔːrɪˈsteɪʃən/",kana:"ディーフォレステイション",jp:"森林破壊",ex:{en:"Deforestation threatens wildlife.",jp:"森林破壊は野生生物を脅かします。"}},
+    {en:"contamination",ipa:"/kənˌtæmɪˈneɪʃən/",kana:"コンタミネイション",jp:"汚染",ex:{en:"Water contamination is a serious issue.",jp:"水質汚染は深刻な問題です。"}},
+    {en:"sustainability",ipa:"/səˌsteɪnəˈbɪləti/",kana:"サステイナビリティ",jp:"持続可能性",ex:{en:"Sustainability is key to our future.",jp:"持続可能性は未来への鍵です。"}},
+    {en:"genetic",ipa:"/dʒəˈnetɪk/",kana:"ジェネティック",jp:"遺伝子の",ex:{en:"Genetic research is advancing rapidly.",jp:"遺伝子研究は急速に進歩しています。"}},
+    {en:"quantum",ipa:"/ˈkwɑːntəm/",kana:"クワンタム",jp:"量子の",ex:{en:"Quantum computers may change everything.",jp:"量子コンピュータはすべてを変えるかもしれません。"}},
+    {en:"extinction",ipa:"/ɪkˈstɪŋkʃən/",kana:"イクスティンクション",jp:"絶滅",ex:{en:"Many species face extinction.",jp:"多くの種が絶滅の危機にあります。"}}
+  ],
+  "心理・思考":[
+    {en:"cognitive",ipa:"/ˈkɑːɡnətɪv/",kana:"カグニティヴ",jp:"認知の",ex:{en:"Reading improves cognitive skills.",jp:"読書は認知能力を高めます。"}},
+    {en:"bias",ipa:"/ˈbaɪəs/",kana:"バイアス",jp:"偏見・先入観",ex:{en:"We all have unconscious biases.",jp:"誰にでも無意識の偏見があります。"}},
+    {en:"intuition",ipa:"/ˌɪntuˈɪʃən/",kana:"インテュイション",jp:"直感",ex:{en:"Trust your intuition.",jp:"直感を信じなさい。"}},
+    {en:"perception",ipa:"/pərˈsepʃən/",kana:"パーセプション",jp:"知覚・認識",ex:{en:"Perception differs from person to person.",jp:"認識は人それぞれ異なります。"}},
+    {en:"rationale",ipa:"/ˌræʃəˈnæl/",kana:"ラショナール",jp:"根拠・理論的説明",ex:{en:"Explain the rationale behind your decision.",jp:"決定の根拠を説明してください。"}},
+    {en:"skepticism",ipa:"/ˈskeptɪsɪzəm/",kana:"スケプティスィズム",jp:"懐疑主義",ex:{en:"Healthy skepticism is valuable in science.",jp:"健全な懐疑心は科学において貴重です。"}},
+    {en:"empathy",ipa:"/ˈempəθi/",kana:"エンパシー",jp:"共感",ex:{en:"Empathy is essential for leadership.",jp:"共感はリーダーシップに不可欠です。"}},
+    {en:"resilience",ipa:"/rɪˈzɪliəns/",kana:"リズィリエンス",jp:"回復力",ex:{en:"She showed great resilience after the failure.",jp:"彼女は失敗後、見事な回復力を見せました。"}}
+  ]
+},phrases:[
+  {en:"I'm inclined to think otherwise.",jp:"私はむしろ逆だと考えています。"},
+  {en:"That argument doesn't hold water.",jp:"その主張は筋が通りません。"},
+  {en:"We need to look at the bigger picture.",jp:"より大きな視点で見る必要があります。"},
+  {en:"It's a double-edged sword.",jp:"それは諸刃の剣です。"},
+  {en:"The pros and cons should be weighed carefully.",jp:"利点と欠点を慎重に比較検討すべきです。"},
+  {en:"I can't emphasize this enough.",jp:"これはいくら強調してもし足りません。"},
+  {en:"To put it in a nutshell, we need more data.",jp:"要するに、もっとデータが必要だということです。"},
+  {en:"The situation calls for drastic measures.",jp:"この状況は思い切った対策を必要としています。"},
+  {en:"It remains to be seen whether the plan will work.",jp:"その計画がうまくいくかはまだ分かりません。"},
+  {en:"Hindsight is twenty-twenty.",jp:"後知恵は完璧なもの（あとからなら何とでも言える）。"},
+  {en:"Let's not jump to conclusions.",jp:"早合点はやめましょう。"},
+  {en:"The devil is in the details.",jp:"細部にこそ落とし穴がある。"},
+  {en:"We should err on the side of caution.",jp:"慎重すぎるくらいでちょうどいい。"},
+  {en:"That's a slippery slope.",jp:"それは歯止めが利かなくなる危険な道です。"}
+]}
+};
+
+/* ---------- 場面別会話 ---------- */
+const scenes={
+  "空港":[
+    {en:"I'd like to check in.",jp:"チェックインをお願いします。"},
+    {en:"Here's my passport and ticket.",jp:"これがパスポートと航空券です。"},
+    {en:"Can I take this on board?",jp:"これを機内に持ち込めますか？"},
+    {en:"Where is the boarding gate?",jp:"搭乗ゲートはどこですか？"},
+    {en:"Is the flight delayed?",jp:"便は遅れていますか？"},
+    {en:"My luggage is missing.",jp:"荷物が見つかりません。"},
+    {en:"Where is the baggage claim?",jp:"手荷物受取所はどこですか？"},
+    {en:"What time does boarding start?",jp:"搭乗は何時に始まりますか？"},
+    {en:"Could I have a blanket, please?",jp:"毛布をいただけますか？"}
+  ],
+  "ホテル":[
+    {en:"I have a reservation.",jp:"予約しています。"},
+    {en:"I'd like to check in, please.",jp:"チェックインしたいです。"},
+    {en:"Do you have a room with a nice view?",jp:"景色の見える部屋はありますか？"},
+    {en:"What time is checkout?",jp:"チェックアウトは何時ですか？"},
+    {en:"There's no hot water in my room.",jp:"部屋にお湯が出ません。"},
+    {en:"Could I get a wake-up call at seven?",jp:"7時にモーニングコールをお願いできますか？"},
+    {en:"Can I have an extra towel?",jp:"タオルをもう一枚もらえますか？"},
+    {en:"What's the Wi-Fi password?",jp:"Wi-Fiのパスワードは何ですか？"},
+    {en:"Could you keep my luggage until check-in?",jp:"チェックインまで荷物を預かってもらえますか？"},
+    {en:"Is breakfast included?",jp:"朝食は付いていますか？"}
+  ],
+  "レストラン":[
+    {en:"A table for two, please.",jp:"2人席をお願いします。"},
+    {en:"Can I see the menu?",jp:"メニューを見せてください。"},
+    {en:"What do you recommend?",jp:"おすすめは何ですか？"},
+    {en:"Not too spicy, please.",jp:"あまり辛くしないでください。"},
+    {en:"I'm allergic to peanuts.",jp:"ピーナッツのアレルギーがあります。"},
+    {en:"Another beer, please.",jp:"ビールをもう一杯ください。"},
+    {en:"It's delicious!",jp:"とても美味しいです！"},
+    {en:"Check, please.",jp:"お会計お願いします。"},
+    {en:"Do you have a vegetarian menu?",jp:"ベジタリアン向けのメニューはありますか？"},
+    {en:"Can we split the bill?",jp:"会計を別々にできますか？"},
+    {en:"Could I get this to go?",jp:"これを持ち帰りにできますか？"}
+  ],
+  "買い物":[
+    {en:"How much is this?",jp:"これはいくらですか？"},
+    {en:"That's too expensive. Can you give me a discount?",jp:"高いです。安くしてもらえますか？"},
+    {en:"Can I try this on?",jp:"試着できますか？"},
+    {en:"Do you have a bigger one?",jp:"もう少し大きいのはありますか？"},
+    {en:"Do you have this in another color?",jp:"別の色はありますか？"},
+    {en:"I'm just looking.",jp:"見ているだけです。"},
+    {en:"Can I pay by card?",jp:"カードは使えますか？"},
+    {en:"Can I have a receipt?",jp:"レシートをもらえますか？"},
+    {en:"I'll take this one.",jp:"これをください。"},
+    {en:"Can I return this if it doesn't fit?",jp:"合わなかったら返品できますか？"}
+  ],
+  "交通":[
+    {en:"I'd like to go to this place.",jp:"ここへ行きたいです。"},
+    {en:"How much is it to get there?",jp:"そこまでいくらかかりますか？"},
+    {en:"Please use the meter.",jp:"メーターを使ってください。"},
+    {en:"Please stop here.",jp:"ここで停めてください。"},
+    {en:"Which line goes to the airport?",jp:"空港へは何号線ですか？"},
+    {en:"What's the next station?",jp:"次の駅はどこですか？"},
+    {en:"Does this train go downtown?",jp:"この電車は中心街へ行きますか？"},
+    {en:"How long does it take to get there?",jp:"そこまでどのくらいかかりますか？"},
+    {en:"Where can I buy a ticket?",jp:"切符はどこで買えますか？"}
+  ],
+  "観光":[
+    {en:"How much is the admission?",jp:"入場料はいくらですか？"},
+    {en:"What time do you open?",jp:"何時に開きますか？"},
+    {en:"Can I take pictures here?",jp:"ここで写真を撮ってもいいですか？"},
+    {en:"Could you take a photo of us?",jp:"写真を撮ってもらえますか？"},
+    {en:"Where is the restroom?",jp:"トイレはどこですか？"},
+    {en:"Do you have a Japanese brochure?",jp:"日本語のパンフレットはありますか？"},
+    {en:"What are the must-see spots around here?",jp:"この近くの必見スポットはどこですか？"},
+    {en:"Is there a guided tour in English?",jp:"英語のガイドツアーはありますか？"},
+    {en:"What time is the last entry?",jp:"最終入場は何時ですか？"}
+  ],
+  "デート":[
+    {en:"You look great today.",jp:"今日は本当に素敵だね。"},
+    {en:"Would you like to have dinner with me?",jp:"一緒に夕食はいかがですか？"},
+    {en:"Can I buy you a coffee?",jp:"コーヒーをごちそうしてもいい？"},
+    {en:"What kind of movies do you like?",jp:"どんな映画が好き？"},
+    {en:"I really enjoy spending time with you.",jp:"君と過ごす時間が本当に楽しいよ。"},
+    {en:"Let me walk you home.",jp:"家まで送るよ。"},
+    {en:"Can I have your number?",jp:"連絡先を教えてもらえる？"},
+    {en:"I'd love to see you again.",jp:"また会いたいな。"},
+    {en:"This place has a great view.",jp:"ここは眺めが最高だね。"},
+    {en:"Are you free this weekend?",jp:"今週末は空いてる？"}
+  ],
+  "トラブル":[
+    {en:"Help!",jp:"助けて！"},
+    {en:"I'm lost.",jp:"道に迷いました。"},
+    {en:"My wallet was stolen.",jp:"財布を盗まれました。"},
+    {en:"Please call the police.",jp:"警察を呼んでください。"},
+    {en:"I don't feel well.",jp:"体調が悪いです。"},
+    {en:"Please call an ambulance.",jp:"救急車を呼んでください。"},
+    {en:"Is there a hospital near here?",jp:"近くに病院はありますか？"},
+    {en:"I don't understand. Could you speak more slowly?",jp:"分かりません。もっとゆっくり話してもらえますか？"},
+    {en:"I left my bag on the train.",jp:"電車にかばんを置き忘れました。"},
+    {en:"My phone is dead. Can I borrow a charger?",jp:"携帯の充電が切れました。充電器を借りられますか？"}
+  ],
+  "仕事・電話":[
+    {en:"Thank you for calling ABC Company.",jp:"お電話ありがとうございます、ABC社です。"},
+    {en:"May I speak to Mr. Smith?",jp:"スミスさんをお願いできますか？"},
+    {en:"Who's calling, please?",jp:"どちら様でしょうか？"},
+    {en:"He's in a meeting right now.",jp:"彼はただいま会議中です。"},
+    {en:"Can I leave a message?",jp:"伝言をお願いできますか？"},
+    {en:"I'll call back later.",jp:"後ほどかけ直します。"},
+    {en:"Could you email me the details?",jp:"詳細をメールで送っていただけますか？"},
+    {en:"Sorry, you have the wrong number.",jp:"すみません、番号をお間違えです。"}
+  ],
+  "スモールトーク":[
+    {en:"It's a beautiful day, isn't it?",jp:"いい天気ですね。"},
+    {en:"How was your weekend?",jp:"週末はどうでしたか？"},
+    {en:"Did you watch the game last night?",jp:"昨日の夜の試合、見ましたか？"},
+    {en:"I've been really busy lately.",jp:"最近すごく忙しくて。"},
+    {en:"Any plans for the holidays?",jp:"休みの予定はありますか？"},
+    {en:"Time flies, doesn't it?",jp:"時間が経つのは早いですね。"},
+    {en:"How's your family doing?",jp:"ご家族はお元気ですか？"},
+    {en:"It was nice talking to you.",jp:"お話しできてよかったです。"}
+  ]
+};
+
+/* ---------- 並べ替え用 文章データ ---------- */
+const builders={
+  "入門":[
+    {t:["I","am","from","Japan"],jp:"私は日本出身です。"},
+    {t:["What","is","your","name"],jp:"お名前は何ですか？"},
+    {t:["This","is","my","book"],jp:"これは私の本です。"},
+    {t:["I","like","cats"],jp:"私は猫が好きです。"},
+    {t:["How","much","is","this"],jp:"これはいくらですか？"},
+    {t:["She","is","my","friend"],jp:"彼女は私の友達です。"},
+    {t:["I","have","two","dogs"],jp:"犬を2匹飼っています。"},
+    {t:["Do","you","like","music"],jp:"音楽は好きですか？"},
+    {t:["My","father","is","a","teacher"],jp:"父は先生です。"},
+    {t:["Open","your","book","please"],jp:"本を開いてください。"}
+  ],
+  "初級":[
+    {t:["What","time","is","it","now"],jp:"今何時ですか？"},
+    {t:["I","want","to","visit","London"],jp:"ロンドンに行きたいです。"},
+    {t:["It","is","sunny","today"],jp:"今日は晴れです。"},
+    {t:["I","go","to","work","by","train"],jp:"電車で通勤しています。"},
+    {t:["Can","I","see","the","menu"],jp:"メニューを見てもいいですか？"},
+    {t:["This","is","my","new","phone"],jp:"これは私の新しい携帯です。"},
+    {t:["What","did","you","do","yesterday"],jp:"昨日は何をしましたか？"},
+    {t:["She","can","play","the","piano"],jp:"彼女はピアノが弾けます。"},
+    {t:["I","am","going","to","buy","a","ticket"],jp:"切符を買うつもりです。"},
+    {t:["There","are","many","parks","in","this","city"],jp:"この街には公園がたくさんあります。"}
+  ],
+  "中級":[
+    {t:["I","think","this","idea","is","great"],jp:"この案は素晴らしいと思います。"},
+    {t:["I","could","not","go","because","of","the","rain"],jp:"雨のせいで行けませんでした。"},
+    {t:["Could","you","do","me","a","favor"],jp:"お願いがあるのですが。"},
+    {t:["We","have","a","meeting","tomorrow"],jp:"明日会議があります。"},
+    {t:["He","is","interested","in","history"],jp:"彼は歴史に興味があります。"},
+    {t:["I","am","looking","forward","to","your","reply"],jp:"お返事を楽しみにしています。"},
+    {t:["I","have","never","been","to","London"],jp:"ロンドンに行ったことがありません。"},
+    {t:["She","asked","me","to","help","her"],jp:"彼女は私に手伝ってほしいと頼みました。"},
+    {t:["If","it","rains","we","will","stay","home"],jp:"雨が降ったら家にいます。"},
+    {t:["This","book","is","worth","reading"],jp:"この本は読む価値があります。"}
+  ],
+  "上級":[
+    {t:["I","completely","agree","with","your","opinion"],jp:"あなたの意見に全く同感です。"},
+    {t:["This","issue","is","worth","discussing","in","depth"],jp:"この問題は深く議論する価値があります。"},
+    {t:["We","should","protect","the","environment"],jp:"私たちは環境を守るべきです。"},
+    {t:["Education","plays","a","key","role","in","society"],jp:"教育は社会で重要な役割を果たします。"},
+    {t:["His","attitude","is","extremely","positive"],jp:"彼の態度は非常に前向きです。"},
+    {t:["The","meeting","was","put","off","until","Friday"],jp:"会議は金曜日に延期されました。"},
+    {t:["We","need","to","take","costs","into","account"],jp:"コストを考慮する必要があります。"},
+    {t:["He","is","said","to","be","a","great","leader"],jp:"彼は偉大なリーダーだと言われています。"},
+    {t:["The","problem","turned","out","to","be","serious"],jp:"その問題は深刻だと判明しました。"},
+    {t:["Not","until","yesterday","did","I","know","the","truth"],jp:"昨日になって初めて真実を知りました。"}
+  ],
+  "超上級":[
+    {t:["We","must","prepare","for","the","worst"],jp:"最悪の事態に備えなければなりません。"},
+    {t:["This","measure","has","proved","highly","effective"],jp:"この対策は非常に効果的だと証明されました。"},
+    {t:["We","should","proceed","step","by","step"],jp:"一歩ずつ進めるべきです。"},
+    {t:["Practice","is","the","best","way","to","master","a","skill"],jp:"練習こそ技能習得の最良の方法です。"},
+    {t:["It","remains","to","be","seen","whether","it","works"],jp:"うまくいくかはまだ分かりません。"},
+    {t:["Little","did","I","know","what","was","coming"],jp:"何が起こるか全く知る由もありませんでした。"},
+    {t:["The","evidence","speaks","for","itself"],jp:"証拠がすべてを物語っています。"},
+    {t:["Seldom","have","I","seen","such","dedication"],jp:"これほどの献身はめったに見たことがありません。"},
+    {t:["The","policy","did","more","harm","than","good"],jp:"その政策は益より害のほうが大きかった。"},
+    {t:["What","matters","most","is","consistency"],jp:"最も重要なのは一貫性です。"}
+  ]
+};
+
+/* ---------- 状態 ---------- */
+let curLevel="入門";
+try{const _l=localStorage.getItem("en-level");if(_l&&LEVELS.includes(_l))curLevel=_l;}catch(e){}
+function curVocab(){return data[curLevel].vocab;}
+function curPhrases(){return data[curLevel].phrases;}
+function curBuilders(){return builders[curLevel]||[];}
+
+/* ---------- タブ切替 ---------- */
+function go(sec){
+  document.querySelectorAll("section").forEach(s=>s.classList.toggle("show",s.id===sec));
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.sec===sec));
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(sec==="quiz")renderQuizMenu();
+  if(sec==="exam")renderExamMenu();
+  if(sec==="vocab"){buildCats();renderCards();}
+}
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>go(t.dataset.sec)));
+
+/* ---------- レベル切替 ---------- */
+function setLevel(lv){
+  if(!LEVELS.includes(lv))return;
+  curLevel=lv;
+  try{localStorage.setItem("en-level",lv);}catch(e){}
+  curCat=Object.keys(curVocab())[0];
+  refreshWords();
+  document.querySelectorAll(".lv").forEach(b=>b.classList.toggle("active",b.dataset.lv===lv));
+  const h=document.getElementById("lv-hint");if(h)h.textContent=LEVEL_HINT[lv];
+  buildCats();renderCards();renderPhrases();
+  if(document.getElementById("quiz").classList.contains("show"))renderQuizMenu();
+}
+document.querySelectorAll(".lv").forEach(b=>b.addEventListener("click",()=>setLevel(b.dataset.lv)));
+(function(){
+  document.querySelectorAll(".lv").forEach(b=>b.classList.toggle("active",b.dataset.lv===curLevel));
+  const h=document.getElementById("lv-hint");if(h)h.textContent=LEVEL_HINT[curLevel];
+})();
+
+/* ---------- フォニックス描画 ---------- */
+(function(){
+  const ag=document.getElementById("abc-grid");
+  ALPHABET.forEach(a=>{
+    const b=document.createElement("button");b.className="abc";
+    b.innerHTML=`<div class="al">${a.l}</div><div class="ak">${a.kana}</div>`;
+    b.onclick=()=>speak(a.say,true);
+    ag.appendChild(b);
+  });
+  const mk=(list,wrapId)=>{
+    const wrap=document.getElementById(wrapId);
+    list.forEach(s=>{
+      const d=document.createElement("div");d.className="sound-card";
+      d.innerHTML=`
+        <div class="sound-sym">${s.ipa}</div>
+        <div>
+          <div class="sound-kana">${s.kana}</div>
+          <div class="sound-desc">${s.desc}</div>
+          <div class="sound-ex">例：<span class="en">${s.ex}</span>（${s.exJp}）</div>
+        </div>
+        <button class="spk" aria-label="発音">${SPK}</button>`;
+      d.querySelector(".spk").onclick=()=>speak(s.ex,true);
+      wrap.appendChild(d);
+    });
+  };
+  mk(VOWELS,"vowel-list");
+  mk(CONSONANTS,"conso-list");
+  const rl=document.getElementById("rule-list");
+  RULES.forEach(r=>{
+    const d=document.createElement("div");d.className="sound-card";
+    d.innerHTML=`
+      <div class="sound-sym rule">${r.sym}</div>
+      <div>
+        <div class="sound-kana">${r.ttl}</div>
+        <div class="sound-desc">${r.desc}</div>
+        <div class="sound-ex">例：<span class="en">${r.ex}</span></div>
+      </div>
+      <button class="spk" aria-label="発音">${SPK}</button>`;
+    d.querySelector(".spk").onclick=()=>speak(r.say,true);
+    rl.appendChild(d);
+  });
+})();
+
+/* ---------- 苦手単語（お気に入り） ---------- */
+const FAV_KEY="en-favs",FAV_CAT="★ 苦手";
+let favs=[];
+try{favs=JSON.parse(localStorage.getItem(FAV_KEY)||"[]");}catch(e){favs=[];}
+function saveFavs(){try{localStorage.setItem(FAV_KEY,JSON.stringify(favs));}catch(e){}}
+function isFav(en){return favs.includes(en);}
+function toggleFav(en){favs=isFav(en)?favs.filter(x=>x!==en):favs.concat(en);saveFavs();}
+function addFav(en){if(!isFav(en)){favs.push(en);saveFavs();}}
+const wordByEn={};
+LEVELS.forEach(lv=>Object.values(data[lv].vocab).forEach(a=>a.forEach(w=>{wordByEn[w.en]=w;})));
+function favWords(){return favs.map(en=>wordByEn[en]).filter(Boolean);}
+
+/* ---------- 学習記録・進捗 ---------- */
+const PROG_KEY="en-progress";
+let prog={lastDate:"",streak:0,best:0,days:0,learned:{},quizPlayed:0,quizBest:0,examPlayed:0,examBest:0,examBestLevel:""};
+try{const p=JSON.parse(localStorage.getItem(PROG_KEY));if(p)prog=Object.assign(prog,p);}catch(e){}
+function saveProg(){try{localStorage.setItem(PROG_KEY,JSON.stringify(prog));}catch(e){}}
+function todayStr(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function dayDiff(a,b){return Math.round((new Date(b)-new Date(a))/86400000);}
+(function(){if(prog.lastDate){const d=dayDiff(prog.lastDate,todayStr());if(d>1){prog.streak=0;saveProg();}}})();
+function markStudy(){
+  const t=todayStr();
+  if(prog.lastDate===t){return;}
+  if(prog.lastDate){const diff=dayDiff(prog.lastDate,t);prog.streak=diff===1?prog.streak+1:1;}
+  else{prog.streak=1;}
+  prog.lastDate=t;prog.days++;
+  if(prog.streak>prog.best)prog.best=prog.streak;
+  saveProg();renderProgress();
+}
+function learnWord(en){if(en&&wordByEn[en]&&!prog.learned[en]){prog.learned[en]=true;saveProg();renderProgress();}}
+function recordQuiz(score){prog.quizPlayed++;if(score>prog.quizBest)prog.quizBest=score;saveProg();renderProgress();}
+function recordExam(pct,lv){prog.examPlayed++;if(pct>prog.examBest){prog.examBest=pct;prog.examBestLevel=lv;}saveProg();renderProgress();}
+const BADGES=[
+  {ico:"🌱",name:"はじめの一歩",test:p=>p.days>=1},
+  {ico:"🔥",name:"3日連続",test:p=>p.best>=3},
+  {ico:"⚡",name:"7日連続",test:p=>p.best>=7},
+  {ico:"👑",name:"30日連続",test:p=>p.best>=30},
+  {ico:"📖",name:"単語10",test:p=>Object.keys(p.learned).length>=10},
+  {ico:"📚",name:"単語50",test:p=>Object.keys(p.learned).length>=50},
+  {ico:"🎓",name:"単語100",test:p=>Object.keys(p.learned).length>=100},
+  {ico:"💯",name:"クイズ満点",test:p=>p.quizBest>=10}
+];
+function renderProgress(){
+  const total=Object.keys(wordByEn).length;
+  const learned=Object.keys(prog.learned).filter(en=>wordByEn[en]).length;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set("sk-num",prog.streak);set("sk-best",prog.best);
+  const today=document.getElementById("sk-today");
+  if(today)today.textContent=prog.lastDate===todayStr()?"今日も学習！✓":"今日はまだ";
+  set("st-learned",learned);set("st-total",total);
+  const bar=document.getElementById("st-bar");if(bar)bar.style.width=(total?Math.round(learned/total*100):0)+"%";
+  set("st-qbest",prog.quizBest);set("st-qcount",prog.quizPlayed);set("st-days",prog.days);
+  set("st-ebest",prog.examBest>0?prog.examBest+"%":"—");
+  set("st-elv",prog.examBest>0?prog.examBestLevel+"（"+prog.examPlayed+"回受験）":"まだ未受験");
+  const row=document.getElementById("badge-row");
+  if(row){row.innerHTML="";BADGES.forEach(b=>{const on=b.test(prog);const el=document.createElement("div");el.className="badge"+(on?" on":"");el.innerHTML=`<span class="b-ico">${b.ico}</span>${b.name}`;row.appendChild(el);});}
+}
+
+/* ---------- 単語 ---------- */
+const catWrap=document.getElementById("cats");
+const cardWrap=document.getElementById("cards");
+let curCat=Object.keys(curVocab())[0];
+function buildCats(){
+  catWrap.innerHTML="";
+  [FAV_CAT,...Object.keys(curVocab())].forEach(c=>{
+    const b=document.createElement("button");
+    b.className="cat"+(c===curCat?" active":"");
+    b.textContent=c===FAV_CAT?`${FAV_CAT} (${favWords().length})`:c;
+    b.onclick=()=>{curCat=c;buildCats();renderCards();};
+    catWrap.appendChild(b);
+  });
+}
+function renderCards(){
+  cardWrap.innerHTML="";
+  const list=curCat===FAV_CAT?favWords():curVocab()[curCat];
+  if(curCat===FAV_CAT&&list.length===0){
+    cardWrap.innerHTML=`<div class="empty">まだ苦手単語がありません。<br>カードの☆を押すか、クイズで間違えた単語が自動で登録されます。</div>`;
+    return;
+  }
+  list.forEach(w=>{
+    const f=document.createElement("div");f.className="flip";
+    f.innerHTML=`
+      <div class="flip-in">
+        <div class="face front">
+          <button class="fav${isFav(w.en)?" on":""}" aria-label="苦手に登録">${isFav(w.en)?"★":"☆"}</button>
+          <div class="wd">${w.en}</div><div class="ipa">${w.ipa}</div><div class="hint">TAP</div></div>
+        <div class="face back"><div class="jp">${w.jp}</div><div class="kana">${w.kana}</div>
+          ${w.ex?`<div class="ex"><div class="ex-en">${w.ex.en}</div><div class="ex-jp">${w.ex.jp}</div></div>`:""}
+          <button class="spk" aria-label="発音">${SPK}</button></div>
+      </div>`;
+    f.addEventListener("click",e=>{ if(e.target.closest(".spk")||e.target.closest(".fav")||e.target.closest(".ex-en"))return; f.classList.toggle("flipped"); if(f.classList.contains("flipped")){markStudy();learnWord(w.en);} });
+    f.querySelector(".spk").onclick=e=>{e.stopPropagation();speak(w.en,true);};
+    if(w.ex){const exen=f.querySelector(".ex-en");if(exen)exen.onclick=e=>{e.stopPropagation();speak(w.ex.en,true);};}
+    f.querySelector(".fav").onclick=e=>{
+      e.stopPropagation();toggleFav(w.en);buildCats();
+      if(curCat===FAV_CAT){renderCards();return;}
+      const btn=f.querySelector(".fav"),on=isFav(w.en);
+      btn.classList.toggle("on",on);btn.textContent=on?"★":"☆";
+    };
+    cardWrap.appendChild(f);
+  });
+}
+buildCats();
+renderCards();
+
+/* ---------- フレーズ ---------- */
+const pl=document.getElementById("phrase-list");
+function renderPhrases(){
+  pl.innerHTML="";
+  curPhrases().forEach(p=>{
+    const d=document.createElement("div");d.className="ph";
+    d.innerHTML=`
+      <div class="ph-body">
+        <div class="ph-en">${p.en}</div>
+        ${p.kana?`<div class="ph-kana">${p.kana}</div>`:""}
+        <div class="ph-jp">${p.jp}</div>
+      </div>
+      <button class="spk" aria-label="発音">${SPK}</button>`;
+    d.querySelector(".spk").onclick=()=>speak(p.en,true);
+    pl.appendChild(d);
+  });
+}
+renderPhrases();
+
+/* ---------- 場面別会話 ---------- */
+const sceneCatWrap=document.getElementById("scene-cats");
+const sceneList=document.getElementById("scene-list");
+let curScene=Object.keys(scenes)[0];
+function buildSceneCats(){
+  sceneCatWrap.innerHTML="";
+  Object.keys(scenes).forEach(c=>{
+    const b=document.createElement("button");
+    b.className="cat"+(c===curScene?" active":"");
+    b.textContent=c;
+    b.onclick=()=>{curScene=c;buildSceneCats();renderScenes();};
+    sceneCatWrap.appendChild(b);
+  });
+}
+function renderScenes(){
+  sceneList.innerHTML="";
+  scenes[curScene].forEach(p=>{
+    const d=document.createElement("div");d.className="ph";
+    d.innerHTML=`
+      <div class="ph-body">
+        <div class="ph-en">${p.en}</div>
+        <div class="ph-jp">${p.jp}</div>
+      </div>
+      <button class="spk" aria-label="発音">${SPK}</button>`;
+    d.querySelector(".spk").onclick=()=>speak(p.en,true);
+    sceneList.appendChild(d);
+  });
+}
+buildSceneCats();
+renderScenes();
+renderProgress();
+
+/* ---------- サイレント切替 ---------- */
+const silentToggle=document.getElementById("silent-toggle");
+function renderSilent(){silentToggle.classList.toggle("on",silent);silentToggle.setAttribute("aria-checked",silent?"true":"false");}
+silentToggle.onclick=()=>{
+  silent=!silent;
+  try{localStorage.setItem("en-silent",silent?"1":"0");}catch(e){}
+  if(silent&&window.speechSynthesis)speechSynthesis.cancel();
+  renderSilent();
+  if(document.getElementById("quiz").classList.contains("show"))renderQuizMenu();
+};
+renderSilent();
+
+/* ---------- クイズ ---------- */
+let allWords=[];
+function refreshWords(){allWords=[];Object.values(curVocab()).forEach(a=>a.forEach(w=>allWords.push(w)));}
+refreshWords();
+let qSet=[],qIdx=0,qScore=0;
+let qArea="quiz-area",examMode=false,examLevel="";
+const EXAM_N=20;
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const QTYPES=["en2jp","jp2en","en2ipa","listen"];
+function distractors(field,correctVal,n){
+  const out=[],seen={};seen[correctVal]=1;
+  for(const x of shuffle(allWords)){if(out.length>=n)break;if(seen[x[field]])continue;seen[x[field]]=1;out.push(x);}
+  return out;
+}
+let quizMode="mix";
+const QMODES=[
+  {id:"mix",ico:"🎲",ttl:"おまかせ",sub:"全形式ミックス（10問）"},
+  {id:"en2jp",ico:"🇬🇧",ttl:"英語 → 意味",sub:"英単語を見て意味を選ぶ"},
+  {id:"jp2en",ico:"🇯🇵",ttl:"意味 → 英語",sub:"意味を見て英単語を選ぶ"},
+  {id:"en2ipa",ico:"🗣️",ttl:"英語 → 発音記号",sub:"単語の発音記号を選ぶ"},
+  {id:"listen",ico:"🔊",ttl:"リスニング",sub:"音声を聞いて選ぶ"},
+  {id:"order",ico:"🔀",ttl:"並べ替え",sub:"単語を正しい語順に並べる"}
+];
+function renderQuizMenu(){
+  refreshWords();
+  const hasOrder=curBuilders().length>0;
+  const btns=QMODES.map(o=>{
+    let disabled=false,note=o.sub;
+    if(o.id==="listen"&&silent){disabled=true;note="サイレント中は使えません";}
+    if(o.id==="order"&&!hasOrder){disabled=true;note="このレベルには例文がありません";}
+    return `<button class="qmode" ${disabled?"disabled":""} onclick="startQuiz('${o.id}')">
+      <span class="qm-ico">${o.ico}</span>
+      <span class="qm-txt"><span class="qm-ttl">${o.ttl}</span><span class="qm-sub">${note}</span></span></button>`;
+  }).join("");
+  document.getElementById("quiz-area").innerHTML=`<div class="qmenu">${btns}</div>`;
+}
+function startQuiz(mode){
+  refreshWords();
+  if(mode)quizMode=mode;
+  const m=quizMode;
+  const items=[];
+  if(m==="order"){
+    const bld=shuffle(curBuilders());
+    if(!bld.length)return renderQuizMenu();
+    while(items.length<10)for(const b of bld){if(items.length>=10)break;items.push({type:"order",b});}
+  }else if(m==="mix"){
+    const types=silent?QTYPES.filter(t=>t!=="listen"):QTYPES;
+    const bld=shuffle(curBuilders());
+    const nOrder=Math.min(bld.length,3);
+    for(let i=0;i<nOrder;i++)items.push({type:"order",b:bld[i]});
+    shuffle(allWords).slice(0,10-nOrder).forEach(w=>items.push({type:types[Math.floor(Math.random()*types.length)],w}));
+  }else{
+    let type=m;
+    if(type==="listen"&&silent)type="en2jp";
+    shuffle(allWords).slice(0,10).forEach(w=>items.push({type,w}));
+  }
+  qSet=shuffle(items);qIdx=0;qScore=0;renderQ();
+}
+function renderQ(){
+  const area=document.getElementById(qArea);
+  if(qIdx>=qSet.length){
+    if(examMode)return renderExamResult(area);
+    recordQuiz(qScore);
+    let msg="また挑戦してみましょう！";
+    if(qScore>=9)msg="完璧です！Excellent!（すばらしい）";
+    else if(qScore>=7)msg="その調子！よくできました。";
+    else if(qScore>=4)msg="いい感じ。復習でもっと伸びます。";
+    area.innerHTML=`<div class="quiz-box result">
+      <div class="score">${qScore}<span style="font-size:24px;color:var(--ink-soft)">/10</span></div>
+      <div class="msg">${msg}</div>
+      <button class="q-next show" onclick="startQuiz()">もう一度</button>
+      <button class="q-next show" style="background:var(--card);color:var(--ink);border:1px solid var(--line);margin-left:8px" onclick="renderQuizMenu()">形式を選ぶ</button></div>`;
+    return;
+  }
+  if(qSet[qIdx].type==="order"){return renderOrder(area,qSet[qIdx].b);}
+  const {w,type}=qSet[qIdx];
+  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  let field,prompt,mainHtml,optEn=false,autoplay=false;
+  if(type==="jp2en"){
+    field="en";prompt="この意味の英単語は？";optEn=true;
+    mainHtml=`<div class="q-main q-jp">${esc(w.jp)}</div>`;
+  }else if(type==="en2ipa"){
+    field="ipa";prompt="この単語の発音記号は？";
+    mainHtml=`<div class="q-main en">${esc(w.en)}</div>`;
+  }else if(type==="listen"){
+    field="jp";prompt="音声を聞いて意味を選ぼう";autoplay=true;
+    mainHtml=`<div class="q-listen"><button class="q-play" id="qplay" aria-label="再生">${SPK}<span>もう一度聞く</span></button></div>`;
+  }else{
+    field="jp";prompt="この単語の意味は？";
+    mainHtml=`<div class="q-main en">${esc(w.en)}</div>
+      <div class="ph-kana" style="text-align:center">${esc(w.ipa)}
+        <button class="spk" style="vertical-align:middle;width:30px;height:30px;margin-left:6px" aria-label="発音">${SPK}</button></div>`;
+  }
+  const opts=shuffle([w,...distractors(field,w[field],3)]);
+  area.innerHTML=`<div class="quiz-box">
+    <div class="bar"><i style="width:${qIdx/qSet.length*100}%"></i></div>
+    <div class="q-meta"><span>第 ${qIdx+1} 問 / ${qSet.length}</span><span>正解 ${qScore}</span></div>
+    <div class="q-prompt">${prompt}</div>
+    ${mainHtml}
+    <div class="q-opts${optEn?" en":""}"></div>
+    <button class="q-next" id="qnext">次へ →</button>
+  </div>`;
+  const spk=area.querySelector(".spk");if(spk)spk.onclick=()=>speak(w.en,true);
+  const play=area.querySelector("#qplay");if(play)play.onclick=()=>speak(w.en,true);
+  if(autoplay)speak(w.en,true);
+  const ow=area.querySelector(".q-opts");
+  opts.forEach(o=>{
+    const b=document.createElement("button");b.className="opt";b.textContent=o[field];
+    b.onclick=()=>{
+      const all=ow.querySelectorAll(".opt");all.forEach(x=>x.disabled=true);
+      markStudy();learnWord(w.en);
+      if(o[field]===w[field]){b.classList.add("correct");qScore++;}
+      else{b.classList.add("wrong");addFav(w.en);all.forEach(x=>{if(x.textContent===w[field])x.classList.add("correct");});}
+      speak(w.en);
+      area.querySelector("#qnext").classList.add("show");
+      area.querySelector(".q-meta").children[1].textContent="正解 "+qScore;
+    };
+    ow.appendChild(b);
+  });
+  area.querySelector("#qnext").onclick=()=>{qIdx++;renderQ();};
+}
+function renderOrder(area,b){
+  const correct=b.t.join(" ");
+  const bank=shuffle(b.t.map((txt,i)=>({txt,id:i})));
+  const picked=[];
+  let done=false;
+  area.innerHTML=`<div class="quiz-box">
+    <div class="bar"><i style="width:${qIdx/qSet.length*100}%"></i></div>
+    <div class="q-meta"><span>第 ${qIdx+1} 問 / ${qSet.length}</span><span>正解 ${qScore}</span></div>
+    <div class="q-prompt">単語を正しい語順に並べ替えよう</div>
+    <div class="q-main q-jp" style="font-size:18px">${b.jp}</div>
+    <div class="q-target en" id="qtarget"></div>
+    <div class="q-bank en" id="qbank"></div>
+    <div class="q-actions"><button class="q-check" id="qcheck" disabled>確認</button></div>
+    <div class="q-answer" id="qans"></div>
+    <button class="q-next" id="qnext">次へ →</button>
+  </div>`;
+  const target=area.querySelector("#qtarget");
+  const bankEl=area.querySelector("#qbank");
+  const check=area.querySelector("#qcheck");
+  function draw(){
+    target.innerHTML="";bankEl.innerHTML="";
+    picked.forEach((tk,i)=>{
+      const sp=document.createElement("button");sp.className="tok";sp.textContent=tk.txt;
+      sp.onclick=()=>{if(done)return;bank.push(tk);picked.splice(i,1);draw();};
+      target.appendChild(sp);
+    });
+    bank.forEach((tk,i)=>{
+      const sp=document.createElement("button");sp.className="tok";sp.textContent=tk.txt;
+      sp.onclick=()=>{if(done)return;picked.push(tk);bank.splice(i,1);draw();};
+      bankEl.appendChild(sp);
+    });
+    check.disabled=picked.length!==b.t.length;
+  }
+  draw();
+  check.onclick=()=>{
+    if(done)return;done=true;
+    markStudy();
+    const ans=picked.map(t=>t.txt).join(" ");
+    const ok=ans===correct;
+    target.classList.add(ok?"ok":"ng");
+    if(ok)qScore++;
+    const ansDiv=area.querySelector("#qans");
+    ansDiv.innerHTML=`${ok?`<b class="ok-t">正解！</b>`:`<b class="ng-t">惜しい！</b>`} 正しい語順：<span class="en">${correct}</span><br><span class="ph-jp">${b.jp}</span>`;
+    ansDiv.classList.add("show");
+    speak(correct);
+    check.disabled=true;
+    area.querySelector(".q-meta").children[1].textContent="正解 "+qScore;
+    area.querySelector("#qnext").classList.add("show");
+  };
+  area.querySelector("#qnext").onclick=()=>{qIdx++;renderQ();};
+}
+
+/* ---------- 模擬試験 ---------- */
+function levelWords(lv){const out=[];Object.values(data[lv].vocab).forEach(a=>a.forEach(w=>out.push(w)));return out;}
+function levelBuilders(lv){return builders[lv]||[];}
+function renderExamMenu(){
+  const btns=LEVELS.map(lv=>`<button class="qmode" onclick="startExam('${lv}')">
+      <span class="qm-ico">📝</span>
+      <span class="qm-txt"><span class="qm-ttl">${lv}</span><span class="qm-sub">${LEVEL_HINT[lv]}</span></span></button>`).join("");
+  const best=prog.examBest>0?`<div class="exam-best">これまでの最高：<b>${prog.examBest}%</b>（${prog.examBestLevel}）</div>`:"";
+  document.getElementById("exam-area").innerHTML=`<div class="qmenu">${btns}</div>${best}`;
+}
+function startExam(lv){
+  if(!LEVELS.includes(lv))return;
+  examLevel=lv;examMode=true;qArea="exam-area";
+  allWords=levelWords(lv);
+  const words=shuffle(allWords);
+  const bld=shuffle(levelBuilders(lv));
+  const types=silent?QTYPES.filter(t=>t!=="listen"):QTYPES;
+  const items=[];
+  const nOrder=Math.min(bld.length,4);
+  for(let i=0;i<nOrder;i++)items.push({type:"order",b:bld[i]});
+  let wi=0;
+  while(items.length<EXAM_N){const w=words[wi%words.length];wi++;items.push({type:types[Math.floor(Math.random()*types.length)],w});}
+  qSet=shuffle(items).slice(0,EXAM_N);qIdx=0;qScore=0;
+  window.scrollTo({top:0,behavior:"smooth"});renderQ();
+}
+function renderExamResult(area){
+  const pct=Math.round(qScore/qSet.length*100);
+  recordExam(pct,examLevel);
+  let tier,cls,note;
+  if(pct>=80){tier="合格圏";cls="pass";note="この調子！本番でも力を発揮できそうです。";}
+  else if(pct>=60){tier="あと一歩";cls="near";note="合格まであと少し。間違えた範囲を復習しましょう。";}
+  else{tier="要復習";cls="fail";note="基礎固めのチャンス。単語とフレーズを見直しましょう。";}
+  const grade=LEVEL_HINT[examLevel].split(" — ")[0];
+  const lv=examLevel,sc=qScore,tot=qSet.length;
+  examMode=false;qArea="quiz-area";
+  area.innerHTML=`<div class="quiz-box result exam-result">
+    <div class="exam-grade">${lv}　${grade}</div>
+    <div class="score">${sc}<span style="font-size:24px;color:var(--ink-soft)">/${tot}</span></div>
+    <div class="exam-pct">正答率 ${pct}%</div>
+    <div class="exam-judge ${cls}">${tier}</div>
+    <div class="msg">${note}</div>
+    <button class="q-next show" onclick="renderExamMenu()">レベルを選ぶ</button>
+    <button class="q-next show" style="background:var(--card);color:var(--ink);border:1px solid var(--line);margin-left:8px" onclick="startExam('${lv}')">もう一度</button>
+  </div>`;
+}
+</script>
+</body>
+</html>
