@@ -1414,7 +1414,12 @@ const grammar={
     {q:"He has lived here ___ five years.",opts:["for","since","during","from"],ans:0,jp:"彼はここに5年間住んでいます。",pt:"期間の長さは for。起点は since。"},
     {q:"There ___ a lot of people at the event.",opts:["were","was","is","has"],ans:0,jp:"イベントには大勢の人がいました。",pt:"主語 people（複数）+過去なので were。"},
     {q:"You ___ wear a seatbelt in the car.",opts:["must","may","could","would"],ans:0,jp:"車内ではシートベルトを着用しなければなりません。",pt:"義務「～しなければならない」は must。"},
-    {q:"This coffee is ___ hot to drink.",opts:["too","so","very","much"],ans:0,jp:"このコーヒーは熱すぎて飲めません。",pt:"too + 形容詞 + to do：「～すぎて…できない」。"}
+    {q:"This coffee is ___ hot to drink.",opts:["too","so","very","much"],ans:0,jp:"このコーヒーは熱すぎて飲めません。",pt:"too + 形容詞 + to do：「～すぎて…できない」。"},
+    {q:"I'm looking forward ___ the weekend.",opts:["to","for","at","on"],ans:0,jp:"週末を楽しみにしています。",pt:"look forward to ～：to は前置詞。"},
+    {q:"She is good ___ playing the piano.",opts:["at","in","on","with"],ans:0,jp:"彼女はピアノが上手です。",pt:"be good at ～：「～が得意」。"},
+    {q:"He worked hard ___ pass the exam.",opts:["to","for","so","that"],ans:0,jp:"彼は試験に合格するために懸命に勉強した。",pt:"目的を表す to不定詞「～するために」。"},
+    {q:"There ___ some milk in the fridge.",opts:["is","are","have","were"],ans:0,jp:"冷蔵庫に牛乳が少しあります。",pt:"milk は不可算 → is。"},
+    {q:"If I ___ rich, I would travel the world.",opts:["were","am","will be","was"],ans:0,jp:"もし金持ちなら、世界中を旅するのに。",pt:"仮定法過去：If 主語 were。"}
   ],
   "上級":[
     {q:"All employees are required ___ the safety training.",opts:["to attend","attending","attend","attended"],ans:0,jp:"全従業員は安全研修に参加することが義務付けられています。",pt:"be required to do：「～することを求められる」。to不定詞。"},
@@ -1436,7 +1441,12 @@ const grammar={
     {q:"___ submitting your application, please double-check all fields.",opts:["Before","Despite","During","Unless"],ans:0,jp:"申請を提出する前に、全項目を再確認してください。",pt:"Before + 動名詞：「～する前に」。"},
     {q:"The manager asked the team ___ overtime this week.",opts:["to work","work","working","worked"],ans:0,jp:"部長はチームに今週残業するよう頼んだ。",pt:"ask + 人 + to do：「人に～するよう頼む」。"},
     {q:"Sales were strong, ___ profits remained flat.",opts:["yet","so","for","or"],ans:0,jp:"売上は好調だったが、利益は横ばいだった。",pt:"逆接の等位接続詞 yet：「しかし」。"},
-    {q:"Most of the work ___ already been done.",opts:["has","have","are","were"],ans:0,jp:"作業のほとんどはすでに終わっている。",pt:"most of + 不可算 work は単数扱い → has。"}
+    {q:"Most of the work ___ already been done.",opts:["has","have","are","were"],ans:0,jp:"作業のほとんどはすでに終わっている。",pt:"most of + 不可算 work は単数扱い → has。"},
+    {q:"___ of the two proposals is more realistic?",opts:["Which","What","Who","Whose"],ans:0,jp:"2つの提案のうちどちらがより現実的ですか？",pt:"2つから選ぶときは which。"},
+    {q:"The manager had the documents ___ immediately.",opts:["sent","send","to send","sending"],ans:0,jp:"部長は書類をすぐに送らせた。",pt:"have + 物 + 過去分詞（使役・受動）。"},
+    {q:"We will hire more staff ___ business improves.",opts:["provided that","despite","in spite of","regardless"],ans:0,jp:"業績が改善すれば、人員を増やします。",pt:"provided that ～：「～という条件で」。"},
+    {q:"The new policy applies to all employees, ___ their position.",opts:["regardless of","instead of","because of","in case of"],ans:0,jp:"新方針は役職に関係なく全社員に適用される。",pt:"regardless of ～：「～に関係なく」。"},
+    {q:"She is the only one of the staff who ___ fluent in French.",opts:["is","are","were","have"],ans:0,jp:"スタッフの中でフランス語が流暢なのは彼女だけだ。",pt:"the only one who ～ は単数 → is。"}
   ],
   "超上級":[
     {q:"___ the merger been approved, the company would have expanded overseas.",opts:["Had","If","Should","Were"],ans:0,jp:"合併が承認されていれば、会社は海外進出していただろう。",pt:"Had + 主語 + 過去分詞 = If 節の倒置（仮定法過去完了）。"},
@@ -1458,7 +1468,12 @@ const grammar={
     {q:"The proposal is expected to ___ significant cost savings.",opts:["yield","produce out","make up","take on"],ans:0,jp:"その提案は大幅なコスト削減をもたらすと見込まれている。",pt:"yield savings：「（成果・利益を）生む」。語法を問う問題。"},
     {q:"___ his lack of experience, he handled the crisis remarkably well.",opts:["Given","Provided","Granting","Considered"],ans:0,jp:"経験不足を考えれば、彼は危機を見事に処理した。",pt:"Given + 名詞：「～を考慮すると」。前置詞的に使う分詞。"},
     {q:"The committee remains divided ___ how to allocate the funds.",opts:["over","into","among","by"],ans:0,jp:"資金の配分方法をめぐり、委員会は依然として割れている。",pt:"be divided over ～：「～をめぐって意見が割れる」。"},
-    {q:"No sooner had the product launched ___ it sold out.",opts:["than","when","then","that"],ans:0,jp:"製品が発売されるやいなや、売り切れた。",pt:"No sooner ... than ～：「～するやいなや」。倒置構文の定型。"}
+    {q:"No sooner had the product launched ___ it sold out.",opts:["than","when","then","that"],ans:0,jp:"製品が発売されるやいなや、売り切れた。",pt:"No sooner ... than ～：「～するやいなや」。倒置構文の定型。"},
+    {q:"___ the report, several errors came to light.",opts:["On reviewing","On review","Reviewed","To review"],ans:0,jp:"報告書を見直すと、いくつかの誤りが判明した。",pt:"On + 動名詞：「～するとすぐに」。"},
+    {q:"The strategy proved more effective than ___.",opts:["anticipated","anticipate","anticipating","to anticipate"],ans:0,jp:"その戦略は予想以上に効果的だった。",pt:"than (was) anticipated：受動態の省略。"},
+    {q:"So compelling ___ that the board approved it at once.",opts:["was the argument","the argument was","the argument","was argument"],ans:0,jp:"主張は実に説得力があり、取締役会は即座に承認した。",pt:"So + 形容詞 を文頭に置くと倒置：was + 主語。"},
+    {q:"The firm, ___ reputation is excellent, won the bid.",opts:["whose","which","that","who"],ans:0,jp:"評判の優れたその会社が入札に勝った。",pt:"所有を表す関係代名詞 whose。"},
+    {q:"Were the company ___ to expand, it would need more capital.",opts:["to decide","deciding","decided","decide"],ans:0,jp:"仮に会社が拡大を決断するなら、より多くの資本が必要だろう。",pt:"Were S to do：仮定法未来の倒置。"}
   ]
 };
 function curGrammar(){return grammar[curLevel]||[];}
@@ -1495,6 +1510,18 @@ const reading={
         {q:"What did the team achieve last month?",opts:["They exceeded their target","They missed their target","They launched a product","They hired new staff"],ans:0,exp:"we exceeded our target by twelve percent。"},
         {q:"What is this month's goal?",opts:["500 units","12 units","2 units","50 units"],ans:0,exp:"the goal has been set at 500 units。"},
         {q:"What is true about the training session?",opts:["It is optional but recommended","It is mandatory","It is cancelled","It is online only"],ans:0,exp:"Attendance is optional but strongly recommended。"}
+      ]},
+    {passage:`WORKSHOP ANNOUNCEMENT\n\nWe are pleased to offer a free workshop on effective communication on Friday, July 14, from 1 to 4 p.m. in Meeting Room B. The session will cover presentation skills and email writing. Space is limited to 25 participants, so please register by July 10. To sign up, reply to this email with your name and department.`,
+      qs:[
+        {q:"What is the workshop about?",opts:["Effective communication","Computer programming","Financial planning","Customer service"],ans:0,exp:"a free workshop on effective communication。"},
+        {q:"What is the registration deadline?",opts:["July 10","July 14","July 4","July 25"],ans:0,exp:"please register by July 10。"},
+        {q:"How can someone sign up?",opts:["By replying to the email","By calling reception","By visiting Room B","By filling in a web form"],ans:0,exp:"reply to this email with your name and department。"}
+      ]},
+    {passage:`Dear Mr. Tanaka,\n\nThank you for your order. We are writing to confirm that your items have been shipped and should arrive within three business days. Your tracking number is JP4821. If you do not receive your package by Friday, please contact our support team. We appreciate your business.\n\nSincerely,\nOnline Store Team`,
+      qs:[
+        {q:"Why was this email sent?",opts:["To confirm a shipment","To cancel an order","To request payment","To offer a discount"],ans:0,exp:"to confirm that your items have been shipped。"},
+        {q:"When should the items arrive?",opts:["Within three business days","Within an hour","In two weeks","On the same day"],ans:0,exp:"should arrive within three business days。"},
+        {q:"What should the customer do if the package is late?",opts:["Contact the support team","Reorder the items","Visit the store","Wait one more week"],ans:0,exp:"please contact our support team。"}
       ]}
   ],
   "超上級":[
@@ -1527,6 +1554,18 @@ const reading={
         {q:"What is the passage mainly about?",opts:["The impact of AI in the workplace","A new software product","A company's hiring plan","The history of computers"],ans:0,exp:"adoption of artificial intelligence in the workplace が主題。"},
         {q:"What do proponents of AI argue?",opts:["It frees employees for creative work","It lowers salaries","It replaces all jobs","It is too expensive"],ans:0,exp:"freeing employees to focus on creative and strategic work。"},
         {q:"What do most experts believe is the key?",opts:["Reskilling the workforce","Banning the technology","Hiring fewer people","Lowering prices"],ans:0,exp:"the key lies ... in reskilling the workforce。"}
+      ]},
+    {passage:`Online shopping has transformed the retail landscape over the past decade. Consumers now expect fast delivery, easy returns, and personalized recommendations. While this shift has benefited shoppers, it has placed enormous pressure on traditional stores, many of which have struggled to compete. Some retailers have responded by blending online and offline experiences, allowing customers to order online and pick up in store. Analysts predict that this hybrid model will define the future of retail.`,
+      qs:[
+        {q:"What is the passage mainly about?",opts:["The transformation of retail by online shopping","A new delivery company","The history of department stores","A decline in consumer spending"],ans:0,exp:"Online shopping has transformed the retail landscape。"},
+        {q:"What pressure has the shift created?",opts:["Pressure on traditional stores","A shortage of products","Higher delivery costs for shoppers","A lack of online reviews"],ans:0,exp:"placed enormous pressure on traditional stores。"},
+        {q:"What do analysts predict about the hybrid model?",opts:["It will define the future of retail","It will soon disappear","It will raise prices","It will reduce choice"],ans:0,exp:"this hybrid model will define the future of retail。"}
+      ]},
+    {passage:`A recent internal report examined the return on investment of the company's employee training programs. The findings were striking: teams that completed the leadership course showed a 15 percent increase in productivity over six months. Moreover, employee turnover among trained staff fell sharply, saving the company an estimated two million dollars in recruitment costs. Based on these results, management has decided to expand the program to all departments next year.`,
+      qs:[
+        {q:"What did the report examine?",opts:["The ROI of training programs","Customer satisfaction levels","Marketing expenses","Product quality"],ans:0,exp:"the return on investment of the company's employee training programs。"},
+        {q:"What happened to employee turnover among trained staff?",opts:["It fell sharply","It rose slightly","It stayed the same","It doubled"],ans:0,exp:"employee turnover among trained staff fell sharply。"},
+        {q:"What has management decided to do?",opts:["Expand the program to all departments","Cancel the program","Reduce training hours","Outsource training"],ans:0,exp:"expand the program to all departments next year。"}
       ]}
   ]
 };
@@ -1541,7 +1580,9 @@ const listening={
     {script:"Attention shoppers. The store will close in fifteen minutes. Please bring your items to the checkout counter. Thank you for shopping with us.",q:"What are shoppers asked to do?",opts:["Go to the checkout counter","Leave immediately","Return their carts","Visit the customer desk"],ans:0,jp:"レジに商品を持って行く。",exp:"bring your items to the checkout counter と放送している。"},
     {script:"Good morning. I have an appointment with Dr. Lee at ten. Could you please have a seat? The doctor will be with you shortly.",q:"Where does this conversation take place?",opts:["At a clinic","At a restaurant","At an airport","At a bank"],ans:0,exp:"appointment with Dr. Lee, the doctor will be with you から診療所。"},
     {script:"Hi, I ordered a coffee about ten minutes ago, but I haven't received it yet. Oh, I'm so sorry for the wait. I'll bring it right away.",q:"What is the problem?",opts:["The order hasn't arrived","The coffee is cold","The shop is closed","The price is wrong"],ans:0,jp:"注文した品がまだ来ていない。",exp:"I haven't received it yet と言っている。"},
-    {script:"This is a reminder that the library will close early today at five p.m. for a staff event. Please return any borrowed items before then. Thank you.",q:"Why will the library close early?",opts:["For a staff event","For repairs","For a holiday","For cleaning"],ans:0,jp:"スタッフのイベントのため。",exp:"close early today at five p.m. for a staff event。"}
+    {script:"This is a reminder that the library will close early today at five p.m. for a staff event. Please return any borrowed items before then. Thank you.",q:"Why will the library close early?",opts:["For a staff event","For repairs","For a holiday","For cleaning"],ans:0,jp:"スタッフのイベントのため。",exp:"close early today at five p.m. for a staff event。"},
+    {script:"Excuse me, do you know where the nearest pharmacy is? Yes, go straight down this street and turn left at the bank. It's next to the supermarket.",q:"Where is the pharmacy?",opts:["Next to the supermarket","Inside the bank","Across from the library","Behind the station"],ans:0,jp:"スーパーの隣。",exp:"It's next to the supermarket。"},
+    {script:"Hello, I'd like to book a table for four people this Saturday evening. Certainly. What time would you like? Around seven, if possible.",q:"What is the man doing?",opts:["Making a restaurant reservation","Ordering takeout","Cancelling a booking","Asking for directions"],ans:0,jp:"レストランの予約をしている。",exp:"book a table for four people this Saturday evening。"}
   ],
   "上級":[
     {script:"Hi Tom, I'm calling about the meeting this afternoon. We have to move it to three o'clock because the conference room is being used until then. Can you let the others know?",q:"Why was the meeting time changed?",opts:["The conference room was occupied","Tom was unavailable","The client cancelled","The manager was sick"],ans:0,jp:"会議室が使われていたから。",exp:"the conference room is being used until then が理由。"},
@@ -1549,7 +1590,9 @@ const listening={
     {script:"I'm afraid the flight to Boston has been delayed due to bad weather. The new departure time is six thirty. We apologize for the inconvenience and will provide meal vouchers to all passengers.",q:"What will passengers receive?",opts:["Meal vouchers","A full refund","A hotel room","Free upgrades"],ans:0,jp:"食事券。",exp:"will provide meal vouchers to all passengers。"},
     {script:"Welcome to today's training session. Before we begin, please make sure your phones are on silent. We'll take a short break at eleven, and lunch will be served at noon in the main hall.",q:"What are participants asked to do before the session?",opts:["Silence their phones","Sign an attendance sheet","Find a partner","Submit a form"],ans:0,jp:"携帯をマナーモードにする。",exp:"make sure your phones are on silent。"},
     {script:"Hello, this is Sarah from the marketing team. I wanted to check whether the brochures are ready for printing. If so, could you send them to the printer by the end of the day?",q:"What does Sarah want to know?",opts:["Whether the brochures are ready","When the meeting starts","Where the printer is","Who designed the brochures"],ans:0,jp:"パンフレットが印刷の準備ができているか。",exp:"check whether the brochures are ready for printing。"},
-    {script:"Attention passengers. The train to Riverside is now boarding on platform four. This train will depart in five minutes. Please have your tickets ready.",q:"What should passengers do?",opts:["Board the train on platform four","Buy a ticket","Wait for the next train","Go to platform two"],ans:0,jp:"4番線で電車に乗る。",exp:"now boarding on platform four, depart in five minutes。"}
+    {script:"Attention passengers. The train to Riverside is now boarding on platform four. This train will depart in five minutes. Please have your tickets ready.",q:"What should passengers do?",opts:["Board the train on platform four","Buy a ticket","Wait for the next train","Go to platform two"],ans:0,jp:"4番線で電車に乗る。",exp:"now boarding on platform four, depart in five minutes。"},
+    {script:"Hi, this is the front desk. Your taxi to the airport has arrived and is waiting outside the main entrance. Would you like me to help with your luggage?",q:"Why is the front desk calling?",opts:["The guest's taxi has arrived","Breakfast is ready","Checkout time has passed","There is a package"],ans:0,jp:"客のタクシーが到着したから。",exp:"Your taxi to the airport has arrived。"},
+    {script:"Before we end the meeting, I'd like to remind everyone to submit their timesheets by Friday. Also, the office will be closed on Monday for the public holiday.",q:"What are employees reminded to do?",opts:["Submit their timesheets by Friday","Attend a training","Clean their desks","Update their passwords"],ans:0,jp:"金曜までにタイムシートを提出する。",exp:"submit their timesheets by Friday。"}
   ],
   "超上級":[
     {script:"Our quarterly results show a ten percent increase in revenue, mainly driven by strong overseas sales. However, rising shipping costs have slightly reduced our profit margin. For the next quarter, we plan to focus on improving efficiency in our supply chain.",q:"What mainly drove the increase in revenue?",opts:["Strong overseas sales","Lower shipping costs","A new product launch","Reduced staff"],ans:0,jp:"好調な海外売上。",exp:"driven by strong overseas sales と述べている。"},
@@ -1557,7 +1600,9 @@ const listening={
     {script:"I've reviewed your proposal, and overall it looks promising. My only concern is the timeline. Completing the project in two months seems unrealistic given our current resources. Could you revise the schedule and send it back to me by Thursday?",q:"What is the speaker's main concern?",opts:["The timeline is unrealistic","The budget is too high","The team is too small","The proposal lacks detail"],ans:0,jp:"スケジュールが非現実的。",exp:"Completing the project in two months seems unrealistic が懸念点。"},
     {script:"Thank you all for attending this year's conference. We had a record number of participants, and the feedback has been overwhelmingly positive. A summary of each session will be emailed to you next week, along with the speakers' slides.",q:"What will attendees receive next week?",opts:["A summary and the slides","A certificate","A refund","A survey"],ans:0,jp:"要約とスライド。",exp:"A summary of each session will be emailed ... along with the speakers' slides。"},
     {script:"I've looked over the budget proposal, and while most of it is solid, the marketing section seems a bit high. Could we go through those numbers together before the board meeting?",q:"What does the speaker want to do?",opts:["Review the marketing numbers together","Cancel the board meeting","Approve the budget as is","Hire a marketing firm"],ans:0,jp:"マーケティングの数字を一緒に確認したい。",exp:"go through those numbers together before the board meeting。"},
-    {script:"Due to an unexpected system maintenance, our online services will be temporarily unavailable this Sunday from midnight to six a.m. We apologize for any inconvenience and appreciate your understanding.",q:"What is the announcement about?",opts:["A temporary service outage","A new website launch","A price increase","A job opening"],ans:0,jp:"一時的なサービス停止。",exp:"online services will be temporarily unavailable ... system maintenance。"}
+    {script:"Due to an unexpected system maintenance, our online services will be temporarily unavailable this Sunday from midnight to six a.m. We apologize for any inconvenience and appreciate your understanding.",q:"What is the announcement about?",opts:["A temporary service outage","A new website launch","A price increase","A job opening"],ans:0,jp:"一時的なサービス停止。",exp:"online services will be temporarily unavailable ... system maintenance。"},
+    {script:"I wanted to follow up on the proposal we discussed last week. The client has reviewed it and is largely satisfied, but they've asked us to lower the price by about five percent. Can we make that work?",q:"What does the client want?",opts:["A lower price","A faster delivery","More features","A new design"],ans:0,jp:"価格を下げてほしい。",exp:"asked us to lower the price by about five percent。"},
+    {script:"Thank you for joining today's webinar. A quick housekeeping note: all participants will be muted during the presentation, but you can post questions in the chat box, and we'll address them at the end.",q:"How can participants ask questions?",opts:["By posting in the chat box","By unmuting themselves","By raising their hand","By emailing the host"],ans:0,jp:"チャット欄に投稿する。",exp:"you can post questions in the chat box。"}
   ]
 };
 function curListening(){return listening[curLevel]||[];}
@@ -1571,7 +1616,9 @@ const numbers={
     {script:"My room number is four oh eight.",q:"What is the room number?",opts:["408","418","480","804"],ans:0,jp:"部屋番号は408です。"},
     {script:"There are twenty students in the class.",q:"How many students are there?",opts:["20","12","22","30"],ans:0,jp:"クラスには20人の生徒がいます。"},
     {script:"The store closes at nine p.m.",q:"What time does the store close?",opts:["9 p.m.","9 a.m.","10 p.m.","8 p.m."],ans:0,jp:"店は午後9時に閉まります。"},
-    {script:"Today is May twelfth.",q:"What is today's date?",opts:["May 12","March 12","May 20","May 2"],ans:0,jp:"今日は5月12日です。"}
+    {script:"Today is May twelfth.",q:"What is today's date?",opts:["May 12","March 12","May 20","May 2"],ans:0,jp:"今日は5月12日です。"},
+    {script:"The bus arrives every fifteen minutes.",q:"How often does the bus arrive?",opts:["Every 15 minutes","Every 50 minutes","Every 5 minutes","Every 13 minutes"],ans:0,jp:"バスは15分ごとに来ます。"},
+    {script:"My phone number is five five five, two one oh nine.",q:"What is the phone number?",opts:["555-2109","555-2190","555-2019","515-2109"],ans:0,jp:"電話番号は555-2109です。"}
   ],
   "上級":[
     {script:"The flight departs at eleven fifty.",q:"When does the flight depart?",opts:["11:50","11:15","12:50","10:50"],ans:0,jp:"便は11時50分に出発します。"},
@@ -1579,7 +1626,9 @@ const numbers={
     {script:"Please call extension two three seven five.",q:"What is the extension number?",opts:["2375","2735","2357","3275"],ans:0,jp:"内線2375におかけください。"},
     {script:"The package weighs four point five kilograms.",q:"How much does the package weigh?",opts:["4.5 kg","4.9 kg","14.5 kg","5.4 kg"],ans:0,jp:"荷物の重さは4.5キロです。"},
     {script:"The deadline is June thirtieth.",q:"When is the deadline?",opts:["June 30","June 13","July 30","June 3"],ans:0,jp:"締め切りは6月30日です。"},
-    {script:"We sold over twelve hundred units.",q:"How many units were sold?",opts:["1,200","1,020","2,200","12,000"],ans:0,jp:"1,200個以上を販売しました。"}
+    {script:"We sold over twelve hundred units.",q:"How many units were sold?",opts:["1,200","1,020","2,200","12,000"],ans:0,jp:"1,200個以上を販売しました。"},
+    {script:"The conference will be held from the third to the sixth of October.",q:"When is the conference?",opts:["October 3-6","October 3-16","October 13-16","October 6-30"],ans:0,jp:"会議は10月3日から6日まで開催されます。"},
+    {script:"Please transfer the documents to room nineteen oh five.",q:"Which room is mentioned?",opts:["1905","1950","9015","1915"],ans:0,jp:"書類を1905号室へ移してください。"}
   ],
   "超上級":[
     {script:"Revenue rose by eight point seven percent.",q:"By how much did revenue rise?",opts:["8.7%","8.1%","18.7%","7.8%"],ans:0,jp:"収益は8.7％増加しました。"},
@@ -1587,7 +1636,9 @@ const numbers={
     {script:"The meeting is scheduled for the twenty-third at two fifteen.",q:"When is the meeting?",opts:["The 23rd at 2:15","The 23rd at 2:50","The 13th at 2:15","The 23rd at 3:15"],ans:0,jp:"会議は23日の2時15分に予定されています。"},
     {script:"Our office is on the fourteenth floor.",q:"Which floor is the office on?",opts:["14th","40th","4th","44th"],ans:0,jp:"オフィスは14階にあります。"},
     {script:"The survey included four thousand five hundred respondents.",q:"How many respondents were there?",opts:["4,500","4,050","45,000","5,400"],ans:0,jp:"調査には4,500人の回答者が含まれました。"},
-    {script:"Interest rates increased to four point two five percent.",q:"What is the new interest rate?",opts:["4.25%","4.52%","14.25%","2.45%"],ans:0,jp:"金利は4.25％に上昇しました。"}
+    {script:"Interest rates increased to four point two five percent.",q:"What is the new interest rate?",opts:["4.25%","4.52%","14.25%","2.45%"],ans:0,jp:"金利は4.25％に上昇しました。"},
+    {script:"The budget for this project is two hundred and fifty thousand dollars.",q:"What is the project budget?",opts:["$250,000","$215,000","$2,500,000","$205,000"],ans:0,jp:"このプロジェクトの予算は25万ドルです。"},
+    {script:"Attendance increased from eight hundred to one thousand two hundred.",q:"What was the final attendance?",opts:["1,200","800","2,100","1,020"],ans:0,jp:"参加者は800人から1,200人に増えました。"}
   ]
 };
 function curNumbers(){return numbers[curLevel]||[];}
@@ -1602,20 +1653,26 @@ const PH_CAR=`<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg"><rec
 const PH_PLATFORM=`<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="140" fill="#e7ecf1"/><rect x="0" y="105" width="200" height="35" fill="#b9c2cb"/><rect x="0" y="103" width="200" height="3" fill="#f2c94c"/><rect x="148" y="50" width="64" height="55" rx="6" fill="#4a6fa5"/><rect x="156" y="58" width="18" height="16" fill="#bcd4ea"/><rect x="182" y="58" width="18" height="16" fill="#bcd4ea"/><circle cx="68" cy="62" r="11" fill="#e3b591"/><rect x="56" y="74" width="24" height="32" rx="7" fill="#5a4f8a"/><rect x="80" y="90" width="12" height="15" rx="2" fill="#7a4a2a"/></svg>`;
 const PH_MEETING=`<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="140" fill="#eef1f4"/><ellipse cx="100" cy="98" rx="72" ry="22" fill="#a9854f"/><circle cx="58" cy="70" r="9" fill="#e3b591"/><rect x="48" y="78" width="20" height="18" rx="5" fill="#3a5a8c"/><circle cx="100" cy="62" r="9" fill="#d9a878"/><rect x="90" y="70" width="20" height="18" rx="5" fill="#8a3b34"/><circle cx="142" cy="70" r="9" fill="#e3b591"/><rect x="132" y="78" width="20" height="18" rx="5" fill="#4e7d6e"/><rect x="90" y="94" width="20" height="10" fill="#fff"/></svg>`;
 const PH_BOOKS=`<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="140" fill="#efe9dd"/><rect x="40" y="22" width="120" height="98" fill="#caa978"/><rect x="46" y="28" width="108" height="40" fill="#e8dcc2"/><rect x="46" y="74" width="108" height="40" fill="#e8dcc2"/><g><rect x="50" y="34" width="9" height="34" fill="#c0392b"/><rect x="60" y="37" width="9" height="31" fill="#2e86c1"/><rect x="70" y="33" width="9" height="35" fill="#27ae60"/><rect x="80" y="36" width="9" height="32" fill="#8e44ad"/><rect x="90" y="34" width="9" height="34" fill="#e67e22"/><rect x="100" y="37" width="9" height="31" fill="#16a085"/><rect x="110" y="33" width="9" height="35" fill="#c0392b"/><rect x="120" y="35" width="9" height="33" fill="#2980b9"/><rect x="130" y="34" width="9" height="34" fill="#d35400"/><rect x="140" y="37" width="9" height="31" fill="#7f8c8d"/></g><g><rect x="50" y="80" width="9" height="34" fill="#2980b9"/><rect x="60" y="83" width="9" height="31" fill="#c0392b"/><rect x="70" y="79" width="9" height="35" fill="#8e44ad"/><rect x="80" y="82" width="9" height="32" fill="#16a085"/><rect x="90" y="80" width="9" height="34" fill="#e67e22"/><rect x="100" y="83" width="9" height="31" fill="#2e86c1"/><rect x="110" y="79" width="9" height="35" fill="#27ae60"/><rect x="120" y="82" width="9" height="32" fill="#d35400"/><rect x="130" y="80" width="9" height="34" fill="#8e44ad"/><rect x="140" y="83" width="9" height="31" fill="#c0392b"/></g></svg>`;
+const PH_PHONE=`<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="140" fill="#eef0f3"/><rect x="0" y="122" width="200" height="18" fill="#cfd6dd"/><circle cx="96" cy="48" r="13" fill="#e3b591"/><rect x="82" y="62" width="28" height="52" rx="8" fill="#8a3b6a"/><rect x="100" y="52" width="13" height="7" rx="3" fill="#e3b591"/><rect x="107" y="40" width="9" height="20" rx="3" fill="#333"/></svg>`;
+const PH_COOKING=`<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="140" fill="#efe9dd"/><rect x="0" y="100" width="200" height="40" fill="#b9a583"/><rect x="118" y="78" width="62" height="24" fill="#7a7f87"/><circle cx="150" cy="90" r="9" fill="#444"/><rect x="137" y="70" width="28" height="14" rx="2" fill="#555"/><rect x="163" y="73" width="11" height="4" fill="#555"/><path d="M147 70 q4 -8 0 -13" stroke="#c9bcae" fill="none" stroke-width="2"/><circle cx="70" cy="50" r="12" fill="#e3b591"/><rect x="58" y="62" width="24" height="40" rx="7" fill="#c0392b"/><rect x="80" y="74" width="24" height="7" rx="3" fill="#e3b591"/></svg>`;
+const PH_BUS=`<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="140" fill="#dfe7ef"/><rect x="0" y="105" width="200" height="35" fill="#9aa3ab"/><rect x="30" y="50" width="140" height="55" rx="8" fill="#e0a52e"/><rect x="40" y="58" width="24" height="20" rx="3" fill="#bcd4ea"/><rect x="70" y="58" width="24" height="20" rx="3" fill="#bcd4ea"/><rect x="100" y="58" width="24" height="20" rx="3" fill="#bcd4ea"/><rect x="130" y="58" width="30" height="20" rx="3" fill="#bcd4ea"/><rect x="146" y="82" width="16" height="23" fill="#8a7220"/><circle cx="62" cy="105" r="12" fill="#222"/><circle cx="62" cy="105" r="4" fill="#888"/><circle cx="140" cy="105" r="12" fill="#222"/><circle cx="140" cy="105" r="4" fill="#888"/></svg>`;
 const photos={
   "中級":[
     {svg:PH_DESK,opts:["A woman is washing dishes.","A man is riding a bicycle.","A man is working at a desk.","Some children are playing."],ans:2,jp:"男性が机で仕事をしている。"},
     {svg:PH_UMBRELLA,opts:["A woman is holding an umbrella.","A man is reading a book.","People are swimming in the sea.","A dog is running in a park."],ans:0,jp:"女性が傘をさしている。"},
-    {svg:PH_CUP,opts:["A car is parked outside.","A man is cooking in the kitchen.","Books are on the shelf.","There is a cup on the table."],ans:3,jp:"テーブルの上にカップがある。"}
+    {svg:PH_CUP,opts:["A car is parked outside.","A man is cooking in the kitchen.","Books are on the shelf.","There is a cup on the table."],ans:3,jp:"テーブルの上にカップがある。"},
+    {svg:PH_PHONE,opts:["A man is washing his car.","A woman is talking on the phone.","People are eating dinner.","A child is drawing a picture."],ans:1,jp:"女性が電話で話している。"}
   ],
   "上級":[
     {svg:PH_HANDSHAKE,opts:["A group is having lunch.","Two people are shaking hands.","A man is typing on a computer.","Someone is opening a window."],ans:1,jp:"2人が握手をしている。"},
     {svg:PH_CAR,opts:["A train is leaving the station.","People are crossing a bridge.","A car is parked on the street.","A plane is taking off."],ans:2,jp:"車が通りに駐車している。"},
-    {svg:PH_PLATFORM,opts:["A man is waiting on the platform.","Workers are repairing the road.","A woman is buying groceries.","Children are getting on a bus."],ans:0,jp:"男性がホームで電車を待っている。"}
+    {svg:PH_PLATFORM,opts:["A man is waiting on the platform.","Workers are repairing the road.","A woman is buying groceries.","Children are getting on a bus."],ans:0,jp:"男性がホームで電車を待っている。"},
+    {svg:PH_COOKING,opts:["A waiter is serving food.","Someone is cleaning the floor.","A person is cooking at the stove.","They are washing the dishes."],ans:2,jp:"人がコンロで料理をしている。"}
   ],
   "超上級":[
     {svg:PH_MEETING,opts:["The room is completely empty.","A man is giving a speech on stage.","Customers are waiting in line.","Some people are seated around a table."],ans:3,jp:"人々がテーブルを囲んで座っている。"},
-    {svg:PH_BOOKS,opts:["Clothes are hanging in a closet.","Books are arranged on the shelves.","Dishes are stacked in the sink.","Tools are scattered on the floor."],ans:1,jp:"本が棚に並べられている。"}
+    {svg:PH_BOOKS,opts:["Clothes are hanging in a closet.","Books are arranged on the shelves.","Dishes are stacked in the sink.","Tools are scattered on the floor."],ans:1,jp:"本が棚に並べられている。"},
+    {svg:PH_BUS,opts:["A bus is on the road.","A plane is on the runway.","A boat is on the river.","A truck is being loaded."],ans:0,jp:"バスが道路に出ている。"}
   ]
 };
 function curPhotos(){return photos[curLevel]||[];}
@@ -1631,7 +1688,9 @@ const response2={
     {prompt:"Who is in charge of this project?",opts:["Ms. Tanaka is.","Next Monday.","In the meeting room."],ans:0,jp:"このプロジェクトの担当は誰ですか？ → 田中さんです。"},
     {prompt:"Why are you late?",opts:["The train was delayed.","To the station.","Yes, I am."],ans:0,jp:"なぜ遅れたのですか？ → 電車が遅れたからです。"},
     {prompt:"What time should we meet?",opts:["How about seven?","At the restaurant.","Yes, let's meet."],ans:0,jp:"何時に会いましょうか？ → 7時はどう？"},
-    {prompt:"Can I help you?",opts:["Yes, I'm looking for a gift.","It's over there.","No problem."],ans:0,jp:"お手伝いしましょうか？ → はい、贈り物を探しています。"}
+    {prompt:"Can I help you?",opts:["Yes, I'm looking for a gift.","It's over there.","No problem."],ans:0,jp:"お手伝いしましょうか？ → はい、贈り物を探しています。"},
+    {prompt:"How long does the movie last?",opts:["About two hours.","At the theater.","It was great."],ans:0,jp:"映画はどのくらいの長さですか？ → 約2時間です。"},
+    {prompt:"Where did you put my keys?",opts:["On the kitchen table.","Yes, I did.","Last night."],ans:0,jp:"私の鍵をどこに置いた？ → 台所のテーブルの上だよ。"}
   ],
   "上級":[
     {prompt:"Could you tell me how to get to the conference room?",opts:["Sure, it's down the hall on your left.","Yes, I attended it.","It was very informative."],ans:0,jp:"会議室への行き方を教えてもらえますか？ → ええ、廊下を進んで左手です。"},
@@ -1641,7 +1700,9 @@ const response2={
     {prompt:"Would you mind reviewing my proposal?",opts:["Not at all, send it over.","It was approved.","In the afternoon."],ans:0,jp:"私の提案を見てもらえますか？ → もちろんです、送ってください。"},
     {prompt:"How was the client meeting?",opts:["It went really well.","At their office.","Three of them."],ans:0,jp:"クライアントとの会議はどうでしたか？ → とてもうまくいきました。"},
     {prompt:"Should I email the report or print it?",opts:["Email is fine, thanks.","It was last week.","On the desk."],ans:0,jp:"報告書はメールしますか、印刷しますか？ → メールで大丈夫です。"},
-    {prompt:"Do you know who's leading the training?",opts:["I believe it's Mr. Davis.","In the afternoon.","About twenty people."],ans:0,jp:"研修を誰が担当するか知っていますか？ → デイビスさんだと思います。"}
+    {prompt:"Do you know who's leading the training?",opts:["I believe it's Mr. Davis.","In the afternoon.","About twenty people."],ans:0,jp:"研修を誰が担当するか知っていますか？ → デイビスさんだと思います。"},
+    {prompt:"Would you like to join us for dinner after work?",opts:["I'd love to, thanks.","It was delicious.","At the restaurant."],ans:0,jp:"仕事のあと夕食をご一緒にどうですか？ → ぜひ、ありがとうございます。"},
+    {prompt:"When will the new system be ready?",opts:["By the end of the month, hopefully.","In the server room.","Yes, it's working."],ans:0,jp:"新システムはいつ準備できますか？ → 願わくば今月末までに。"}
   ],
   "超上級":[
     {prompt:"I think we should outsource the customer support.",opts:["That's worth considering, but let's weigh the costs.","Yes, I called them.","On the fifth floor."],ans:0,jp:"カスタマーサポートは外注すべきだと思います。 → 検討の価値はありますが、コストを比較しましょう。"},
@@ -1651,7 +1712,9 @@ const response2={
     {prompt:"What do you make of the latest sales figures?",opts:["They're encouraging, though overseas demand is flat.","In the report.","Around noon."],ans:0,jp:"最新の売上高をどう思いますか？ → 心強いですが、海外需要は横ばいです。"},
     {prompt:"Wouldn't it be better to postpone the launch?",opts:["Possibly, but that could affect our market position.","It launched yesterday.","To the press."],ans:0,jp:"発売を延期した方がよくないですか？ → そうかもしれませんが、市場での位置に影響します。"},
     {prompt:"How do you propose we cut expenses?",opts:["We could start by reviewing our subscriptions.","It was over budget.","Yes, quite a lot."],ans:0,jp:"どうやって経費を削減しますか？ → まず契約サービスを見直すのはどうでしょう。"},
-    {prompt:"Weren't the results below expectations?",opts:["Slightly, but the trend is improving.","In the report.","Yes, I read it."],ans:0,jp:"結果は期待を下回りませんでしたか？ → 少しは。でも傾向は改善しています。"}
+    {prompt:"Weren't the results below expectations?",opts:["Slightly, but the trend is improving.","In the report.","Yes, I read it."],ans:0,jp:"結果は期待を下回りませんでしたか？ → 少しは。でも傾向は改善しています。"},
+    {prompt:"Why don't we consolidate the two departments?",opts:["That might improve efficiency, but it's risky.","It was last quarter.","Yes, on the third floor."],ans:0,jp:"2つの部署を統合してはどうでしょう？ → 効率は上がるかもしれませんが、リスクもあります。"},
+    {prompt:"Has the budget been finalized yet?",opts:["Not quite — we're still reviewing it.","It's over there.","About ten thousand."],ans:0,jp:"予算はもう確定しましたか？ → まだです。検討中です。"}
   ]
 };
 function curResponse2(){return response2[curLevel]||[];}
@@ -1665,7 +1728,9 @@ const dictation={
     {en:"The weather is nice today.",jp:"今日は天気がいいです。"},
     {en:"She works at a bank downtown.",jp:"彼女は中心街の銀行で働いています。"},
     {en:"We need to leave in ten minutes.",jp:"あと10分で出発する必要があります。"},
-    {en:"Thank you for your help.",jp:"手伝ってくれてありがとう。"}
+    {en:"Thank you for your help.",jp:"手伝ってくれてありがとう。"},
+    {en:"What time does the next bus come?",jp:"次のバスは何時に来ますか？"},
+    {en:"I would like to open a bank account.",jp:"銀行口座を開きたいです。"}
   ],
   "上級":[
     {en:"Please let me know if you have any questions.",jp:"質問があればお知らせください。"},
@@ -1673,7 +1738,9 @@ const dictation={
     {en:"We are looking forward to working with you.",jp:"あなたと働けることを楽しみにしています。"},
     {en:"I'm afraid I won't be able to make it.",jp:"残念ながら参加できそうにありません。"},
     {en:"Could you give me a hand with this report?",jp:"この報告書を手伝ってもらえますか？"},
-    {en:"The package should arrive by Friday.",jp:"荷物は金曜までに届くはずです。"}
+    {en:"The package should arrive by Friday.",jp:"荷物は金曜までに届くはずです。"},
+    {en:"Could you let me know your availability next week?",jp:"来週のご都合を教えていただけますか？"},
+    {en:"We apologize for any inconvenience this may cause.",jp:"ご迷惑をおかけして申し訳ありません。"}
   ],
   "超上級":[
     {en:"We need to take the rising costs into account.",jp:"上昇するコストを考慮に入れる必要があります。"},
@@ -1681,7 +1748,9 @@ const dictation={
     {en:"I would appreciate it if you could review the draft.",jp:"草案を確認していただけると助かります。"},
     {en:"Despite the delay, the project was completed on budget.",jp:"遅れにもかかわらず、計画は予算内で完了しました。"},
     {en:"Our priority is to improve customer satisfaction.",jp:"私たちの優先事項は顧客満足度の向上です。"},
-    {en:"Let's schedule a follow-up meeting next week.",jp:"来週、フォローアップの会議を設定しましょう。"}
+    {en:"Let's schedule a follow-up meeting next week.",jp:"来週、フォローアップの会議を設定しましょう。"},
+    {en:"The proposal was approved despite some objections.",jp:"いくつかの反対はあったが、提案は承認されました。"},
+    {en:"Please ensure that all data is backed up regularly.",jp:"すべてのデータを定期的にバックアップしてください。"}
   ]
 };
 function curDictation(){return dictation[curLevel]||[];}
