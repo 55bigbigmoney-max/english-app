@@ -314,6 +314,9 @@
   .exam-judge.pass{background:var(--jade);color:#fff;}
   .exam-judge.near{background:#d98a2b;color:#fff;}
   .exam-judge.fail{background:#b04a3e;color:#fff;}
+  .exam-score-pred{margin-top:12px;font-size:15px;color:var(--ink-soft);}
+  .exam-score-pred b{font-size:28px;color:var(--navy);font-family:"Libre Baskerville",serif;}
+  .exam-note{font-size:11.5px;color:var(--ink-soft);margin-top:12px;line-height:1.5;text-align:left;background:var(--paper-deep);border-radius:10px;padding:10px 12px;}
   .exam-best{margin-top:14px;text-align:center;font-size:13px;color:var(--ink-soft);}
   .exam-best b{color:var(--navy);font-size:16px;}
 
@@ -1918,7 +1921,8 @@ function renderProgress(){
   set("st-learned",learned);set("st-total",total);
   const bar=document.getElementById("st-bar");if(bar)bar.style.width=(total?Math.round(learned/total*100):0)+"%";
   set("st-qbest",prog.quizBest);set("st-qcount",prog.quizPlayed);set("st-days",prog.days);
-  set("st-ebest",prog.examBest>0?prog.examBest+"%":"—");
+  const ebScore=prog.examBest>0?toeicScore(prog.examBestLevel,prog.examBest):null;
+  set("st-ebest",prog.examBest>0?prog.examBest+"%"+(ebScore!=null?" ・ 約"+ebScore+"点":""):"—");
   set("st-elv",prog.examBest>0?prog.examBestLevel+"（"+prog.examPlayed+"回受験）":"まだ未受験");
   const row=document.getElementById("badge-row");
   if(row){row.innerHTML="";BADGES.forEach(b=>{const on=b.test(prog);const el=document.createElement("div");el.className="badge"+(on?" on":"");el.innerHTML=`<span class="b-ico">${b.ico}</span>${b.name}`;row.appendChild(el);});}
@@ -2701,6 +2705,12 @@ function startExam(lv){
   qSet=shuffle(items).slice(0,EXAM_N);qIdx=0;qScore=0;
   window.scrollTo({top:0,behavior:"smooth"});renderQ();
 }
+const TOEIC_BAND={"入門":[200,350],"初級":[350,500],"中級":[400,600],"上級":[650,860],"超上級":[800,990]};
+function toeicScore(lv,pct){
+  const b=TOEIC_BAND[lv];if(!b)return null;
+  const raw=b[0]+(b[1]-b[0])*(pct/100);
+  return Math.round(raw/5)*5;
+}
 function renderExamResult(area){
   const pct=Math.round(qScore/qSet.length*100);
   recordExam(pct,examLevel);
@@ -2710,13 +2720,16 @@ function renderExamResult(area){
   else{tier="要復習";cls="fail";note="基礎固めのチャンス。単語とフレーズを見直しましょう。";}
   const grade=LEVEL_HINT[examLevel].split(" — ")[0];
   const lv=examLevel,sc=qScore,tot=qSet.length;
+  const score=toeicScore(lv,pct);
   examMode=false;qArea="quiz-area";
   area.innerHTML=`<div class="quiz-box result exam-result">
     <div class="exam-grade">${lv}　${grade}</div>
     <div class="score">${sc}<span style="font-size:24px;color:var(--ink-soft)">/${tot}</span></div>
     <div class="exam-pct">正答率 ${pct}%</div>
     <div class="exam-judge ${cls}">${tier}</div>
+    ${score!=null?`<div class="exam-score-pred">TOEIC予想スコア（目安） <b>約 ${score} 点</b></div>`:""}
     <div class="msg">${note}</div>
+    <div class="exam-note">※全20問の簡易テストによる概算です。本番（200問）とは問題数・形式が異なるため、実際のスコアとは差が出ます。あくまで目安としてご利用ください。</div>
     <button class="q-next show" onclick="renderExamMenu()">レベルを選ぶ</button>
     <button class="q-next show" style="background:var(--card);color:var(--ink);border:1px solid var(--line);margin-left:8px" onclick="startExam('${lv}')">もう一度</button>
   </div>`;
