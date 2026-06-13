@@ -185,6 +185,9 @@
   .sound-ex{font-size:13px;margin-top:5px;color:var(--ink-soft);}
   .sound-ex .en{font-family:"Libre Baskerville",serif;font-weight:700;color:var(--navy);font-size:15px;}
   .sound-sym.rule{font-size:16px;line-height:1.4;padding:14px 6px;}
+  .read-passage{background:var(--paper-deep);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;font-family:"Libre Baskerville",serif;font-size:14px;line-height:1.65;
+    color:var(--ink);max-height:260px;overflow-y:auto;text-align:left;}
 
   /* Vocab */
   .cats{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
@@ -685,6 +688,16 @@ const data={
     {en:"swim",ipa:"/swɪm/",kana:"スウィム",jp:"泳ぐ",ex:{en:"I can swim fast.",jp:"速く泳げます。"}},
     {en:"travel",ipa:"/ˈtrævəl/",kana:"トラヴェル",jp:"旅行する",ex:{en:"I love to travel abroad.",jp:"海外旅行が大好きです。"}},
     {en:"picture",ipa:"/ˈpɪktʃər/",kana:"ピクチャー",jp:"写真・絵",ex:{en:"He took a picture of the lake.",jp:"彼は湖の写真を撮りました。"}}
+  ],
+  "不規則動詞":[
+    {en:"buy",ipa:"/baɪ/",kana:"バイ",jp:"買う（過去 bought）",ex:{en:"I bought a new bag yesterday.",jp:"昨日新しいかばんを買いました。"}},
+    {en:"bring",ipa:"/brɪŋ/",kana:"ブリング",jp:"持ってくる（過去 brought）",ex:{en:"She brought her umbrella.",jp:"彼女は傘を持ってきました。"}},
+    {en:"catch",ipa:"/kætʃ/",kana:"キャッチ",jp:"捕まえる（過去 caught）",ex:{en:"He caught the last train.",jp:"彼は終電に間に合いました。"}},
+    {en:"teach",ipa:"/tiːtʃ/",kana:"ティーチ",jp:"教える（過去 taught）",ex:{en:"She taught us English.",jp:"彼女は私たちに英語を教えました。"}},
+    {en:"think",ipa:"/θɪŋk/",kana:"スィンク",jp:"思う・考える（過去 thought）",ex:{en:"I thought it was a good idea.",jp:"いい考えだと思いました。"}},
+    {en:"begin",ipa:"/bɪˈɡɪn/",kana:"ビギン",jp:"始める（過去 began）",ex:{en:"The movie began at eight.",jp:"映画は8時に始まりました。"}},
+    {en:"find",ipa:"/faɪnd/",kana:"ファインド",jp:"見つける（過去 found）",ex:{en:"I found my keys.",jp:"鍵を見つけました。"}},
+    {en:"keep",ipa:"/kiːp/",kana:"キープ",jp:"保つ（過去 kept）",ex:{en:"She kept the receipt.",jp:"彼女はレシートを取っておきました。"}}
   ]
 },phrases:[
   {en:"What time is it now?",kana:"ワット タイム イズ イット ナウ",jp:"今何時ですか？"},
@@ -782,6 +795,16 @@ const data={
     {en:"respect",ipa:"/rɪˈspekt/",kana:"リスペクト",jp:"尊敬する",ex:{en:"We should respect each other.",jp:"お互いを尊重すべきです。"}},
     {en:"promise",ipa:"/ˈprɑːmɪs/",kana:"プラミス",jp:"約束",ex:{en:"He always keeps his promises.",jp:"彼はいつも約束を守ります。"}},
     {en:"apologize",ipa:"/əˈpɑːlədʒaɪz/",kana:"アパロジャイズ",jp:"謝る",ex:{en:"I apologize for the delay.",jp:"遅れて申し訳ありません。"}}
+  ],
+  "副詞・つなぎ語":[
+    {en:"however",ipa:"/haʊˈevər/",kana:"ハウエヴァー",jp:"しかしながら",ex:{en:"It was raining; however, we went out.",jp:"雨だったが、私たちは出かけた。"}},
+    {en:"therefore",ipa:"/ˈðerfɔːr/",kana:"ゼアフォー",jp:"したがって",ex:{en:"He was late; therefore, he missed the train.",jp:"彼は遅れた。したがって電車に乗り遅れた。"}},
+    {en:"recently",ipa:"/ˈriːsəntli/",kana:"リーセントリー",jp:"最近",ex:{en:"I've been busy recently.",jp:"最近忙しいです。"}},
+    {en:"usually",ipa:"/ˈjuːʒuəli/",kana:"ユージュアリー",jp:"たいてい",ex:{en:"I usually get up at six.",jp:"たいてい6時に起きます。"}},
+    {en:"probably",ipa:"/ˈprɑːbəbli/",kana:"プラバブリー",jp:"おそらく",ex:{en:"He will probably come.",jp:"彼はおそらく来るでしょう。"}},
+    {en:"finally",ipa:"/ˈfaɪnəli/",kana:"ファイナリー",jp:"ついに・最後に",ex:{en:"We finally finished the work.",jp:"ついに仕事を終えました。"}},
+    {en:"especially",ipa:"/ɪˈspeʃəli/",kana:"イスペシャリー",jp:"特に",ex:{en:"I like fruit, especially apples.",jp:"果物、特にりんごが好きです。"}},
+    {en:"although",ipa:"/ɔːlˈðoʊ/",kana:"オールゾウ",jp:"～だけれども",ex:{en:"Although it was hard, I enjoyed it.",jp:"大変だったが、楽しめました。"}}
   ]
 },phrases:[
   {en:"Could you do me a favor?",jp:"お願いがあるのですが。"},
@@ -889,6 +912,16 @@ const data={
     {en:"purchase",ipa:"/ˈpɜːrtʃəs/",kana:"パーチェス",jp:"購入する",ex:{en:"We purchased new equipment last month.",jp:"先月、新しい設備を購入しました。"}},
     {en:"negotiation",ipa:"/nɪˌɡoʊʃiˈeɪʃən/",kana:"ニゴウシエイション",jp:"交渉",ex:{en:"The negotiations went smoothly.",jp:"交渉は順調に進みました。"}},
     {en:"deadline extension",ipa:"/ˈdedlaɪn ɪkˈstenʃən/",kana:"デッドライン イクステンション",jp:"締め切りの延長",ex:{en:"We requested a deadline extension.",jp:"締め切りの延長を申し入れました。"}}
+  ],
+  "連語・語法":[
+    {en:"in charge of",ipa:"/ɪn tʃɑːrdʒ ʌv/",kana:"イン チャージ オブ",jp:"～を担当して",ex:{en:"She is in charge of the project.",jp:"彼女はそのプロジェクトを担当しています。"}},
+    {en:"on behalf of",ipa:"/ɑːn bɪˈhæf ʌv/",kana:"オン ビハーフ オブ",jp:"～を代表して",ex:{en:"I'm speaking on behalf of my team.",jp:"チームを代表して話しています。"}},
+    {en:"in advance",ipa:"/ɪn ədˈvæns/",kana:"イン アドヴァンス",jp:"前もって",ex:{en:"Please book your seat in advance.",jp:"前もって席を予約してください。"}},
+    {en:"as a result",ipa:"/æz ə rɪˈzʌlt/",kana:"アズ ア リザルト",jp:"その結果",ex:{en:"As a result, sales improved.",jp:"その結果、売上が伸びました。"}},
+    {en:"take into account",ipa:"/teɪk ˈɪntu əˈkaʊnt/",kana:"テイク イントゥ アカウント",jp:"考慮に入れる",ex:{en:"We must take the cost into account.",jp:"費用を考慮に入れなければなりません。"}},
+    {en:"keep track of",ipa:"/kiːp træk ʌv/",kana:"キープ トラック オブ",jp:"～を把握しておく",ex:{en:"Keep track of your expenses.",jp:"経費を把握しておきなさい。"}},
+    {en:"come up with",ipa:"/kʌm ʌp wɪð/",kana:"カム アップ ウィズ",jp:"（案を）思いつく",ex:{en:"She came up with a great idea.",jp:"彼女は素晴らしい案を思いつきました。"}},
+    {en:"in terms of",ipa:"/ɪn tɜːrmz ʌv/",kana:"イン タームズ オブ",jp:"～の点で",ex:{en:"In terms of cost, it's reasonable.",jp:"費用の点では妥当です。"}}
   ]
 },phrases:[
   {en:"I couldn't agree with you more.",jp:"まったく同感です。"},
@@ -1000,6 +1033,16 @@ const data={
     {en:"distribution",ipa:"/ˌdɪstrɪˈbjuːʃən/",kana:"ディストリビューション",jp:"流通・配送",ex:{en:"They have a strong distribution network.",jp:"彼らは強力な流通網を持っています。"}},
     {en:"freight",ipa:"/freɪt/",kana:"フレイト",jp:"貨物・運送",ex:{en:"Freight costs have risen sharply.",jp:"運送費が急激に上がりました。"}},
     {en:"customs",ipa:"/ˈkʌstəmz/",kana:"カスタムズ",jp:"税関",ex:{en:"The package is held at customs.",jp:"荷物が税関で止まっています。"}}
+  ],
+  "高度なビジネス語":[
+    {en:"streamline",ipa:"/ˈstriːmlaɪn/",kana:"ストリームライン",jp:"効率化する",ex:{en:"We streamlined the approval process.",jp:"承認プロセスを効率化しました。"}},
+    {en:"comply",ipa:"/kəmˈplaɪ/",kana:"コンプライ",jp:"（規則に）従う",ex:{en:"All staff must comply with the regulations.",jp:"全社員は規則を遵守しなければなりません。"}},
+    {en:"oversee",ipa:"/ˌoʊvərˈsiː/",kana:"オウヴァスィー",jp:"監督する",ex:{en:"She oversees the entire department.",jp:"彼女は部署全体を統括しています。"}},
+    {en:"endorse",ipa:"/ɪnˈdɔːrs/",kana:"インドース",jp:"支持する・推奨する",ex:{en:"The board endorsed the new strategy.",jp:"取締役会は新戦略を支持しました。"}},
+    {en:"allocate",ipa:"/ˈæləkeɪt/",kana:"アロケイト",jp:"割り当てる",ex:{en:"We allocated more funds to research.",jp:"研究にさらに資金を割り当てました。"}},
+    {en:"feasible",ipa:"/ˈfiːzəbəl/",kana:"フィーザブル",jp:"実現可能な",ex:{en:"The plan is technically feasible.",jp:"その計画は技術的に実現可能です。"}},
+    {en:"leverage",ipa:"/ˈlevərɪdʒ/",kana:"レヴァリッジ",jp:"活用する",ex:{en:"We can leverage our existing network.",jp:"既存の人脈を活用できます。"}},
+    {en:"outsource",ipa:"/ˈaʊtsɔːrs/",kana:"アウトソース",jp:"外部委託する",ex:{en:"They outsourced the IT support.",jp:"彼らはITサポートを外部委託しました。"}}
   ]
 },phrases:[
   {en:"I'm inclined to think otherwise.",jp:"私はむしろ逆だと考えています。"},
@@ -1234,7 +1277,12 @@ const grammar={
     {q:"There are ___ employees in this department.",opts:["several","much","a little","every"],ans:0,jp:"この部署には数人の従業員がいます。",pt:"可算名詞の複数 employees には several。much/a little は不可算用。"},
     {q:"I look forward to ___ from you soon.",opts:["hearing","hear","heard","hears"],ans:0,jp:"近いうちにお返事をお待ちしています。",pt:"look forward to の to は前置詞。後ろは動名詞 -ing。"},
     {q:"The product is very popular ___ young people.",opts:["among","between","into","onto"],ans:0,jp:"その製品は若者の間でとても人気です。",pt:"3者以上の「～の間で」は among。2者間は between。"},
-    {q:"Could you ___ me the salt, please?",opts:["pass","bring","take","give"],ans:0,jp:"塩を取ってもらえますか？",pt:"pass + 人 + 物：「（手渡しで）～を取って渡す」。食卓の定番表現。"}
+    {q:"Could you ___ me the salt, please?",opts:["pass","bring","take","give"],ans:0,jp:"塩を取ってもらえますか？",pt:"pass + 人 + 物：「（手渡しで）～を取って渡す」。食卓の定番表現。"},
+    {q:"The store opens ___ 9 a.m. every day.",opts:["at","on","in","by"],ans:0,jp:"その店は毎日午前9時に開きます。",pt:"時刻の前は前置詞 at。曜日は on、月・年は in。"},
+    {q:"I haven't seen him ___ last week.",opts:["since","for","from","during"],ans:0,jp:"先週から彼に会っていません。",pt:"since + 起点（過去の一点）。for は期間の長さ。"},
+    {q:"This is the ___ movie I have ever seen.",opts:["best","better","good","well"],ans:0,jp:"これは今まで見た中で最高の映画です。",pt:"the + 最上級 best。経験の最上級は現在完了と共に。"},
+    {q:"If it ___ tomorrow, we will cancel the picnic.",opts:["rains","will rain","rained","is raining"],ans:0,jp:"もし明日雨が降れば、ピクニックは中止します。",pt:"条件の if 節は未来でも現在形 rains。"},
+    {q:"She speaks English ___ than her brother.",opts:["better","good","best","well"],ans:0,jp:"彼女は弟より上手に英語を話します。",pt:"than があるので比較級 better（well の比較級）。"}
   ],
   "上級":[
     {q:"All employees are required ___ the safety training.",opts:["to attend","attending","attend","attended"],ans:0,jp:"全従業員は安全研修に参加することが義務付けられています。",pt:"be required to do：「～することを求められる」。to不定詞。"},
@@ -1246,7 +1294,12 @@ const grammar={
     {q:"The company is looking for a candidate ___ experience in marketing.",opts:["with","for","of","at"],ans:0,jp:"会社はマーケティング経験のある候補者を探している。",pt:"a candidate with experience：「～を持つ人」の with。"},
     {q:"We were impressed ___ the quality of their work.",opts:["by","with","at","to"],ans:1,jp:"私たちは彼らの仕事の質に感心した。",pt:"be impressed with/by ～：「～に感心する」。with が自然。"},
     {q:"The new system allows us to work more ___.",opts:["efficiently","efficient","efficiency","efficacious"],ans:0,jp:"新システムでより効率的に働けるようになった。",pt:"動詞 work を修飾するので副詞 efficiently。"},
-    {q:"Neither the manager ___ the staff were informed of the change.",opts:["nor","or","and","but"],ans:0,jp:"部長もスタッフもその変更を知らされていなかった。",pt:"neither A nor B：「AもBも～ない」の相関接続詞。"}
+    {q:"Neither the manager ___ the staff were informed of the change.",opts:["nor","or","and","but"],ans:0,jp:"部長もスタッフもその変更を知らされていなかった。",pt:"neither A nor B：「AもBも～ない」の相関接続詞。"},
+    {q:"The figures in the report need to be ___ before the presentation.",opts:["updated","update","updating","updates"],ans:0,jp:"報告書の数字は発表前に更新される必要がある。",pt:"need to be + 過去分詞（受動態の不定詞）。"},
+    {q:"We will proceed ___ the client approves the budget.",opts:["once","despite","unless","during"],ans:0,jp:"クライアントが予算を承認したら進めます。",pt:"once（～したらすぐ）は後ろに節を取る接続詞。"},
+    {q:"The manager, ___ office is on the third floor, is on leave.",opts:["whose","who","which","whom"],ans:0,jp:"オフィスが3階にある部長は休暇中だ。",pt:"所有を表す関係代名詞 whose（whose office）。"},
+    {q:"The project was completed ahead of ___.",opts:["schedule","scheduled","scheduling","schedules"],ans:0,jp:"そのプロジェクトは予定より早く完了した。",pt:"ahead of schedule：「予定より早く」の定型表現。名詞 schedule。"},
+    {q:"Customers can return items ___ they keep the receipt.",opts:["as long as","as soon as","as well as","as much as"],ans:0,jp:"レシートを保管していれば返品できます。",pt:"as long as：「～する限りは」の条件を表す接続詞。"}
   ],
   "超上級":[
     {q:"___ the merger been approved, the company would have expanded overseas.",opts:["Had","If","Should","Were"],ans:0,jp:"合併が承認されていれば、会社は海外進出していただろう。",pt:"Had + 主語 + 過去分詞 = If 節の倒置（仮定法過去完了）。"},
@@ -1258,11 +1311,85 @@ const grammar={
     {q:"The contract stipulates that the work ___ completed within 30 days.",opts:["be","is","was","will be"],ans:0,jp:"契約はその作業が30日以内に完了されることを定めている。",pt:"要求・命令を表す動詞 stipulate の that 節は仮定法現在（動詞原形 be）。"},
     {q:"___ to the new regulations, all data must be encrypted.",opts:["According","Owing","Due","Thanks"],ans:0,jp:"新しい規則によれば、すべてのデータは暗号化されなければならない。",pt:"According to ～：「～によれば」。他は意味・語法が合わない。"},
     {q:"The board postponed the decision, ___ more time for analysis.",opts:["allowing","allowed","to allow","allows"],ans:0,jp:"取締役会は決定を延期し、分析の時間を確保した。",pt:"分詞構文（結果）。主節に続けて「～して（その結果）」は -ing。"},
-    {q:"It is imperative that every report ___ thoroughly reviewed.",opts:["be","is","being","to be"],ans:0,jp:"すべての報告書が入念に確認されることが不可欠だ。",pt:"It is imperative that ～ の that 節も仮定法現在（動詞原形 be）。"}
+    {q:"It is imperative that every report ___ thoroughly reviewed.",opts:["be","is","being","to be"],ans:0,jp:"すべての報告書が入念に確認されることが不可欠だ。",pt:"It is imperative that ～ の that 節も仮定法現在（動詞原形 be）。"},
+    {q:"___ for the generous funding, the research could not have continued.",opts:["Were it not","If it was not","Had it been","Should it be"],ans:0,jp:"その潤沢な資金がなければ、研究は続けられなかっただろう。",pt:"Were it not for ～：「～がなければ」の仮定法倒置。"},
+    {q:"The company's success can be ___ to its loyal customers.",opts:["attributed","contributed","distributed","attended"],ans:0,jp:"その会社の成功は忠実な顧客のおかげだと言える。",pt:"attribute A to B：「AをBのおかげ／せいとする」。受動態 be attributed to。"},
+    {q:"Sales figures, ___ have declined sharply, will be discussed today.",opts:["which","that","what","who"],ans:0,jp:"急激に落ち込んだ売上高が本日議論される。",pt:"コンマ付き非制限用法は which。先行詞は物。"},
+    {q:"___ extensive testing, the software was released without major issues.",opts:["Thanks to","In spite","Because","Owing"],ans:0,jp:"入念なテストのおかげで、ソフトは大きな問題なくリリースされた。",pt:"Thanks to + 名詞：「～のおかげで」。後ろは名詞句。"},
+    {q:"The board insisted that the policy ___ implemented immediately.",opts:["be","was","is","being"],ans:0,jp:"取締役会はその方針を直ちに実施するよう主張した。",pt:"insist that ～ の that 節は仮定法現在（動詞原形 be）。"}
   ]
 };
 function curGrammar(){return grammar[curLevel]||[];}
 function levelGrammar(lv){return grammar[lv]||[];}
+
+/* ---------- 長文読解（TOEIC Part 7形式） ---------- */
+const reading={
+  "上級":[
+    {passage:`From: Linda Carter\nTo: All Staff\nSubject: Office Relocation\n\nDear team,\n\nOur office will move to the 12th floor of the Hudson Building on March 10. Please pack your personal belongings by March 8. The IT department will move the computers over the weekend, so do not turn off your machines on Friday evening. If you have any questions, contact the facilities team.\n\nBest regards,\nLinda`,
+      qs:[
+        {q:"What is the main purpose of the email?",opts:["To announce an office relocation","To introduce a new manager","To cancel a project","To request a report"],ans:0,exp:"件名 Office Relocation と本文 move to the 12th floor から、移転の連絡が目的。"},
+        {q:"What should employees do by March 8?",opts:["Pack their belongings","Turn off their computers","Move to the new floor","Email the IT team"],ans:0,exp:"pack your personal belongings by March 8 と明記されている。"},
+        {q:"Why should staff leave their computers on Friday?",opts:["The IT department will move them over the weekend","They need a software update","Clients will use them","The power will be tested"],ans:0,exp:"IT department will move the computers over the weekend なので電源を切らない。"}
+      ]},
+    {passage:`NOTICE\n\nThe main parking lot will be closed for repairs from May 5 to May 9. During this period, employees may use the parking garage on Elm Street at no charge. Please show your employee ID at the entrance. We apologize for any inconvenience and appreciate your cooperation.`,
+      qs:[
+        {q:"What is being announced?",opts:["A temporary parking lot closure","A new company policy","A staff meeting","A price increase"],ans:0,exp:"main parking lot will be closed for repairs から一時的な閉鎖の告知。"},
+        {q:"What do employees need to enter the garage?",opts:["Their employee ID","A payment","A reservation","A parking permit"],ans:0,exp:"show your employee ID at the entrance と書かれている。"}
+      ]},
+    {passage:`Greenfield Tech is seeking a Marketing Coordinator to join our growing team. The ideal candidate has at least three years of experience in digital marketing and strong communication skills. Responsibilities include managing social media accounts and analyzing campaign results. This is a full-time position with flexible working hours. To apply, send your resume to careers@greenfield.com by June 30.`,
+      qs:[
+        {q:"What position is being advertised?",opts:["Marketing Coordinator","Software Engineer","Sales Manager","Accountant"],ans:0,exp:"seeking a Marketing Coordinator と冒頭にある。"},
+        {q:"What is required of the ideal candidate?",opts:["At least three years of marketing experience","A graduate degree","Fluency in three languages","Willingness to relocate"],ans:0,exp:"at least three years of experience in digital marketing が条件。"},
+        {q:"How should applicants apply?",opts:["By emailing their resume","By calling the office","By visiting in person","By filling out an online form"],ans:0,exp:"send your resume to careers@greenfield.com とある。"}
+      ]}
+  ],
+  "超上級":[
+    {passage:`A recent study suggests that remote work has reshaped employee expectations. While many companies initially viewed working from home as a temporary measure, a growing number now treat it as a permanent option. Researchers found that employees who work remotely at least part of the week report higher job satisfaction. However, the study also warns that fully remote teams may struggle with collaboration and a sense of belonging unless managers invest in regular communication.`,
+      qs:[
+        {q:"What does the study mainly discuss?",opts:["The impact of remote work on employees","The cost of office space","New hiring procedures","Advances in technology"],ans:0,exp:"remote work has reshaped employee expectations が主題。"},
+        {q:"What benefit of remote work is mentioned?",opts:["Higher job satisfaction","Lower salaries","Shorter contracts","Faster promotions"],ans:0,exp:"report higher job satisfaction と述べられている。"},
+        {q:"What concern does the study raise?",opts:["Fully remote teams may struggle with collaboration","Employees work too few hours","Offices are too expensive","Technology is unreliable"],ans:0,exp:"fully remote teams may struggle with collaboration が警告点。"}
+      ]},
+    {passage:`MEMO\n\nTo: Department Heads\nFrom: Finance Office\nRe: Year-End Budget\n\nAs we approach the end of the fiscal year, all departments are reminded to submit their remaining expense claims by December 15. Any claims received after this date will be processed in the next fiscal year. Please ensure that all receipts are attached and that the totals are accurate, as incomplete submissions will be returned for correction.`,
+      qs:[
+        {q:"Who is the memo intended for?",opts:["Department heads","New employees","External clients","The IT team"],ans:0,exp:"To: Department Heads と明記。"},
+        {q:"What happens to claims submitted after December 15?",opts:["They will be processed next fiscal year","They will be rejected permanently","They will be paid immediately","They will be reviewed by clients"],ans:0,exp:"processed in the next fiscal year とある。"},
+        {q:"Why might a submission be returned?",opts:["It is incomplete","It is too large","It is submitted early","It lacks a signature"],ans:0,exp:"incomplete submissions will be returned for correction。"}
+      ]},
+    {passage:`The city council has approved a plan to expand the public transportation network over the next five years. The initiative includes adding three new bus routes and extending the existing subway line to the eastern suburbs. Officials say the project aims to reduce traffic congestion and lower carbon emissions. Although some residents have raised concerns about construction noise, the council insists that the long-term benefits outweigh the temporary disruption.`,
+      qs:[
+        {q:"What has the city council approved?",opts:["An expansion of public transportation","A tax reduction","A new shopping mall","A housing development"],ans:0,exp:"expand the public transportation network を承認。"},
+        {q:"What is one goal of the project?",opts:["To reduce traffic congestion","To increase parking fees","To attract tourists","To build new schools"],ans:0,exp:"reduce traffic congestion and lower carbon emissions が目的。"},
+        {q:"How does the council respond to residents' concerns?",opts:["It says the long-term benefits outweigh the disruption","It cancels the project","It postpones the decision","It offers compensation"],ans:0,exp:"long-term benefits outweigh the temporary disruption と回答。"}
+      ]}
+  ]
+};
+function curReading(){return reading[curLevel]||[];}
+function levelReading(lv){return reading[lv]||[];}
+
+/* ---------- リスニング理解（TOEIC Part 3/4形式） ---------- */
+const listening={
+  "中級":[
+    {script:"Excuse me, does this train go to Central Station? Yes, it does, but you need to change at Oak Street. The next train leaves in five minutes.",q:"What does the man need to do?",opts:["Change trains at Oak Street","Buy a new ticket","Wait for an hour","Get off at Central Station"],ans:0,jp:"オーク街で乗り換える必要がある。",exp:"you need to change at Oak Street と案内している。"},
+    {script:"Hi, I'd like to return this shirt. It's too small. Do you have the receipt? Yes, here it is. No problem, I can exchange it for a larger size.",q:"What is the customer's problem?",opts:["The shirt is too small","The shirt is the wrong color","She lost the receipt","The store is closed"],ans:0,jp:"シャツが小さすぎる。",exp:"It's too small と客が言っている。"},
+    {script:"Attention shoppers. The store will close in fifteen minutes. Please bring your items to the checkout counter. Thank you for shopping with us.",q:"What are shoppers asked to do?",opts:["Go to the checkout counter","Leave immediately","Return their carts","Visit the customer desk"],ans:0,jp:"レジに商品を持って行く。",exp:"bring your items to the checkout counter と放送している。"},
+    {script:"Good morning. I have an appointment with Dr. Lee at ten. Could you please have a seat? The doctor will be with you shortly.",q:"Where does this conversation take place?",opts:["At a clinic","At a restaurant","At an airport","At a bank"],ans:0,exp:"appointment with Dr. Lee, the doctor will be with you から診療所。"}
+  ],
+  "上級":[
+    {script:"Hi Tom, I'm calling about the meeting this afternoon. We have to move it to three o'clock because the conference room is being used until then. Can you let the others know?",q:"Why was the meeting time changed?",opts:["The conference room was occupied","Tom was unavailable","The client cancelled","The manager was sick"],ans:0,jp:"会議室が使われていたから。",exp:"the conference room is being used until then が理由。"},
+    {script:"Thank you for calling Bright Solutions. All of our representatives are currently busy. Your call is important to us. Please stay on the line, or press one to leave a message.",q:"What can the caller do to leave a message?",opts:["Press one","Stay on the line","Call back later","Send an email"],ans:0,jp:"1を押す。",exp:"press one to leave a message と案内。"},
+    {script:"I'm afraid the flight to Boston has been delayed due to bad weather. The new departure time is six thirty. We apologize for the inconvenience and will provide meal vouchers to all passengers.",q:"What will passengers receive?",opts:["Meal vouchers","A full refund","A hotel room","Free upgrades"],ans:0,jp:"食事券。",exp:"will provide meal vouchers to all passengers。"},
+    {script:"Welcome to today's training session. Before we begin, please make sure your phones are on silent. We'll take a short break at eleven, and lunch will be served at noon in the main hall.",q:"What are participants asked to do before the session?",opts:["Silence their phones","Sign an attendance sheet","Find a partner","Submit a form"],ans:0,jp:"携帯をマナーモードにする。",exp:"make sure your phones are on silent。"}
+  ],
+  "超上級":[
+    {script:"Our quarterly results show a ten percent increase in revenue, mainly driven by strong overseas sales. However, rising shipping costs have slightly reduced our profit margin. For the next quarter, we plan to focus on improving efficiency in our supply chain.",q:"What mainly drove the increase in revenue?",opts:["Strong overseas sales","Lower shipping costs","A new product launch","Reduced staff"],ans:0,jp:"好調な海外売上。",exp:"driven by strong overseas sales と述べている。"},
+    {script:"As part of our sustainability initiative, the company will gradually replace all company vehicles with electric models over the next three years. We believe this transition will reduce our carbon footprint and lower long-term fuel costs.",q:"What is the company planning to do?",opts:["Switch to electric vehicles","Reduce its workforce","Open a new factory","Increase fuel prices"],ans:0,jp:"電気自動車に切り替える。",exp:"replace all company vehicles with electric models。"},
+    {script:"I've reviewed your proposal, and overall it looks promising. My only concern is the timeline. Completing the project in two months seems unrealistic given our current resources. Could you revise the schedule and send it back to me by Thursday?",q:"What is the speaker's main concern?",opts:["The timeline is unrealistic","The budget is too high","The team is too small","The proposal lacks detail"],ans:0,jp:"スケジュールが非現実的。",exp:"Completing the project in two months seems unrealistic が懸念点。"},
+    {script:"Thank you all for attending this year's conference. We had a record number of participants, and the feedback has been overwhelmingly positive. A summary of each session will be emailed to you next week, along with the speakers' slides.",q:"What will attendees receive next week?",opts:["A summary and the slides","A certificate","A refund","A survey"],ans:0,jp:"要約とスライド。",exp:"A summary of each session will be emailed ... along with the speakers' slides。"}
+  ]
+};
+function curListening(){return listening[curLevel]||[];}
+function levelListening(lv){return listening[lv]||[];}
 
 /* ---------- タブ切替 ---------- */
 function go(sec){
@@ -1526,17 +1653,24 @@ const QMODES=[
   {id:"en2ipa",ico:"🗣️",ttl:"英語 → 発音記号",sub:"単語の発音記号を選ぶ"},
   {id:"listen",ico:"🔊",ttl:"リスニング",sub:"音声を聞いて選ぶ"},
   {id:"order",ico:"🔀",ttl:"並べ替え",sub:"単語を正しい語順に並べる"},
-  {id:"grammar",ico:"📑",ttl:"文法穴埋め（TOEIC形式）",sub:"空所に入る語を4択で選ぶ"}
+  {id:"grammar",ico:"📑",ttl:"文法穴埋め（TOEIC形式）",sub:"空所に入る語を4択で選ぶ"},
+  {id:"reading",ico:"📖",ttl:"長文読解（TOEIC Part7形式）",sub:"英文を読んで設問に答える"},
+  {id:"lcomp",ico:"🎧",ttl:"リスニング理解（Part3/4形式）",sub:"会話・放送を聞いて答える"}
 ];
 function renderQuizMenu(){
   refreshWords();
   const hasOrder=curBuilders().length>0;
   const hasGrammar=curGrammar().length>0;
+  const hasReading=curReading().length>0;
+  const hasLcomp=curListening().length>0;
   const btns=QMODES.map(o=>{
     let disabled=false,note=o.sub;
     if(o.id==="listen"&&silent){disabled=true;note="サイレント中は使えません";}
     if(o.id==="order"&&!hasOrder){disabled=true;note="このレベルには例文がありません";}
     if(o.id==="grammar"&&!hasGrammar){disabled=true;note="中級以上で挑戦できます";}
+    if(o.id==="reading"&&!hasReading){disabled=true;note="上級以上で挑戦できます";}
+    if(o.id==="lcomp"&&silent){disabled=true;note="サイレント中は使えません";}
+    if(o.id==="lcomp"&&!hasLcomp){disabled=true;note="中級以上で挑戦できます";}
     return `<button class="qmode" ${disabled?"disabled":""} onclick="startQuiz('${o.id}')">
       <span class="qm-ico">${o.ico}</span>
       <span class="qm-txt"><span class="qm-ttl">${o.ttl}</span><span class="qm-sub">${note}</span></span></button>`;
@@ -1556,6 +1690,14 @@ function startQuiz(mode){
     const gr=shuffle(curGrammar());
     if(!gr.length)return renderQuizMenu();
     while(items.length<10)for(const g of gr){if(items.length>=10)break;items.push({type:"grammar",g});}
+  }else if(m==="reading"){
+    const rd=shuffle(curReading());
+    if(!rd.length)return renderQuizMenu();
+    rd.forEach(p=>p.qs.forEach(q=>items.push({type:"reading",passage:p.passage,q})));
+  }else if(m==="lcomp"){
+    const lc=shuffle(curListening());
+    if(!lc.length)return renderQuizMenu();
+    while(items.length<10)for(const l of lc){if(items.length>=10)break;items.push({type:"lcomp",l});}
   }else if(m==="mix"){
     const types=silent?QTYPES.filter(t=>t!=="listen"):QTYPES;
     const bld=shuffle(curBuilders());
@@ -1590,6 +1732,8 @@ function renderQ(){
   }
   if(qSet[qIdx].type==="order"){return renderOrder(area,qSet[qIdx].b);}
   if(qSet[qIdx].type==="grammar"){return renderGrammar(area,qSet[qIdx].g);}
+  if(qSet[qIdx].type==="reading"){return renderReading(area,qSet[qIdx]);}
+  if(qSet[qIdx].type==="lcomp"){return renderLcomp(area,qSet[qIdx].l);}
   const {w,type}=qSet[qIdx];
   const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   let field,prompt,mainHtml,optEn=false,autoplay=false;
@@ -1724,6 +1868,74 @@ function renderGrammar(area,g){
   area.querySelector("#qnext").onclick=()=>{qIdx++;renderQ();};
 }
 
+function renderReading(area,item){
+  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const g=item.q;
+  const passageHtml=esc(item.passage).replace(/\n/g,"<br>");
+  area.innerHTML=`<div class="quiz-box" style="text-align:left">
+    <div class="bar"><i style="width:${qIdx/qSet.length*100}%"></i></div>
+    <div class="q-meta"><span>第 ${qIdx+1} 問 / ${qSet.length}</span><span>正解 ${qScore}</span></div>
+    <div class="read-passage">${passageHtml}</div>
+    <div class="q-prompt" style="margin-top:14px">${esc(g.q)}</div>
+    <div class="q-opts en"></div>
+    <div class="q-answer" id="qans"></div>
+    <button class="q-next" id="qnext">次へ →</button>
+  </div>`;
+  const ow=area.querySelector(".q-opts");
+  let done=false;
+  g.opts.forEach((t,i)=>{
+    const b=document.createElement("button");b.className="opt";b.textContent=t;
+    b.onclick=()=>{
+      if(done)return;done=true;
+      ow.querySelectorAll(".opt").forEach(x=>x.disabled=true);
+      markStudy();
+      if(i===g.ans){b.classList.add("correct");qScore++;}
+      else{b.classList.add("wrong");ow.querySelectorAll(".opt").forEach((x,idx)=>{if(idx===g.ans)x.classList.add("correct");});}
+      const ansDiv=area.querySelector("#qans");
+      ansDiv.innerHTML=`${i===g.ans?`<b class="ok-t">正解！</b>`:`<b class="ng-t">不正解</b>`} 正解：<span class="en">${esc(g.opts[g.ans])}</span><br><span style="font-size:12.5px;color:var(--ink-soft)">📖 ${esc(g.exp)}</span>`;
+      ansDiv.classList.add("show");
+      area.querySelector("#qnext").classList.add("show");
+      area.querySelector(".q-meta").children[1].textContent="正解 "+qScore;
+    };
+    ow.appendChild(b);
+  });
+  area.querySelector("#qnext").onclick=()=>{qIdx++;renderQ();};
+}
+function renderLcomp(area,l){
+  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  area.innerHTML=`<div class="quiz-box">
+    <div class="bar"><i style="width:${qIdx/qSet.length*100}%"></i></div>
+    <div class="q-meta"><span>第 ${qIdx+1} 問 / ${qSet.length}</span><span>正解 ${qScore}</span></div>
+    <div class="q-prompt">音声を聞いて設問に答えよう</div>
+    <div class="q-listen"><button class="q-play" id="qplay" aria-label="再生">${SPK}<span>もう一度聞く</span></button></div>
+    <div class="q-prompt" style="margin-top:10px">${esc(l.q)}</div>
+    <div class="q-opts en"></div>
+    <div class="q-answer" id="qans"></div>
+    <button class="q-next" id="qnext">次へ →</button>
+  </div>`;
+  area.querySelector("#qplay").onclick=()=>speak(l.script,true);
+  speak(l.script,true);
+  const ow=area.querySelector(".q-opts");
+  let done=false;
+  l.opts.forEach((t,i)=>{
+    const b=document.createElement("button");b.className="opt";b.textContent=t;
+    b.onclick=()=>{
+      if(done)return;done=true;
+      ow.querySelectorAll(".opt").forEach(x=>x.disabled=true);
+      markStudy();
+      if(i===l.ans){b.classList.add("correct");qScore++;}
+      else{b.classList.add("wrong");ow.querySelectorAll(".opt").forEach((x,idx)=>{if(idx===l.ans)x.classList.add("correct");});}
+      const ansDiv=area.querySelector("#qans");
+      ansDiv.innerHTML=`${i===l.ans?`<b class="ok-t">正解！</b>`:`<b class="ng-t">不正解</b>`}<br><span class="en" style="font-size:13px">${esc(l.script)}</span><br><span class="ph-jp">${esc(l.jp||"")}</span>${l.exp?`<br><span style="font-size:12.5px;color:var(--ink-soft)">🎧 ${esc(l.exp)}</span>`:""}`;
+      ansDiv.classList.add("show");
+      area.querySelector("#qnext").classList.add("show");
+      area.querySelector(".q-meta").children[1].textContent="正解 "+qScore;
+    };
+    ow.appendChild(b);
+  });
+  area.querySelector("#qnext").onclick=()=>{qIdx++;renderQ();};
+}
+
 /* ---------- 模擬試験 ---------- */
 function levelWords(lv){const out=[];Object.values(data[lv].vocab).forEach(a=>a.forEach(w=>out.push(w)));return out;}
 function levelBuilders(lv){return builders[lv]||[];}
@@ -1741,12 +1953,18 @@ function startExam(lv){
   const words=shuffle(allWords);
   const bld=shuffle(levelBuilders(lv));
   const gr=shuffle(levelGrammar(lv));
+  const rd=shuffle(levelReading(lv));
+  const lc=shuffle(levelListening(lv));
   const types=silent?QTYPES.filter(t=>t!=="listen"):QTYPES;
   const items=[];
-  const nOrder=Math.min(bld.length,4);
-  const nGram=Math.min(gr.length,6);
+  const nOrder=Math.min(bld.length,3);
+  const nGram=Math.min(gr.length,5);
+  const nRead=Math.min(rd.length,2);
+  const nLcomp=silent?0:Math.min(lc.length,2);
   for(let i=0;i<nOrder;i++)items.push({type:"order",b:bld[i]});
   for(let i=0;i<nGram;i++)items.push({type:"grammar",g:gr[i]});
+  for(let i=0;i<nRead;i++){const p=rd[i];const q=p.qs[Math.floor(Math.random()*p.qs.length)];items.push({type:"reading",passage:p.passage,q});}
+  for(let i=0;i<nLcomp;i++)items.push({type:"lcomp",l:lc[i]});
   let wi=0;
   while(items.length<EXAM_N){const w=words[wi%words.length];wi++;items.push({type:types[Math.floor(Math.random()*types.length)],w});}
   qSet=shuffle(items).slice(0,EXAM_N);qIdx=0;qScore=0;
