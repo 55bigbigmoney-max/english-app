@@ -6,6 +6,7 @@
 <title>はじめての英語</title>
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="英語">
@@ -199,6 +200,12 @@
   .wstat-bar i{display:block;height:100%;border-radius:999px;transition:width .5s ease;}
   .wstat-pct{flex:0 0 64px;text-align:right;font-size:12px;color:var(--ink-soft);}
   .wstat-weak{color:#b04a3e;font-weight:700;}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+  .cal-cell{aspect-ratio:1;border-radius:6px;background:var(--paper-deep);display:flex;
+    align-items:center;justify-content:center;font-size:10px;color:var(--ink-soft);}
+  .cal-cell.on{background:var(--jade);color:#fff;font-weight:700;}
+  .cal-cell.today{box-shadow:0 0 0 2px var(--navy);}
+  .cal-dow{font-size:10px;color:var(--ink-soft);text-align:center;font-weight:700;}
 
   /* Vocab */
   .cats{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
@@ -364,6 +371,10 @@
         <div class="bg-ttl">形式別の成績（弱点分析）</div>
         <div class="wstat" id="wstat"></div>
       </div>
+      <div class="badges">
+        <div class="bg-ttl">学習カレンダー（直近5週間）</div>
+        <div class="cal" id="cal"></div>
+      </div>
     </div>
     <div class="setting">
       <span class="set-lbl">🔇 サイレントモード<small>音声の自動再生をオフ。🔊ボタンは手動で使えます。クイズはリスニングを除く形式に。</small></span>
@@ -436,6 +447,9 @@
 </div>
 
 <script>
+/* ---------- オフライン対応（PWA） ---------- */
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{});});}
+
 /* ---------- 設定（サイレント） ---------- */
 let silent=false;
 try{silent=localStorage.getItem("en-silent")==="1";}catch(e){}
@@ -1377,6 +1391,12 @@ const reading={
         {q:"What is the announcement mainly about?",opts:["Extended customer service hours","A new product line","A price change","A store closing"],ans:0,exp:"customer service hours will be extended が主旨。"},
         {q:"When is the support line available on Saturdays?",opts:["From 10 a.m. to 4 p.m.","From 8 a.m. to 8 p.m.","24 hours a day","It is closed"],ans:0,exp:"from 10 a.m. to 4 p.m. on Saturdays。"},
         {q:"What service operates 24 hours a day?",opts:["The online chat service","The support line","The email service","The store"],ans:0,exp:"online chat service will continue to operate 24 hours a day。"}
+      ]},
+    {passage:`From: Mark Reyes\nTo: Sales Team\nSubject: Monthly Targets\n\nHi everyone,\n\nGreat work last month — we exceeded our target by twelve percent. For this month, the goal has been set at 500 units. To support you, we will hold a short training session on the new product line this Thursday at 2 p.m. Attendance is optional but strongly recommended. Let me know if you have any conflicts.\n\nThanks,\nMark`,
+      qs:[
+        {q:"What did the team achieve last month?",opts:["They exceeded their target","They missed their target","They launched a product","They hired new staff"],ans:0,exp:"we exceeded our target by twelve percent。"},
+        {q:"What is this month's goal?",opts:["500 units","12 units","2 units","50 units"],ans:0,exp:"the goal has been set at 500 units。"},
+        {q:"What is true about the training session?",opts:["It is optional but recommended","It is mandatory","It is cancelled","It is online only"],ans:0,exp:"Attendance is optional but strongly recommended。"}
       ]}
   ],
   "超上級":[
@@ -1403,6 +1423,12 @@ const reading={
         {q:"What is the main finding of the survey?",opts:["A growing demand for flexible work","A decline in salaries","An increase in office attendance","A shortage of new graduates"],ans:0,exp:"a growing demand for flexible working arrangements が主な発見。"},
         {q:"Which group most desired flexibility?",opts:["Workers in their thirties and forties","Recent graduates","Senior executives","Part-time staff"],ans:0,exp:"strongest among workers in their thirties and forties。"},
         {q:"What does the report warn employers about?",opts:["They may struggle to retain top talent","They will face legal action","They must raise wages","They should reduce staff"],ans:0,exp:"may struggle to retain top talent in the coming years。"}
+      ]},
+    {passage:`The rapid adoption of artificial intelligence in the workplace has sparked both excitement and anxiety. Proponents argue that AI can automate repetitive tasks, freeing employees to focus on creative and strategic work. Critics, however, worry about job displacement and the ethical implications of relying on algorithms for important decisions. Most experts agree that the key lies not in resisting the technology, but in reskilling the workforce so that humans and machines can complement one another.`,
+      qs:[
+        {q:"What is the passage mainly about?",opts:["The impact of AI in the workplace","A new software product","A company's hiring plan","The history of computers"],ans:0,exp:"adoption of artificial intelligence in the workplace が主題。"},
+        {q:"What do proponents of AI argue?",opts:["It frees employees for creative work","It lowers salaries","It replaces all jobs","It is too expensive"],ans:0,exp:"freeing employees to focus on creative and strategic work。"},
+        {q:"What do most experts believe is the key?",opts:["Reskilling the workforce","Banning the technology","Hiring fewer people","Lowering prices"],ans:0,exp:"the key lies ... in reskilling the workforce。"}
       ]}
   ]
 };
@@ -1439,6 +1465,36 @@ const listening={
 function curListening(){return listening[curLevel]||[];}
 function levelListening(lv){return listening[lv]||[];}
 
+/* ---------- 数字リスニング（時刻・日付・番号） ---------- */
+const numbers={
+  "中級":[
+    {script:"The train leaves at seven thirty.",q:"What time does the train leave?",opts:["7:30","7:13","8:30","7:03"],ans:0,jp:"電車は7時30分に出発します。"},
+    {script:"The total is fifteen dollars.",q:"How much is the total?",opts:["$15","$50","$55","$5"],ans:0,jp:"合計は15ドルです。"},
+    {script:"My room number is four oh eight.",q:"What is the room number?",opts:["408","418","480","804"],ans:0,jp:"部屋番号は408です。"},
+    {script:"There are twenty students in the class.",q:"How many students are there?",opts:["20","12","22","30"],ans:0,jp:"クラスには20人の生徒がいます。"},
+    {script:"The store closes at nine p.m.",q:"What time does the store close?",opts:["9 p.m.","9 a.m.","10 p.m.","8 p.m."],ans:0,jp:"店は午後9時に閉まります。"},
+    {script:"Today is May twelfth.",q:"What is today's date?",opts:["May 12","March 12","May 20","May 2"],ans:0,jp:"今日は5月12日です。"}
+  ],
+  "上級":[
+    {script:"The flight departs at eleven fifty.",q:"When does the flight depart?",opts:["11:50","11:15","12:50","10:50"],ans:0,jp:"便は11時50分に出発します。"},
+    {script:"The discount is thirty percent.",q:"How much is the discount?",opts:["30%","13%","33%","40%"],ans:0,jp:"割引は30％です。"},
+    {script:"Please call extension two three seven five.",q:"What is the extension number?",opts:["2375","2735","2357","3275"],ans:0,jp:"内線2375におかけください。"},
+    {script:"The package weighs four point five kilograms.",q:"How much does the package weigh?",opts:["4.5 kg","4.9 kg","14.5 kg","5.4 kg"],ans:0,jp:"荷物の重さは4.5キロです。"},
+    {script:"The deadline is June thirtieth.",q:"When is the deadline?",opts:["June 30","June 13","July 30","June 3"],ans:0,jp:"締め切りは6月30日です。"},
+    {script:"We sold over twelve hundred units.",q:"How many units were sold?",opts:["1,200","1,020","2,200","12,000"],ans:0,jp:"1,200個以上を販売しました。"}
+  ],
+  "超上級":[
+    {script:"Revenue rose by eight point seven percent.",q:"By how much did revenue rise?",opts:["8.7%","8.1%","18.7%","7.8%"],ans:0,jp:"収益は8.7％増加しました。"},
+    {script:"The contract is worth three point five million dollars.",q:"What is the contract worth?",opts:["$3.5 million","$3.9 million","$13.5 million","$5.3 million"],ans:0,jp:"契約額は350万ドルです。"},
+    {script:"The meeting is scheduled for the twenty-third at two fifteen.",q:"When is the meeting?",opts:["The 23rd at 2:15","The 23rd at 2:50","The 13th at 2:15","The 23rd at 3:15"],ans:0,jp:"会議は23日の2時15分に予定されています。"},
+    {script:"Our office is on the fourteenth floor.",q:"Which floor is the office on?",opts:["14th","40th","4th","44th"],ans:0,jp:"オフィスは14階にあります。"},
+    {script:"The survey included four thousand five hundred respondents.",q:"How many respondents were there?",opts:["4,500","4,050","45,000","5,400"],ans:0,jp:"調査には4,500人の回答者が含まれました。"},
+    {script:"Interest rates increased to four point two five percent.",q:"What is the new interest rate?",opts:["4.25%","4.52%","14.25%","2.45%"],ans:0,jp:"金利は4.25％に上昇しました。"}
+  ]
+};
+function curNumbers(){return numbers[curLevel]||[];}
+function levelNumbers(lv){return numbers[lv]||[];}
+
 /* ---------- 応答問題（TOEIC Part 2形式） ---------- */
 const response2={
   "中級":[
@@ -1447,7 +1503,9 @@ const response2={
     {prompt:"Would you like some coffee?",opts:["Yes, please.","It's on the desk.","Last week."],ans:0,jp:"コーヒーはいかがですか？ → はい、お願いします。"},
     {prompt:"How do you go to work?",opts:["By train.","At the office.","Twice a day."],ans:0,jp:"どうやって通勤していますか？ → 電車でです。"},
     {prompt:"Who is in charge of this project?",opts:["Ms. Tanaka is.","Next Monday.","In the meeting room."],ans:0,jp:"このプロジェクトの担当は誰ですか？ → 田中さんです。"},
-    {prompt:"Why are you late?",opts:["The train was delayed.","To the station.","Yes, I am."],ans:0,jp:"なぜ遅れたのですか？ → 電車が遅れたからです。"}
+    {prompt:"Why are you late?",opts:["The train was delayed.","To the station.","Yes, I am."],ans:0,jp:"なぜ遅れたのですか？ → 電車が遅れたからです。"},
+    {prompt:"What time should we meet?",opts:["How about seven?","At the restaurant.","Yes, let's meet."],ans:0,jp:"何時に会いましょうか？ → 7時はどう？"},
+    {prompt:"Can I help you?",opts:["Yes, I'm looking for a gift.","It's over there.","No problem."],ans:0,jp:"お手伝いしましょうか？ → はい、贈り物を探しています。"}
   ],
   "上級":[
     {prompt:"Could you tell me how to get to the conference room?",opts:["Sure, it's down the hall on your left.","Yes, I attended it.","It was very informative."],ans:0,jp:"会議室への行き方を教えてもらえますか？ → ええ、廊下を進んで左手です。"},
@@ -1455,7 +1513,9 @@ const response2={
     {prompt:"Why don't we reschedule the meeting?",opts:["That sounds like a good idea.","In the main hall.","Yes, he did."],ans:0,jp:"会議を再調整しませんか？ → それはいい考えですね。"},
     {prompt:"Do you know when the shipment will arrive?",opts:["It should be here by Thursday.","From our supplier.","About fifty boxes."],ans:0,jp:"出荷はいつ届くか分かりますか？ → 木曜までには届くはずです。"},
     {prompt:"Would you mind reviewing my proposal?",opts:["Not at all, send it over.","It was approved.","In the afternoon."],ans:0,jp:"私の提案を見てもらえますか？ → もちろんです、送ってください。"},
-    {prompt:"How was the client meeting?",opts:["It went really well.","At their office.","Three of them."],ans:0,jp:"クライアントとの会議はどうでしたか？ → とてもうまくいきました。"}
+    {prompt:"How was the client meeting?",opts:["It went really well.","At their office.","Three of them."],ans:0,jp:"クライアントとの会議はどうでしたか？ → とてもうまくいきました。"},
+    {prompt:"Should I email the report or print it?",opts:["Email is fine, thanks.","It was last week.","On the desk."],ans:0,jp:"報告書はメールしますか、印刷しますか？ → メールで大丈夫です。"},
+    {prompt:"Do you know who's leading the training?",opts:["I believe it's Mr. Davis.","In the afternoon.","About twenty people."],ans:0,jp:"研修を誰が担当するか知っていますか？ → デイビスさんだと思います。"}
   ],
   "超上級":[
     {prompt:"I think we should outsource the customer support.",opts:["That's worth considering, but let's weigh the costs.","Yes, I called them.","On the fifth floor."],ans:0,jp:"カスタマーサポートは外注すべきだと思います。 → 検討の価値はありますが、コストを比較しましょう。"},
@@ -1463,7 +1523,9 @@ const response2={
     {prompt:"Could you walk me through the new approval process?",opts:["Of course, let me share my screen.","It was rejected.","Next to the elevator."],ans:0,jp:"新しい承認プロセスを説明してもらえますか？ → もちろん、画面を共有します。"},
     {prompt:"Should we go ahead with the merger or wait?",opts:["I'd say we wait until the audit is complete.","It's a large firm.","Yes, they agreed."],ans:0,jp:"合併を進めるべきか待つべきか？ → 監査が終わるまで待つべきだと思います。"},
     {prompt:"What do you make of the latest sales figures?",opts:["They're encouraging, though overseas demand is flat.","In the report.","Around noon."],ans:0,jp:"最新の売上高をどう思いますか？ → 心強いですが、海外需要は横ばいです。"},
-    {prompt:"Wouldn't it be better to postpone the launch?",opts:["Possibly, but that could affect our market position.","It launched yesterday.","To the press."],ans:0,jp:"発売を延期した方がよくないですか？ → そうかもしれませんが、市場での位置に影響します。"}
+    {prompt:"Wouldn't it be better to postpone the launch?",opts:["Possibly, but that could affect our market position.","It launched yesterday.","To the press."],ans:0,jp:"発売を延期した方がよくないですか？ → そうかもしれませんが、市場での位置に影響します。"},
+    {prompt:"How do you propose we cut expenses?",opts:["We could start by reviewing our subscriptions.","It was over budget.","Yes, quite a lot."],ans:0,jp:"どうやって経費を削減しますか？ → まず契約サービスを見直すのはどうでしょう。"},
+    {prompt:"Weren't the results below expectations?",opts:["Slightly, but the trend is improving.","In the report.","Yes, I read it."],ans:0,jp:"結果は期待を下回りませんでしたか？ → 少しは。でも傾向は改善しています。"}
   ]
 };
 function curResponse2(){return response2[curLevel]||[];}
@@ -1507,6 +1569,7 @@ function statCat(type){
   if(type==="response2")return "応答";
   if(type==="dictation")return "ディクテーション";
   if(type==="order")return "並べ替え";
+  if(type==="speak")return "発音";
   return "語彙";
 }
 function recordStat(type,ok){
@@ -1611,7 +1674,9 @@ function dayDiff(a,b){return Math.round((new Date(b)-new Date(a))/86400000);}
 (function(){if(prog.lastDate){const d=dayDiff(prog.lastDate,todayStr());if(d>1){prog.streak=0;saveProg();}}})();
 function markStudy(){
   const t=todayStr();
-  if(prog.lastDate===t){return;}
+  if(!prog.dates)prog.dates={};
+  prog.dates[t]=1;
+  if(prog.lastDate===t){saveProg();return;}
   if(prog.lastDate){const diff=dayDiff(prog.lastDate,t);prog.streak=diff===1?prog.streak+1:1;}
   else{prog.streak=1;}
   prog.lastDate=t;prog.days++;
@@ -1646,6 +1711,27 @@ function renderProgress(){
   const row=document.getElementById("badge-row");
   if(row){row.innerHTML="";BADGES.forEach(b=>{const on=b.test(prog);const el=document.createElement("div");el.className="badge"+(on?" on":"");el.innerHTML=`<span class="b-ico">${b.ico}</span>${b.name}`;row.appendChild(el);});}
   renderWeakStats();
+  renderCalendar();
+}
+function renderCalendar(){
+  const cal=document.getElementById("cal");if(!cal)return;
+  const dates=prog.dates||{};
+  const today=new Date();today.setHours(0,0,0,0);
+  const end=new Date(today);end.setDate(end.getDate()+(6-end.getDay()));
+  const start=new Date(end);start.setDate(start.getDate()-34);
+  const dow=["日","月","火","水","木","金","土"];
+  const fmt=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  const tstr=todayStr();
+  let html=dow.map(d=>`<div class="cal-dow">${d}</div>`).join("");
+  for(let i=0;i<35;i++){
+    const d=new Date(start);d.setDate(start.getDate()+i);
+    const key=fmt(d);
+    const on=dates[key]?" on":"";
+    const isToday=key===tstr?" today":"";
+    const future=d>today?` style="opacity:.3"`:"";
+    html+=`<div class="cal-cell${on}${isToday}"${future}>${d.getDate()}</div>`;
+  }
+  cal.innerHTML=html;
 }
 function renderWeakStats(){
   const box=document.getElementById("wstat-box");
@@ -1792,6 +1878,39 @@ function distractors(field,correctVal,n){
   for(const x of shuffle(allWords)){if(out.length>=n)break;if(seen[x[field]])continue;seen[x[field]]=1;out.push(x);}
   return out;
 }
+let reviewMode=false;
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition||null;
+function itemKey(it){
+  if(!it)return "";
+  if(it.type==="order")return "o:"+it.b.t.join(" ");
+  if(it.type==="grammar")return "g:"+it.g.q;
+  if(it.type==="reading")return "r:"+it.q.q;
+  if(it.type==="lcomp")return "l:"+it.l.q;
+  if(it.type==="response2")return "rp:"+it.rp.prompt;
+  if(it.type==="dictation")return "d:"+it.d.en;
+  if(it.type==="speak")return "s:"+it.w.en;
+  return "w:"+it.type+":"+(it.w?it.w.en:"");
+}
+function reviewUpdate(item,ok){
+  if(!item)return;
+  if(!prog.review)prog.review=[];
+  const k=itemKey(item);
+  const idx=prog.review.findIndex(x=>itemKey(x)===k);
+  if(reviewMode){
+    if(ok&&idx>=0){prog.review.splice(idx,1);saveProg();}
+  }else{
+    if(!ok&&idx<0){prog.review.push(item);saveProg();}
+  }
+  renderProgress();
+}
+function reviewCount(){return (prog.review||[]).length;}
+function startReview(){
+  if(!prog.review||!prog.review.length)return renderQuizMenu();
+  reviewMode=true;examMode=false;qArea="quiz-area";
+  allWords=Object.values(wordByEn);
+  qSet=shuffle(prog.review.slice());qIdx=0;qScore=0;
+  window.scrollTo({top:0,behavior:"smooth"});renderQ();
+}
 let quizMode="mix";
 const QMODES=[
   {id:"mix",ico:"🎲",ttl:"おまかせ",sub:"全形式ミックス（10問）"},
@@ -1804,7 +1923,9 @@ const QMODES=[
   {id:"reading",ico:"📖",ttl:"長文読解（TOEIC Part7形式）",sub:"英文を読んで設問に答える"},
   {id:"lcomp",ico:"🎧",ttl:"リスニング理解（Part3/4形式）",sub:"会話・放送を聞いて答える"},
   {id:"response2",ico:"💬",ttl:"応答問題（TOEIC Part2形式）",sub:"質問を聞いて最適な応答を選ぶ"},
-  {id:"dictation",ico:"✍️",ttl:"ディクテーション",sub:"聞いた英文を入力して答え合わせ"}
+  {id:"dictation",ico:"✍️",ttl:"ディクテーション",sub:"聞いた英文を入力して答え合わせ"},
+  {id:"speak",ico:"🎤",ttl:"発音チェック",sub:"単語を声に出して発音を判定"},
+  {id:"numbers",ico:"🔢",ttl:"数字リスニング",sub:"時刻・日付・番号の聞き取り"}
 ];
 function renderQuizMenu(){
   refreshWords();
@@ -1824,14 +1945,22 @@ function renderQuizMenu(){
     if(o.id==="response2"&&curResponse2().length===0){disabled=true;note="中級以上で挑戦できます";}
     if(o.id==="dictation"&&silent){disabled=true;note="サイレント中は使えません";}
     if(o.id==="dictation"&&curDictation().length===0){disabled=true;note="中級以上で挑戦できます";}
+    if(o.id==="speak"&&!SR){disabled=true;note="この端末では使えません";}
+    if(o.id==="numbers"&&silent){disabled=true;note="サイレント中は使えません";}
+    if(o.id==="numbers"&&curNumbers().length===0){disabled=true;note="中級以上で挑戦できます";}
     return `<button class="qmode" ${disabled?"disabled":""} onclick="startQuiz('${o.id}')">
       <span class="qm-ico">${o.ico}</span>
       <span class="qm-txt"><span class="qm-ttl">${o.ttl}</span><span class="qm-sub">${note}</span></span></button>`;
   }).join("");
-  document.getElementById("quiz-area").innerHTML=`<div class="qmenu">${btns}</div>`;
+  const rc=reviewCount();
+  const reviewBtn=`<button class="qmode" ${rc===0?"disabled":""} onclick="startReview()" style="${rc>0?"border-color:#b04a3e":""}">
+      <span class="qm-ico">🔁</span>
+      <span class="qm-txt"><span class="qm-ttl">復習モード（間違い直し）</span><span class="qm-sub">${rc>0?`${rc}問たまっています`:"間違えた問題がたまると挑戦できます"}</span></span></button>`;
+  document.getElementById("quiz-area").innerHTML=`<div class="qmenu">${reviewBtn}${btns}</div>`;
 }
 function startQuiz(mode){
   refreshWords();
+  reviewMode=false;
   if(mode)quizMode=mode;
   const m=quizMode;
   const items=[];
@@ -1859,6 +1988,13 @@ function startQuiz(mode){
     const dc=shuffle(curDictation());
     if(!dc.length)return renderQuizMenu();
     while(items.length<8)for(const d of dc){if(items.length>=8)break;items.push({type:"dictation",d});}
+  }else if(m==="speak"){
+    if(!SR)return renderQuizMenu();
+    shuffle(allWords).slice(0,8).forEach(w=>items.push({type:"speak",w}));
+  }else if(m==="numbers"){
+    const nm=shuffle(curNumbers());
+    if(!nm.length)return renderQuizMenu();
+    while(items.length<10)for(const l of nm){if(items.length>=10)break;items.push({type:"lcomp",l});}
   }else if(m==="mix"){
     const types=silent?QTYPES.filter(t=>t!=="listen"):QTYPES;
     const bld=shuffle(curBuilders());
@@ -1879,6 +2015,16 @@ function renderQ(){
   const area=document.getElementById(qArea);
   if(qIdx>=qSet.length){
     if(examMode)return renderExamResult(area);
+    if(reviewMode){
+      const remain=reviewCount();
+      reviewMode=false;
+      area.innerHTML=`<div class="quiz-box result">
+        <div class="score">${qScore}<span style="font-size:24px;color:var(--ink-soft)">/${qSet.length}</span></div>
+        <div class="msg">${remain===0?"復習リストをすべてクリア！お見事です🎉":`残り ${remain} 問。くり返して定着させましょう。`}</div>
+        ${remain>0?`<button class="q-next show" onclick="startReview()">続けて復習</button>`:""}
+        <button class="q-next show" style="background:var(--card);color:var(--ink);border:1px solid var(--line);margin-left:8px" onclick="renderQuizMenu()">メニューへ</button></div>`;
+      return;
+    }
     recordQuiz(qScore);
     let msg="また挑戦してみましょう！";
     if(qScore>=9)msg="完璧です！Excellent!（すばらしい）";
@@ -1897,6 +2043,7 @@ function renderQ(){
   if(qSet[qIdx].type==="lcomp"){return renderLcomp(area,qSet[qIdx].l);}
   if(qSet[qIdx].type==="response2"){return renderResponse2(area,qSet[qIdx].rp);}
   if(qSet[qIdx].type==="dictation"){return renderDictation(area,qSet[qIdx].d);}
+  if(qSet[qIdx].type==="speak"){return renderSpeak(area,qSet[qIdx].w);}
   const {w,type}=qSet[qIdx];
   const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   let field,prompt,mainHtml,optEn=false,autoplay=false;
@@ -1936,7 +2083,7 @@ function renderQ(){
       const okv=o[field]===w[field];
       if(okv){b.classList.add("correct");qScore++;}
       else{b.classList.add("wrong");addFav(w.en);all.forEach(x=>{if(x.textContent===w[field])x.classList.add("correct");});}
-      recordStat(type,okv);
+      recordStat(type,okv);reviewUpdate(qSet[qIdx],okv);
       speak(w.en);
       area.querySelector("#qnext").classList.add("show");
       area.querySelector(".q-meta").children[1].textContent="正解 "+qScore;
@@ -1986,7 +2133,7 @@ function renderOrder(area,b){
     const ok=ans===correct;
     target.classList.add(ok?"ok":"ng");
     if(ok)qScore++;
-    recordStat("order",ok);
+    recordStat("order",ok);reviewUpdate(qSet[qIdx],ok);
     const ansDiv=area.querySelector("#qans");
     ansDiv.innerHTML=`${ok?`<b class="ok-t">正解！</b>`:`<b class="ng-t">惜しい！</b>`} 正しい語順：<span class="en">${correct}</span><br><span class="ph-jp">${b.jp}</span>`;
     ansDiv.classList.add("show");
@@ -2021,7 +2168,7 @@ function renderGrammar(area,g){
       markStudy();
       if(o.i===g.ans){b.classList.add("correct");qScore++;}
       else{b.classList.add("wrong");all.forEach((x,idx)=>{if(idx===g.ans)x.classList.add("correct");});}
-      recordStat("grammar",o.i===g.ans);
+      recordStat("grammar",o.i===g.ans);reviewUpdate(qSet[qIdx],o.i===g.ans);
       const full=g.q.replace("___",g.opts[g.ans]);
       speak(full);
       const ansDiv=area.querySelector("#qans");
@@ -2058,7 +2205,7 @@ function renderReading(area,item){
       markStudy();
       if(i===g.ans){b.classList.add("correct");qScore++;}
       else{b.classList.add("wrong");ow.querySelectorAll(".opt").forEach((x,idx)=>{if(idx===g.ans)x.classList.add("correct");});}
-      recordStat("reading",i===g.ans);
+      recordStat("reading",i===g.ans);reviewUpdate(qSet[qIdx],i===g.ans);
       const ansDiv=area.querySelector("#qans");
       ansDiv.innerHTML=`${i===g.ans?`<b class="ok-t">正解！</b>`:`<b class="ng-t">不正解</b>`} 正解：<span class="en">${esc(g.opts[g.ans])}</span><br><span style="font-size:12.5px;color:var(--ink-soft)">📖 ${esc(g.exp)}</span>`;
       ansDiv.classList.add("show");
@@ -2093,7 +2240,7 @@ function renderLcomp(area,l){
       markStudy();
       if(i===l.ans){b.classList.add("correct");qScore++;}
       else{b.classList.add("wrong");ow.querySelectorAll(".opt").forEach((x,idx)=>{if(idx===l.ans)x.classList.add("correct");});}
-      recordStat("lcomp",i===l.ans);
+      recordStat("lcomp",i===l.ans);reviewUpdate(qSet[qIdx],i===l.ans);
       const ansDiv=area.querySelector("#qans");
       ansDiv.innerHTML=`${i===l.ans?`<b class="ok-t">正解！</b>`:`<b class="ng-t">不正解</b>`}<br><span class="en" style="font-size:13px">${esc(l.script)}</span><br><span class="ph-jp">${esc(l.jp||"")}</span>${l.exp?`<br><span style="font-size:12.5px;color:var(--ink-soft)">🎧 ${esc(l.exp)}</span>`:""}`;
       ansDiv.classList.add("show");
@@ -2129,7 +2276,7 @@ function renderResponse2(area,rp){
       const ok=i===rp.ans;
       if(ok){b.classList.add("correct");qScore++;}
       else{b.classList.add("wrong");ow.querySelectorAll(".opt").forEach((x,idx)=>{if(idx===rp.ans)x.classList.add("correct");});}
-      recordStat("response2",ok);
+      recordStat("response2",ok);reviewUpdate(qSet[qIdx],ok);
       speak(rp.prompt+" "+rp.opts[rp.ans]);
       const ansDiv=area.querySelector("#qans");
       ansDiv.innerHTML=`${ok?`<b class="ok-t">正解！</b>`:`<b class="ng-t">不正解</b>`}<br><span class="en" style="font-size:13px">Q: ${esc(rp.prompt)}</span><br><span class="ph-jp">${esc(rp.jp)}</span>`;
@@ -2173,7 +2320,7 @@ function renderDictation(area,d){
     }).join(" ");
     const allOk=correctN===ansWords.length&&userWords.length===ansWords.length;
     if(allOk)qScore++;
-    recordStat("dictation",allOk);
+    recordStat("dictation",allOk);reviewUpdate(qSet[qIdx],allOk);
     speak(d.en);
     const ansDiv=area.querySelector("#qans");
     ansDiv.innerHTML=`${allOk?`<b class="ok-t">完璧！</b>`:`<b class="ng-t">${correctN}/${ansWords.length} 語正解</b>`}<br><span class="en" style="font-size:14px">${marked}</span><br><span class="ph-jp">${esc(d.jp)}</span>`;
@@ -2182,6 +2329,54 @@ function renderDictation(area,d){
     area.querySelector("#qnext").classList.add("show");
   };
   area.querySelector("#qnext").onclick=()=>{qIdx++;renderQ();};
+}
+
+function renderSpeak(area,w){
+  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const norm=s=>String(s).toLowerCase().replace(/[.,!?;:'"]/g,"").replace(/\s+/g," ").trim();
+  area.innerHTML=`<div class="quiz-box">
+    <div class="bar"><i style="width:${qIdx/qSet.length*100}%"></i></div>
+    <div class="q-meta"><span>第 ${qIdx+1} 問 / ${qSet.length}</span><span>正解 ${qScore}</span></div>
+    <div class="q-prompt">この語を声に出して発音しよう</div>
+    <div class="q-main en">${esc(w.en)}</div>
+    <div class="ph-kana" style="text-align:center">${esc(w.ipa)}
+      <button class="spk" style="vertical-align:middle;width:30px;height:30px;margin-left:6px" aria-label="お手本">${SPK}</button></div>
+    <div class="q-actions"><button class="q-check" id="micbtn">🎤 押して発音</button></div>
+    <div class="q-answer" id="qans"></div>
+    <button class="q-next" id="qnext">次へ →</button>
+  </div>`;
+  area.querySelector(".spk").onclick=()=>speak(w.en,true);
+  const micbtn=area.querySelector("#micbtn");
+  const ansDiv=area.querySelector("#qans");
+  let done=false,rec=null;
+  function finish(ok,heard){
+    if(done)return;done=true;micbtn.disabled=true;
+    markStudy();learnWord(w.en);
+    if(ok)qScore++;
+    recordStat("speak",ok);reviewUpdate(qSet[qIdx],ok);
+    speak(w.en);
+    ansDiv.innerHTML=`${ok?`<b class="ok-t">上手に言えました！</b>`:`<b class="ng-t">もう少し！</b>`}<br><span style="font-size:12.5px;color:var(--ink-soft)">聞き取り：${heard?esc(heard):"（なし）"}</span><br><span class="ph-jp">${esc(w.jp)}</span>`;
+    ansDiv.classList.add("show");
+    area.querySelector("#qnext").classList.add("show");
+    area.querySelector(".q-meta").children[1].textContent="正解 "+qScore;
+  }
+  micbtn.onclick=()=>{
+    if(done||!SR)return;
+    try{
+      rec=new SR();rec.lang="en-US";rec.interimResults=false;rec.maxAlternatives=5;
+      micbtn.textContent="🎙️ 聞き取り中…";
+      rec.onresult=e=>{
+        const alts=[];for(let i=0;i<e.results[0].length;i++)alts.push(norm(e.results[0][i].transcript));
+        const target=norm(w.en);
+        const ok=alts.some(a=>a===target||a.includes(target)||target.includes(a));
+        finish(ok,e.results[0][0]?e.results[0][0].transcript:"");
+      };
+      rec.onerror=()=>{micbtn.textContent="🎤 もう一度試す";};
+      rec.onend=()=>{if(!done&&micbtn.textContent==="🎙️ 聞き取り中…")micbtn.textContent="🎤 もう一度試す";};
+      rec.start();
+    }catch(err){micbtn.textContent="🎤 もう一度試す";}
+  };
+  area.querySelector("#qnext").onclick=()=>{if(rec){try{rec.abort();}catch(e){}}qIdx++;renderQ();};
 }
 
 /* ---------- 模擬試験 ---------- */
@@ -2196,6 +2391,7 @@ function renderExamMenu(){
 }
 function startExam(lv){
   if(!LEVELS.includes(lv))return;
+  reviewMode=false;
   examLevel=lv;examMode=true;qArea="exam-area";
   allWords=levelWords(lv);
   const words=shuffle(allWords);
