@@ -1,5 +1,5 @@
 /* はじめての英語 — Service Worker (offline support) */
-const CACHE = "en-app-v1";
+const CACHE = "en-app-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -26,19 +26,38 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
+
+  const accept = req.headers.get("accept") || "";
+  const isHTML = req.mode === "navigate" || accept.includes("text/html");
+
+  if (isHTML) {
+    // Network-first for the page itself so updates arrive when online;
+    // fall back to cached index.html when offline.
+    e.respondWith(
+      fetch(req)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put("./index.html", copy));
+          return res;
+        })
+        .catch(() => caches.match(req).then((c) => c || caches.match("./index.html")))
+    );
+    return;
+  }
+
+  // Cache-first for static assets (icons, manifest).
   e.respondWith(
     caches.match(req).then((cached) => {
       if (cached) return cached;
       return fetch(req)
         .then((res) => {
-          // Cache same-origin successful responses for next time
           if (res && res.ok && new URL(req.url).origin === self.location.origin) {
             const copy = res.clone();
             caches.open(CACHE).then((c) => c.put(req, copy));
           }
           return res;
         })
-        .catch(() => caches.match("./index.html"));
+        .catch(() => undefined);
     })
   );
 });

@@ -206,6 +206,19 @@
   .cal-cell.on{background:var(--jade);color:#fff;font-weight:700;}
   .cal-cell.today{box-shadow:0 0 0 2px var(--navy);}
   .cal-dow{font-size:10px;color:var(--ink-soft);text-align:center;font-weight:700;}
+  .goalbox{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:14px 16px;margin-top:12px;box-shadow:0 2px 0 var(--line);}
+  .goal-ring{flex:0 0 auto;}
+  .goal-info{flex:1;min-width:0;font-size:13px;color:var(--ink-soft);}
+  .goal-top{font-size:14px;color:var(--ink);}
+  .goal-top b{color:var(--jade);font-size:16px;}
+  .goal-cum{margin-top:4px;}
+  .goal-cum b{color:var(--navy);}
+  .goal-ctrl{margin-top:6px;display:flex;align-items:center;gap:6px;}
+  .goal-btn{border:1px solid var(--line);background:var(--paper);border-radius:8px;width:28px;height:28px;
+    font-size:16px;font-weight:700;cursor:pointer;color:var(--ink);font-family:inherit;line-height:1;}
+  .goal-btn:active{transform:scale(.92);}
+  #goal-arc{transition:stroke-dashoffset .5s ease;}
 
   /* Vocab */
   .cats{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
@@ -363,6 +376,21 @@
           <div class="st-val"><span id="st-ebest">—</span> <small id="st-elv" style="font-weight:400">まだ未受験</small></div>
         </div>
       </div>
+      <div class="goalbox">
+        <svg class="goal-ring" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
+          <circle cx="32" cy="32" r="27" fill="none" stroke="var(--paper-deep)" stroke-width="7"/>
+          <circle id="goal-arc" cx="32" cy="32" r="27" fill="none" stroke="var(--jade)" stroke-width="7" stroke-linecap="round" transform="rotate(-90 32 32)" stroke-dasharray="169.6" stroke-dashoffset="169.6"/>
+          <text id="goal-ring-txt" x="32" y="37" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)">0%</text>
+        </svg>
+        <div class="goal-info">
+          <div class="goal-top">今日の学習 <b id="goal-done">0</b> / <span id="goal-target">20</span> 問</div>
+          <div class="goal-cum">累計 <b id="cum-total">0</b> 問 ・ 正答率 <b id="cum-acc">—</b></div>
+          <div class="goal-ctrl">1日の目標：
+            <button class="goal-btn" id="goal-minus" aria-label="目標を減らす">−</button>
+            <button class="goal-btn" id="goal-plus" aria-label="目標を増やす">＋</button>
+          </div>
+        </div>
+      </div>
       <div class="badges">
         <div class="bg-ttl">獲得バッジ</div>
         <div class="badge-row" id="badge-row"></div>
@@ -409,6 +437,9 @@
     <div id="conso-list"></div>
     <h2><span class="en">a·b·c</span>つづりと音のルール</h2>
     <div id="rule-list"></div>
+    <h2><span class="en">re·-tion</span>接頭辞・接尾辞・語根</h2>
+    <p class="lead" style="margin-bottom:12px">単語のパーツの意味を知ると、知らない単語も推測しやすくなります。🔊 で例語を確認。</p>
+    <div id="affix-list"></div>
   </section>
 
   <!-- VOCAB -->
@@ -515,6 +546,20 @@ const CONSONANTS=[
   {ipa:"/ŋ/",kana:"ング",desc:"舌の奥を上げて鼻に抜く音",ex:"sing",exJp:"歌う"},
   {ipa:"/h/",kana:"ハ（息だけ）",desc:"のどの奥から息だけを出す",ex:"hat",exJp:"帽子"}
 ];
+const AFFIXES=[
+  {sym:"re-",kana:"接頭辞：再び・元へ",ex:"return（戻る）／review（見直す）",say:"return, review"},
+  {sym:"un-",kana:"接頭辞：否定・逆",ex:"unhappy（不幸な）／unlock（開ける）",say:"unhappy, unlock"},
+  {sym:"pre-",kana:"接頭辞：前に",ex:"preview（予告）／prepare（準備する）",say:"preview, prepare"},
+  {sym:"dis-",kana:"接頭辞：否定・分離",ex:"disagree（反対する）／disappear（消える）",say:"disagree, disappear"},
+  {sym:"in-/im-",kana:"接頭辞：否定／中へ",ex:"impossible（不可能な）／include（含む）",say:"impossible, include"},
+  {sym:"-tion",kana:"接尾辞：動作・状態の名詞",ex:"action（行動）／education（教育）",say:"action, education"},
+  {sym:"-able",kana:"接尾辞：～できる",ex:"available（利用できる）／reliable（信頼できる）",say:"available, reliable"},
+  {sym:"-ful",kana:"接尾辞：～に満ちた",ex:"useful（役立つ）／careful（注意深い）",say:"useful, careful"},
+  {sym:"-ly",kana:"接尾辞：副詞化（～に）",ex:"quickly（速く）／easily（簡単に）",say:"quickly, easily"},
+  {sym:"port",kana:"語根：運ぶ",ex:"import（輸入）／transport（輸送）",say:"import, transport"},
+  {sym:"spect",kana:"語根：見る",ex:"inspect（検査する）／respect（尊敬）",say:"inspect, respect"},
+  {sym:"struct",kana:"語根：建てる・組む",ex:"construct（建設する）／structure（構造）",say:"construct, structure"}
+];
 const RULES=[
   {sym:"a_e",ttl:"マジックE",desc:"最後の e は読まず、前の母音をアルファベット読みに変える（a-e=エイ、i-e=アイ、o-e=オウ）",ex:"make / time / note",say:"make, time, note"},
   {sym:"th",ttl:"th のつづり",desc:"舌先を歯ではさむ。think は息だけ、this は声を出す",ex:"think / this",say:"think, this"},
@@ -618,6 +663,16 @@ const data={
     {en:"close",ipa:"/kloʊz/",kana:"クロウズ",jp:"閉める",ex:{en:"Close the door, please.",jp:"ドアを閉めてください。"}},
     {en:"read",ipa:"/riːd/",kana:"リード",jp:"読む",ex:{en:"I read books every night.",jp:"毎晩本を読みます。"}},
     {en:"write",ipa:"/raɪt/",kana:"ライト",jp:"書く",ex:{en:"Write your name here.",jp:"ここに名前を書いてください。"}}
+  ],
+  "乗り物・町":[
+    {en:"bus",ipa:"/bʌs/",kana:"バス",jp:"バス",ex:{en:"I go to school by bus.",jp:"バスで学校に行きます。"}},
+    {en:"car",ipa:"/kɑːr/",kana:"カー",jp:"車",ex:{en:"My father has a new car.",jp:"父は新しい車を持っています。"}},
+    {en:"train",ipa:"/treɪn/",kana:"トレイン",jp:"電車",ex:{en:"The train is very fast.",jp:"その電車はとても速い。"}},
+    {en:"bike",ipa:"/baɪk/",kana:"バイク",jp:"自転車",ex:{en:"I ride my bike every day.",jp:"毎日自転車に乗ります。"}},
+    {en:"taxi",ipa:"/ˈtæksi/",kana:"タクシー",jp:"タクシー",ex:{en:"Let's take a taxi.",jp:"タクシーに乗りましょう。"}},
+    {en:"airport",ipa:"/ˈerpɔːrt/",kana:"エアポート",jp:"空港",ex:{en:"The airport is far from here.",jp:"空港はここから遠い。"}},
+    {en:"road",ipa:"/roʊd/",kana:"ロード",jp:"道路",ex:{en:"This road is very busy.",jp:"この道路はとても混んでいます。"}},
+    {en:"town",ipa:"/taʊn/",kana:"タウン",jp:"町",ex:{en:"I live in a small town.",jp:"小さな町に住んでいます。"}}
   ]
 },phrases:[
   {en:"Nice to meet you.",kana:"ナイス トゥ ミート ユー",jp:"はじめまして。"},
@@ -727,6 +782,16 @@ const data={
     {en:"begin",ipa:"/bɪˈɡɪn/",kana:"ビギン",jp:"始める（過去 began）",ex:{en:"The movie began at eight.",jp:"映画は8時に始まりました。"}},
     {en:"find",ipa:"/faɪnd/",kana:"ファインド",jp:"見つける（過去 found）",ex:{en:"I found my keys.",jp:"鍵を見つけました。"}},
     {en:"keep",ipa:"/kiːp/",kana:"キープ",jp:"保つ（過去 kept）",ex:{en:"She kept the receipt.",jp:"彼女はレシートを取っておきました。"}}
+  ],
+  "日常の動詞":[
+    {en:"clean",ipa:"/kliːn/",kana:"クリーン",jp:"掃除する",ex:{en:"I clean my room on weekends.",jp:"週末に部屋を掃除します。"}},
+    {en:"wash",ipa:"/wɑːʃ/",kana:"ウォッシュ",jp:"洗う",ex:{en:"Please wash your hands.",jp:"手を洗ってください。"}},
+    {en:"wear",ipa:"/wer/",kana:"ウェア",jp:"着る・身につける",ex:{en:"She wears glasses.",jp:"彼女は眼鏡をかけています。"}},
+    {en:"carry",ipa:"/ˈkæri/",kana:"キャリー",jp:"運ぶ",ex:{en:"Can you carry this box?",jp:"この箱を運んでくれますか？"}},
+    {en:"wait",ipa:"/weɪt/",kana:"ウェイト",jp:"待つ",ex:{en:"Please wait a moment.",jp:"少々お待ちください。"}},
+    {en:"help",ipa:"/help/",kana:"ヘルプ",jp:"助ける・手伝う",ex:{en:"Can you help me?",jp:"手伝ってもらえますか？"}},
+    {en:"call",ipa:"/kɔːl/",kana:"コール",jp:"電話する・呼ぶ",ex:{en:"I'll call you tonight.",jp:"今夜電話します。"}},
+    {en:"send",ipa:"/send/",kana:"センド",jp:"送る",ex:{en:"Please send me the file.",jp:"ファイルを送ってください。"}}
   ]
 },phrases:[
   {en:"What time is it now?",kana:"ワット タイム イズ イット ナウ",jp:"今何時ですか？"},
@@ -834,6 +899,16 @@ const data={
     {en:"finally",ipa:"/ˈfaɪnəli/",kana:"ファイナリー",jp:"ついに・最後に",ex:{en:"We finally finished the work.",jp:"ついに仕事を終えました。"}},
     {en:"especially",ipa:"/ɪˈspeʃəli/",kana:"イスペシャリー",jp:"特に",ex:{en:"I like fruit, especially apples.",jp:"果物、特にりんごが好きです。"}},
     {en:"although",ipa:"/ɔːlˈðoʊ/",kana:"オールゾウ",jp:"～だけれども",ex:{en:"Although it was hard, I enjoyed it.",jp:"大変だったが、楽しめました。"}}
+  ],
+  "ニュース・社会":[
+    {en:"news",ipa:"/nuːz/",kana:"ニューズ",jp:"ニュース",ex:{en:"Did you watch the news?",jp:"ニュースを見ましたか？"}},
+    {en:"accident",ipa:"/ˈæksɪdənt/",kana:"アクスィデント",jp:"事故",ex:{en:"There was a car accident.",jp:"自動車事故がありました。"}},
+    {en:"election",ipa:"/ɪˈlekʃən/",kana:"イレクション",jp:"選挙",ex:{en:"The election is next month.",jp:"選挙は来月です。"}},
+    {en:"economy",ipa:"/ɪˈkɑːnəmi/",kana:"イカノミー",jp:"経済",ex:{en:"The economy is growing slowly.",jp:"経済はゆっくり成長しています。"}},
+    {en:"population",ipa:"/ˌpɑːpjuˈleɪʃən/",kana:"パピュレイション",jp:"人口",ex:{en:"The population is increasing.",jp:"人口が増えています。"}},
+    {en:"crime",ipa:"/kraɪm/",kana:"クライム",jp:"犯罪",ex:{en:"Crime has decreased this year.",jp:"今年は犯罪が減りました。"}},
+    {en:"traffic",ipa:"/ˈtræfɪk/",kana:"トラフィック",jp:"交通（量）",ex:{en:"The traffic is heavy this morning.",jp:"今朝は交通量が多い。"}},
+    {en:"article",ipa:"/ˈɑːrtɪkəl/",kana:"アーティクル",jp:"記事",ex:{en:"I read an interesting article.",jp:"おもしろい記事を読みました。"}}
   ]
 },phrases:[
   {en:"Could you do me a favor?",jp:"お願いがあるのですが。"},
@@ -951,6 +1026,16 @@ const data={
     {en:"keep track of",ipa:"/kiːp træk ʌv/",kana:"キープ トラック オブ",jp:"～を把握しておく",ex:{en:"Keep track of your expenses.",jp:"経費を把握しておきなさい。"}},
     {en:"come up with",ipa:"/kʌm ʌp wɪð/",kana:"カム アップ ウィズ",jp:"（案を）思いつく",ex:{en:"She came up with a great idea.",jp:"彼女は素晴らしい案を思いつきました。"}},
     {en:"in terms of",ipa:"/ɪn tɜːrmz ʌv/",kana:"イン タームズ オブ",jp:"～の点で",ex:{en:"In terms of cost, it's reasonable.",jp:"費用の点では妥当です。"}}
+  ],
+  "会議・プレゼン":[
+    {en:"presentation",ipa:"/ˌpriːzenˈteɪʃən/",kana:"プレゼンテイション",jp:"発表・プレゼン",ex:{en:"She gave a great presentation.",jp:"彼女は素晴らしいプレゼンをしました。"}},
+    {en:"audience",ipa:"/ˈɔːdiəns/",kana:"オーディエンス",jp:"聴衆",ex:{en:"The audience asked many questions.",jp:"聴衆は多くの質問をしました。"}},
+    {en:"feedback",ipa:"/ˈfiːdbæk/",kana:"フィードバック",jp:"意見・反応",ex:{en:"Thank you for your feedback.",jp:"ご意見ありがとうございます。"}},
+    {en:"summary",ipa:"/ˈsʌməri/",kana:"サマリー",jp:"要約",ex:{en:"Please give a brief summary.",jp:"簡単な要約をお願いします。"}},
+    {en:"outline",ipa:"/ˈaʊtlaɪn/",kana:"アウトライン",jp:"概要",ex:{en:"Let me outline the main points.",jp:"要点の概要を述べます。"}},
+    {en:"clarify",ipa:"/ˈklærɪfaɪ/",kana:"クラリファイ",jp:"明確にする",ex:{en:"Could you clarify that point?",jp:"その点を明確にしてもらえますか？"}},
+    {en:"emphasize",ipa:"/ˈemfəsaɪz/",kana:"エンファサイズ",jp:"強調する",ex:{en:"I'd like to emphasize this issue.",jp:"この問題を強調したいです。"}},
+    {en:"conclude",ipa:"/kənˈkluːd/",kana:"コンクルード",jp:"結論づける",ex:{en:"Let me conclude with a summary.",jp:"まとめで締めくくります。"}}
   ]
 },phrases:[
   {en:"I couldn't agree with you more.",jp:"まったく同感です。"},
@@ -1072,6 +1157,16 @@ const data={
     {en:"feasible",ipa:"/ˈfiːzəbəl/",kana:"フィーザブル",jp:"実現可能な",ex:{en:"The plan is technically feasible.",jp:"その計画は技術的に実現可能です。"}},
     {en:"leverage",ipa:"/ˈlevərɪdʒ/",kana:"レヴァリッジ",jp:"活用する",ex:{en:"We can leverage our existing network.",jp:"既存の人脈を活用できます。"}},
     {en:"outsource",ipa:"/ˈaʊtsɔːrs/",kana:"アウトソース",jp:"外部委託する",ex:{en:"They outsourced the IT support.",jp:"彼らはITサポートを外部委託しました。"}}
+  ],
+  "契約・法務":[
+    {en:"clause",ipa:"/klɔːz/",kana:"クローズ",jp:"条項",ex:{en:"Please read the confidentiality clause.",jp:"守秘義務の条項をお読みください。"}},
+    {en:"liability",ipa:"/ˌlaɪəˈbɪləti/",kana:"ライアビリティ",jp:"責任・債務",ex:{en:"The company accepts no liability for damages.",jp:"当社は損害について一切の責任を負いません。"}},
+    {en:"breach",ipa:"/briːtʃ/",kana:"ブリーチ",jp:"違反",ex:{en:"This is a breach of contract.",jp:"これは契約違反です。"}},
+    {en:"terminate",ipa:"/ˈtɜːrmɪneɪt/",kana:"ターミネイト",jp:"解約する・終了させる",ex:{en:"Either party may terminate the agreement.",jp:"いずれの当事者も契約を解除できます。"}},
+    {en:"obligation",ipa:"/ˌɑːblɪˈɡeɪʃən/",kana:"アブリゲイション",jp:"義務",ex:{en:"We have a legal obligation to comply.",jp:"私たちには遵守する法的義務があります。"}},
+    {en:"confidential",ipa:"/ˌkɑːnfɪˈdenʃəl/",kana:"カンフィデンシャル",jp:"機密の",ex:{en:"This document is strictly confidential.",jp:"この書類は厳重に機密です。"}},
+    {en:"amendment",ipa:"/əˈmendmənt/",kana:"アメンドメント",jp:"修正・改正",ex:{en:"We proposed an amendment to the contract.",jp:"契約の修正を提案しました。"}},
+    {en:"waiver",ipa:"/ˈweɪvər/",kana:"ウェイヴァー",jp:"権利放棄（書）",ex:{en:"All participants must sign a waiver.",jp:"参加者全員が免責同意書に署名する必要があります。"}}
   ]
 },phrases:[
   {en:"I'm inclined to think otherwise.",jp:"私はむしろ逆だと考えています。"},
@@ -1577,6 +1672,9 @@ function recordStat(type,ok){
   const c=statCat(type);
   if(!prog.stats[c])prog.stats[c]={c:0,t:0};
   prog.stats[c].t++;if(ok)prog.stats[c].c++;
+  const t=todayStr();
+  if(!prog.daily||prog.daily.date!==t)prog.daily={date:t,n:0};
+  prog.daily.n++;
   saveProg();
 }
 
@@ -1650,6 +1748,19 @@ document.querySelectorAll(".lv").forEach(b=>b.addEventListener("click",()=>setLe
     d.querySelector(".spk").onclick=()=>speak(r.say,true);
     rl.appendChild(d);
   });
+  const al=document.getElementById("affix-list");
+  AFFIXES.forEach(a=>{
+    const d=document.createElement("div");d.className="sound-card";
+    d.innerHTML=`
+      <div class="sound-sym rule">${a.sym}</div>
+      <div>
+        <div class="sound-kana">${a.kana}</div>
+        <div class="sound-ex">例：<span class="en">${a.ex}</span></div>
+      </div>
+      <button class="spk" aria-label="発音">${SPK}</button>`;
+    d.querySelector(".spk").onclick=()=>speak(a.say,true);
+    al.appendChild(d);
+  });
 })();
 
 /* ---------- 苦手単語（お気に入り） ---------- */
@@ -1666,7 +1777,7 @@ function favWords(){return favs.map(en=>wordByEn[en]).filter(Boolean);}
 
 /* ---------- 学習記録・進捗 ---------- */
 const PROG_KEY="en-progress";
-let prog={lastDate:"",streak:0,best:0,days:0,learned:{},quizPlayed:0,quizBest:0,examPlayed:0,examBest:0,examBestLevel:""};
+let prog={lastDate:"",streak:0,best:0,days:0,learned:{},quizPlayed:0,quizBest:0,examPlayed:0,examBest:0,examBestLevel:"",goal:20};
 try{const p=JSON.parse(localStorage.getItem(PROG_KEY));if(p)prog=Object.assign(prog,p);}catch(e){}
 function saveProg(){try{localStorage.setItem(PROG_KEY,JSON.stringify(prog));}catch(e){}}
 function todayStr(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
@@ -1712,6 +1823,27 @@ function renderProgress(){
   if(row){row.innerHTML="";BADGES.forEach(b=>{const on=b.test(prog);const el=document.createElement("div");el.className="badge"+(on?" on":"");el.innerHTML=`<span class="b-ico">${b.ico}</span>${b.name}`;row.appendChild(el);});}
   renderWeakStats();
   renderCalendar();
+  renderGoal();
+}
+function renderGoal(){
+  const arc=document.getElementById("goal-arc");if(!arc)return;
+  const goal=prog.goal||20;
+  const done=(prog.daily&&prog.daily.date===todayStr())?prog.daily.n:0;
+  const pct=Math.min(100,goal>0?Math.round(done/goal*100):0);
+  const circ=2*Math.PI*27;
+  arc.setAttribute("stroke-dashoffset",(circ*(1-pct/100)).toFixed(1));
+  arc.setAttribute("stroke",pct>=100?"var(--gold)":"var(--jade)");
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set("goal-ring-txt",pct+"%");
+  set("goal-done",done);set("goal-target",goal);
+  let tc=0,cc=0;const st=prog.stats||{};Object.keys(st).forEach(k=>{tc+=st[k].t;cc+=st[k].c;});
+  set("cum-total",tc);set("cum-acc",tc>0?Math.round(cc/tc*100)+"%":"—");
+  const minus=document.getElementById("goal-minus"),plus=document.getElementById("goal-plus");
+  if(minus&&!minus.dataset.wired){
+    minus.dataset.wired="1";
+    minus.onclick=()=>{prog.goal=Math.max(5,(prog.goal||20)-5);saveProg();renderGoal();};
+    plus.onclick=()=>{prog.goal=Math.min(100,(prog.goal||20)+5);saveProg();renderGoal();};
+  }
 }
 function renderCalendar(){
   const cal=document.getElementById("cal");if(!cal)return;
