@@ -262,6 +262,8 @@
 
   /* Quiz */
   .qmenu{display:grid;gap:12px;margin-top:8px;}
+  .qsec{font-family:"Shippori Mincho",serif;font-size:14px;font-weight:700;color:var(--ink);
+    margin:22px 0 2px;padding-bottom:6px;border-bottom:1px solid var(--line);}
   .qmode{display:flex;align-items:center;gap:14px;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:16px 18px;font-family:inherit;cursor:pointer;color:var(--ink);box-shadow:0 2px 0 var(--line);transition:.16s;}
   .qmode:hover{border-color:var(--navy);transform:translateY(-1px);}
   .qmode:disabled{opacity:.45;cursor:default;transform:none;}
@@ -1681,6 +1683,59 @@ const photos={
 function curPhotos(){return photos[curLevel]||[];}
 function levelPhotos(lv){return photos[lv]||[];}
 
+/* ---------- 長文穴埋め（TOEIC Part 6形式） ---------- */
+const part6={
+  "中級":[
+    {passage:"Thank you for your hard work this month. Our sales (1) increased by 10 percent. To celebrate, we will hold a small party next Friday (2) 6 p.m. We hope all of you (3) attend.",
+      blanks:[
+        {n:1,opts:["have","has","having","to have"],ans:0,exp:"主語 Our sales は複数なので現在完了は have increased。has は単数用。"},
+        {n:2,opts:["at","on","in","by"],ans:0,exp:"時刻の前は前置詞 at（at 6 p.m.）。"},
+        {n:3,opts:["can","must","should","could"],ans:0,exp:"「皆さんが参加できることを願う」と可能の can が自然。"}
+      ]},
+    {passage:"Dear Mr. Lee, Thank you for your order. Unfortunately, the item you requested is currently (1) of stock. We expect to receive a new shipment (2) two weeks. We apologize for the (3) and appreciate your patience.",
+      blanks:[
+        {n:1,opts:["out","off","over","up"],ans:0,exp:"out of stock で「在庫切れ」の固定表現。"},
+        {n:2,opts:["in","on","at","by"],ans:0,exp:"in + 期間で「～後に」。in two weeks「2週間後に」。"},
+        {n:3,opts:["inconvenience","convenient","conveniently","convenience"],ans:0,exp:"the の後ろは名詞。apologize for the inconvenience「ご不便をお詫びする」。"}
+      ]}
+  ],
+  "上級":[
+    {passage:"We are pleased to announce that our office will be (1) to a new location next month. The move is part of our plan to (2) the growing team. During the transition, some services may be temporarily (3). Thank you for your understanding.",
+      blanks:[
+        {n:1,opts:["relocated","relocating","relocate","relocation"],ans:0,exp:"will be + 過去分詞の受動態。office は「移転される」側。"},
+        {n:2,opts:["accommodate","accommodation","accommodating","accommodates"],ans:0,exp:"plan to の後ろは動詞原形。accommodate「収容する・対応する」。"},
+        {n:3,opts:["unavailable","available","availability","avail"],ans:0,exp:"文脈は「一時的に利用できない」なので unavailable。"}
+      ]},
+    {passage:"Dear valued customer, Please be (1) that our return policy has changed. (2) March 1, items may be returned within 30 days of purchase. If you have any questions, please do not (3) to contact us.",
+      blanks:[
+        {n:1,opts:["informed","informing","inform","information"],ans:0,exp:"Please be informed that ～「～をお知らせします」の受動表現。"},
+        {n:2,opts:["Effective","Effect","Effectively","Affect"],ans:0,exp:"Effective + 日付で「～より有効・～から」。"},
+        {n:3,opts:["hesitate","hesitant","hesitation","hesitating"],ans:0,exp:"do not hesitate to do「遠慮なく～する」の定型。"}
+      ]}
+  ],
+  "超上級":[
+    {passage:"The committee has reviewed the proposal (1) detail. While the projected costs are significant, the long-term benefits (2) outweigh them. We therefore recommend that the project (3) approved without further delay.",
+      blanks:[
+        {n:1,opts:["in","with","on","at"],ans:0,exp:"in detail で「詳細に」の決まった言い方。"},
+        {n:2,opts:["clearly","clear","clearance","cleared"],ans:0,exp:"動詞 outweigh を修飾するので副詞 clearly。"},
+        {n:3,opts:["be","is","was","being"],ans:0,exp:"recommend that 節は仮定法現在で動詞原形 be。"}
+      ]},
+    {passage:"All staff are reminded that the security system will be upgraded this weekend. (1) the upgrade, building access will be restricted. Employees who need to enter the office (2) contact security in advance. We appreciate your (3) during this period.",
+      blanks:[
+        {n:1,opts:["During","While","Despite","Although"],ans:0,exp:"後ろが the upgrade と名詞句なので前置詞 During。While/Although は節が必要。"},
+        {n:2,opts:["must","can","may","would"],ans:0,exp:"「事前に連絡しなければならない」と義務の must。"},
+        {n:3,opts:["cooperation","cooperate","cooperative","cooperatively"],ans:0,exp:"your の後ろは名詞。your cooperation「ご協力」。"}
+      ]}
+  ]
+};
+function curPart6(){return part6[curLevel]||[];}
+function levelPart6(lv){return part6[lv]||[];}
+function expandPart6(list,limit){
+  const items=[];
+  shuffle(list).forEach(p=>p.blanks.forEach(b=>items.push({type:"part6",passage:p.passage,b})));
+  return limit?items.slice(0,limit):items;
+}
+
 /* ---------- 応答問題（TOEIC Part 2形式） ---------- */
 const response2={
   "中級":[
@@ -1769,6 +1824,7 @@ function statCat(type){
   if(type==="order")return "並べ替え";
   if(type==="speak")return "発音";
   if(type==="photo")return "写真描写";
+  if(type==="part6")return "長文穴埋め";
   return "語彙";
 }
 function recordStat(type,ok){
@@ -2127,6 +2183,7 @@ function itemKey(it){
   if(it.type==="dictation")return "d:"+it.d.en;
   if(it.type==="speak")return "s:"+it.w.en;
   if(it.type==="photo")return "ph:"+it.p.jp;
+  if(it.type==="part6")return "p6:"+it.passage.slice(0,24)+":"+it.b.n;
   return "w:"+it.type+":"+(it.w?it.w.en:"");
 }
 function reviewUpdate(item,ok){
@@ -2172,7 +2229,8 @@ function renderQuizMenu(){
   const hasGrammar=curGrammar().length>0;
   const hasReading=curReading().length>0;
   const hasLcomp=curListening().length>0;
-  const btns=QMODES.map(o=>{
+  const PART_MODES=["grammar","reading","lcomp","response2","photo"];
+  const btns=QMODES.filter(o=>!PART_MODES.includes(o.id)).map(o=>{
     let disabled=false,note=o.sub;
     if(o.id==="listen"&&silent){disabled=true;note="サイレント中は使えません";}
     if(o.id==="order"&&!hasOrder){disabled=true;note="このレベルには例文がありません";}
@@ -2193,11 +2251,27 @@ function renderQuizMenu(){
       <span class="qm-ico">${o.ico}</span>
       <span class="qm-txt"><span class="qm-ttl">${o.ttl}</span><span class="qm-sub">${note}</span></span></button>`;
   }).join("");
+  const PARTS=[
+    {p:"Part 1",ico:"🖼️",ttl:"写真描写",mode:"photo",audio:true,has:()=>curPhotos().length>0,lvl:"中級以上"},
+    {p:"Part 2",ico:"💬",ttl:"応答問題",mode:"response2",audio:true,has:()=>curResponse2().length>0,lvl:"中級以上"},
+    {p:"Part 3・4",ico:"🎧",ttl:"会話・説明文",mode:"lcomp",audio:true,has:()=>curListening().length>0,lvl:"中級以上"},
+    {p:"Part 5",ico:"📑",ttl:"短文穴埋め",mode:"grammar",audio:false,has:()=>curGrammar().length>0,lvl:"中級以上"},
+    {p:"Part 6",ico:"📝",ttl:"長文穴埋め",mode:"part6",audio:false,has:()=>curPart6().length>0,lvl:"中級以上"},
+    {p:"Part 7",ico:"📖",ttl:"長文読解",mode:"reading",audio:false,has:()=>curReading().length>0,lvl:"上級以上"}
+  ];
+  const partBtns=PARTS.map(o=>{
+    let disabled=false,note=o.ttl;
+    if(o.audio&&silent){disabled=true;note="サイレント中は使えません";}
+    else if(!o.has()){disabled=true;note=o.lvl+"で挑戦できます";}
+    return `<button class="qmode" ${disabled?"disabled":""} onclick="startQuiz('${o.mode}')">
+      <span class="qm-ico">${o.ico}</span>
+      <span class="qm-txt"><span class="qm-ttl">${o.p}　${o.ttl}</span><span class="qm-sub">${note}</span></span></button>`;
+  }).join("");
   const rc=reviewCount();
   const reviewBtn=`<button class="qmode" ${rc===0?"disabled":""} onclick="startReview()" style="${rc>0?"border-color:#b04a3e":""}">
       <span class="qm-ico">🔁</span>
       <span class="qm-txt"><span class="qm-ttl">復習モード（間違い直し）</span><span class="qm-sub">${rc>0?`${rc}問たまっています`:"間違えた問題がたまると挑戦できます"}</span></span></button>`;
-  document.getElementById("quiz-area").innerHTML=`<div class="qmenu">${reviewBtn}${btns}</div>`;
+  document.getElementById("quiz-area").innerHTML=`<div class="qmenu">${reviewBtn}</div><div class="qsec">TOEIC パート別（本番形式）</div><div class="qmenu">${partBtns}</div><div class="qsec">形式から選ぶ（基礎練習）</div><div class="qmenu">${btns}</div>`;
 }
 function startQuiz(mode){
   refreshWords();
@@ -2240,6 +2314,10 @@ function startQuiz(mode){
     const ph=shuffle(curPhotos());
     if(!ph.length)return renderQuizMenu();
     while(items.length<8)for(const p of ph){if(items.length>=8)break;items.push({type:"photo",p});}
+  }else if(m==="part6"){
+    const p6=expandPart6(curPart6());
+    if(!p6.length)return renderQuizMenu();
+    items.push(...p6);
   }else if(m==="mix"){
     const types=silent?QTYPES.filter(t=>t!=="listen"):QTYPES;
     const bld=shuffle(curBuilders());
@@ -2290,6 +2368,7 @@ function renderQ(){
   if(qSet[qIdx].type==="dictation"){return renderDictation(area,qSet[qIdx].d);}
   if(qSet[qIdx].type==="speak"){return renderSpeak(area,qSet[qIdx].w);}
   if(qSet[qIdx].type==="photo"){return renderPhoto(area,qSet[qIdx].p);}
+  if(qSet[qIdx].type==="part6"){return renderPart6(area,qSet[qIdx]);}
   const {w,type}=qSet[qIdx];
   const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   let field,prompt,mainHtml,optEn=false,autoplay=false;
@@ -2664,6 +2743,43 @@ function renderPhoto(area,p){
   area.querySelector("#qnext").onclick=()=>{qIdx++;renderQ();};
 }
 
+function renderPart6(area,item){
+  const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const b=item.b;
+  const passageHtml=esc(item.passage).replace(new RegExp("\\("+b.n+"\\)"),`<span style="color:var(--navy);font-weight:700">（ ${b.n} ）</span>`).replace(/\((\d)\)/g,"（ $1 ）");
+  const correct=b.opts[b.ans];
+  const opts=shuffle(b.opts.map(t=>({t,ok:t===correct})));
+  area.innerHTML=`<div class="quiz-box" style="text-align:left">
+    <div class="bar"><i style="width:${qIdx/qSet.length*100}%"></i></div>
+    <div class="q-meta"><span>第 ${qIdx+1} 問 / ${qSet.length}</span><span>正解 ${qScore}</span></div>
+    <div class="read-passage">${passageHtml}</div>
+    <div class="q-prompt" style="margin-top:14px">空所（ ${b.n} ）に入る最も適切なものは？</div>
+    <div class="q-opts en"></div>
+    <div class="q-answer" id="qans"></div>
+    <button class="q-next" id="qnext">次へ →</button>
+  </div>`;
+  const ow=area.querySelector(".q-opts");
+  let done=false;
+  opts.forEach(o=>{
+    const btn=document.createElement("button");btn.className="opt";btn.textContent=o.t;
+    btn.onclick=()=>{
+      if(done)return;done=true;
+      ow.querySelectorAll(".opt").forEach(x=>x.disabled=true);
+      markStudy();
+      if(o.ok){btn.classList.add("correct");qScore++;}
+      else{btn.classList.add("wrong");ow.querySelectorAll(".opt").forEach(x=>{if(x.textContent===correct)x.classList.add("correct");});}
+      recordStat("part6",o.ok);reviewUpdate(qSet[qIdx],o.ok);
+      const ansDiv=area.querySelector("#qans");
+      ansDiv.innerHTML=`${o.ok?`<b class="ok-t">正解！</b>`:`<b class="ng-t">不正解</b>`} 正解：<span class="en">${esc(correct)}</span><br><span style="font-size:12.5px;color:var(--ink-soft)">📝 ${esc(b.exp)}</span>`;
+      ansDiv.classList.add("show");
+      area.querySelector("#qnext").classList.add("show");
+      area.querySelector(".q-meta").children[1].textContent="正解 "+qScore;
+    };
+    ow.appendChild(btn);
+  });
+  area.querySelector("#qnext").onclick=()=>{qIdx++;renderQ();};
+}
+
 /* ---------- 模擬試験 ---------- */
 function levelWords(lv){const out=[];Object.values(data[lv].vocab).forEach(a=>a.forEach(w=>out.push(w)));return out;}
 function levelBuilders(lv){return builders[lv]||[];}
@@ -2686,6 +2802,7 @@ function startExam(lv){
   const lc=shuffle(levelListening(lv));
   const rp=shuffle(levelResponse2(lv));
   const ph=shuffle(levelPhotos(lv));
+  const p6=expandPart6(levelPart6(lv),2);
   const types=silent?QTYPES.filter(t=>t!=="listen"):QTYPES;
   const items=[];
   const nOrder=Math.min(bld.length,3);
@@ -2700,6 +2817,7 @@ function startExam(lv){
   for(let i=0;i<nLcomp;i++)items.push({type:"lcomp",l:lc[i]});
   for(let i=0;i<nResp;i++)items.push({type:"response2",rp:rp[i]});
   for(let i=0;i<nPhoto;i++)items.push({type:"photo",p:ph[i]});
+  items.push(...p6);
   let wi=0;
   while(items.length<EXAM_N){const w=words[wi%words.length];wi++;items.push({type:types[Math.floor(Math.random()*types.length)],w});}
   qSet=shuffle(items).slice(0,EXAM_N);qIdx=0;qScore=0;
